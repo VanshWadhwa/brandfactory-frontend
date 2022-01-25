@@ -10,6 +10,7 @@ import Logout from "./views/auth/Logout";
 import Signup from "./views/auth/Signup";
 import NotFound from "./views/NotFound";
 import GodModeEditor from "./views/editor/GodModeEditor";
+import Onboard from "./views/auth/Onboard";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/onboard" element={<Onboard />} />
         </Routes>
         <StickyFooter />
       </div>
