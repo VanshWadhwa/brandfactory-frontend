@@ -23,14 +23,15 @@ const NewsListItem = ({ news, editorState, setEditorState }) => {
     console.log(news.id);
     setEditorState({
       ...editorState,
+      imageFrom: "url",
       title: news.title,
       content: news.content,
       imageURL: news.imageURL,
     });
   };
 
-  console.log("NewsItem");
-  console.log(news);
+  // console.log("NewsItem");
+  // console.log(news);
   return (
     <>
       <ListItem sx={{ p: 0 }} alignItems="flex-start">

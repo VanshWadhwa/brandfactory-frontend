@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
 // import LoadingButton from "@mui/lab/LoadingButton";
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
-import { LoadingButton } from "@mui/lab";
+import { LoadingButton, TabContext, TabList, TabPanel } from "@mui/lab";
 import SaveIcon from "@mui/icons-material/Save";
 
 import axios from "axios";
@@ -15,6 +15,8 @@ import {
   Grid,
   Paper,
   Switch,
+  Tab,
+  Tabs,
   TextField,
   ToggleButton,
   ToggleButtonGroup,
@@ -34,6 +36,32 @@ const Editor = ({ editorState, setEditorState }) => {
   function handleClick() {
     setRequesting(true);
   }
+
+  const [tabValue, setTabValue] = React.useState(editorState.imageFrom);
+
+  const handleTabChange = (event, newTabValue) => {
+    // // console.log(newTabValue);
+    // if (newTabValue === "1") {
+    //   console.log("-----------");
+
+    //   // console.log(newTabValue);
+    //   setEditorState({ ...editorState, imageFrom: "upload" });
+
+    //   // console.log(editorState.imageFrom);
+    //   // console.log(editorState);
+    // } else {
+    //   console.log("-----------");
+
+    //   // console.log(newTabValue);
+
+    setEditorState({ ...editorState, imageFrom: newTabValue });
+
+    // console.log(editorState.imageFrom);
+    // console.log(editorState);
+    // }
+    // setTabValue(newTabValue);
+    console.log(editorState.imageFrom);
+  };
 
   // create a preview as a side effect, whenever selected file is changed
   useEffect(() => {
@@ -122,7 +150,13 @@ const Editor = ({ editorState, setEditorState }) => {
     form_data.append("title", editorState.title);
     form_data.append("content", editorState.content);
 
-    form_data.append("image", editorState.image, editorState.image.name);
+    try {
+      form_data.append("image", editorState.image, editorState.image.name);
+    } catch {
+      // form_data.append("image", editorState.image, "empty image");
+
+      console.log("Aaj to url se upload ho rhi hai");
+    }
     form_data.append("imageURL", editorState.imageURL);
 
     form_data.append("cropType", editorState.cropType);
@@ -152,6 +186,8 @@ const Editor = ({ editorState, setEditorState }) => {
         // contentType = "image/png";
         // const linkSource = `data:${contentType};base64,${res.data["report"]}`;
 
+        console.log('res.data["savedFileName"]');
+        console.log(res.data["savedFileName"]);
         let savedFilename = res.data["savedFileName"].split(".")[0];
         console.log(savedFilename);
         const linkSource = `data:image/png;base64,${res.data["report"]}`;
@@ -201,25 +237,64 @@ const Editor = ({ editorState, setEditorState }) => {
           {/* <h1>h</h1> */}
           <Grid item md={4}>
             {/* <Item>Image Containere</Item> */}
-
-            <input
-              type="file"
-              id="image"
-              accept="image/png, image/jpeg , image/jpg"
-              onChange={(e) => handleImageChange(e)}
-              required
-            />
-            {selectedFile && (
-              <img
-                style={{
-                  maxWidth: "100%",
-                  // max-:100%,
-                  height: "auto",
-                  width: "auto",
-                }}
-                src={preview}
-              />
-            )}
+            <TabContext value={editorState.imageFrom}>
+              <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                <TabList
+                  onChange={handleTabChange}
+                  aria-label="lab API tabs example"
+                >
+                  <Tab label="From Upload" value="upload" />
+                  <Tab label="From Url" value="url" />
+                </TabList>
+              </Box>
+              <TabPanel value="upload">
+                {" "}
+                <input
+                  type="file"
+                  id="image"
+                  accept="image/png, image/jpeg , image/jpg"
+                  onChange={(e) => handleImageChange(e)}
+                  required
+                />
+                {selectedFile && (
+                  <img
+                    style={{
+                      maxWidth: "100%",
+                      // max-:100%,
+                      height: "auto",
+                      width: "auto",
+                    }}
+                    src={preview}
+                  />
+                )}
+              </TabPanel>
+              <TabPanel value="url">
+                {" "}
+                <TextField
+                  // id="outlined-multiline-static"
+                  label="imageURL"
+                  multiline
+                  sx={{ width: "100%" }}
+                  rows={3}
+                  type="text"
+                  placeholder="imageURL"
+                  id="imageURL"
+                  value={editorState.imageURL}
+                  onChange={(e) => handleChange(e)}
+                  required
+                  // defaultValue="Default Value"
+                />
+                <img
+                  style={{
+                    maxWidth: "100%",
+                    // max-:100%,
+                    height: "auto",
+                    width: "auto",
+                  }}
+                  src={editorState.imageURL}
+                />
+              </TabPanel>
+            </TabContext>
           </Grid>
           <Grid item md={8}>
             {/* <Item>Text</Item> */}
