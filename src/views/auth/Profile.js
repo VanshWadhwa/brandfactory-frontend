@@ -18,6 +18,7 @@ const Profile = () => {
   React.useEffect(() => {
     const url = "http://127.0.0.1:8000/api/v1/users/profile/";
 
+    const token = localStorage.getItem("token");
     const tokenData = { token: "token123" };
     const fetchData = async () => {
       try {
@@ -26,6 +27,7 @@ const Profile = () => {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
+            Authorization: `Token ${token}`,
           },
           body: JSON.stringify(tokenData),
         });
