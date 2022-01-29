@@ -23,13 +23,13 @@ const Profile = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(url, {
-          method: "POST",
+          method: "GET",
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
             Authorization: `Token ${token}`,
           },
-          body: JSON.stringify(tokenData),
+          // body: JSON.stringify(tokenData),
         });
 
         const json = await response.json();
@@ -59,7 +59,8 @@ const Profile = () => {
         <Container component="main" sx={{ mt: 8, mb: 2 }} maxWidth="sm">
           <Typography variant="h2" component="h1" gutterBottom>
             {/* Profile Component primaryColor : {profileState.primaryColor} */}
-            Profile Component primaryColor : {profileState.primaryColor}
+            Profile <br />
+            primaryColor : {profileState.primaryColor}
           </Typography>
           <img
             src={`http://127.0.0.1:8000${profileState.image}`}
