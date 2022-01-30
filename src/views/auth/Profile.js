@@ -29,7 +29,7 @@ const Profile = () => {
   };
 
   React.useEffect(() => {
-    const url = "http://127.0.0.1:8000/profileprofile/1/";
+    const url = "http://127.0.0.1:8000/profile/1";
 
     const token = localStorage.getItem("token");
     const tokenData = { token: "token123" };
@@ -115,7 +115,7 @@ const Profile = () => {
       form_data.delete("tempImage3");
     }
 
-    let url = "http://127.0.0.1:8000/profileprofile/1/";
+    let url = "http://127.0.0.1:8000/profile/1/";
     const token = localStorage.getItem("token");
 
     axios
@@ -150,7 +150,7 @@ const Profile = () => {
               label="primaryColor"
               multiline
               sx={{ m: 1, width: "100%" }}
-              rows={3}
+              // rows={3}
               type="text"
               placeholder="primaryColor"
               id="primaryColor"
@@ -171,7 +171,7 @@ const Profile = () => {
               label="secondaryColor"
               multiline
               sx={{ m: 1, width: "100%" }}
-              rows={3}
+              // rows={3}
               type="text"
               placeholder="secondaryColor"
               id="secondaryColor"
@@ -252,7 +252,7 @@ const Profile = () => {
               id="telegramToken"
               value={profileState.telegramToken}
               onChange={(e) => handleChange(e)}
-              required
+              // required
             />
             <input type="submit" name="submit" value="Submit" />
           </form>
