@@ -178,6 +178,7 @@ const Editor = ({ editorState, setEditorState }) => {
       .post(url, form_data, {
         headers: {
           "content-type": "multipart/form-data",
+          Authorization: `Token ${localStorage.getItem("token")}`,
         },
       })
       .then((res) => {
@@ -323,7 +324,7 @@ const Editor = ({ editorState, setEditorState }) => {
               id="content"
               value={editorState.content}
               onChange={(e) => handleChange(e)}
-              required
+              // required
               // defaultValue="Default Value"
             />
           </Grid>
