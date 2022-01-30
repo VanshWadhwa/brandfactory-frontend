@@ -29,7 +29,7 @@ const Profile = () => {
   };
 
   React.useEffect(() => {
-    const url = "http://127.0.0.1:8000/api/v1/users/profile/";
+    const url = "http://127.0.0.1:8000/profileprofile/1/";
 
     const token = localStorage.getItem("token");
     const tokenData = { token: "token123" };
@@ -81,42 +81,41 @@ const Profile = () => {
         profileState.logoImage,
         profileState.logoImage.name
       );
+    } catch {
+      form_data.delete("logoImage");
+    }
+
+    try {
       form_data.append(
         "tempImage1",
         profileState.tempImage1,
         profileState.tempImage1.name
       );
+    } catch {
+      form_data.delete("tempImage1");
+    }
+
+    try {
       form_data.append(
         "tempImage2",
         profileState.tempImage2,
         profileState.tempImage2.name
       );
-      form_data.append(
-        "tempImage3",
-        profileState.tempImage3
-        // profileState.tempImage3.name
-      );
     } catch {
-      // form_data.append("image", profileState.image, "empty image");
-      form_data.append(
-        "tempImage3",
-        profileState.tempImage3
-        // profileState.tempImage3.name
-      );
-      form_data.append(
-        "tempImage2",
-        profileState.tempImage2
-        // profileState.tempImage3.name
-      );
-      form_data.append(
-        "tempImage1",
-        profileState.tempImage1
-        // profileState.tempImage1.name
-      );
-      console.log("Aaj to image blank upload hogi ho rhi hai");
+      form_data.delete("tempImage2");
     }
 
-    let url = "http://127.0.0.1:8000/api/v1/users/profile/";
+    try {
+      form_data.append(
+        "tempImage3",
+        profileState.tempImage3,
+        profileState.tempImage3.name
+      );
+    } catch {
+      form_data.delete("tempImage3");
+    }
+
+    let url = "http://127.0.0.1:8000/profileprofile/1/";
     const token = localStorage.getItem("token");
 
     axios
@@ -148,7 +147,6 @@ const Profile = () => {
         <Container component="main" sx={{ mt: 8, mb: 2 }} maxWidth="sm">
           <form onSubmit={(e) => handleSubmit(e)}>
             <TextField
-              // id="outlined-multiline-static"
               label="primaryColor"
               multiline
               sx={{ m: 1, width: "100%" }}
@@ -159,7 +157,6 @@ const Profile = () => {
               value={profileState.primaryColor}
               onChange={(e) => handleChange(e)}
               required
-              // defaultValue="Default Value"
             />
             <div
               style={{
@@ -170,6 +167,39 @@ const Profile = () => {
             >
               {profileState.primaryColor}
             </div>
+            <TextField
+              label="secondaryColor"
+              multiline
+              sx={{ m: 1, width: "100%" }}
+              rows={3}
+              type="text"
+              placeholder="secondaryColor"
+              id="secondaryColor"
+              value={profileState.secondaryColor}
+              onChange={(e) => handleChange(e)}
+              required
+            />
+            <div
+              style={{
+                width: "100px",
+                height: "100px",
+                backgroundColor: profileState.secondaryColor,
+              }}
+            >
+              {profileState.secondaryColor}
+            </div>
+            <TextField
+              label="handleName"
+              multiline
+              sx={{ m: 1, width: "100%" }}
+              // rows={3}
+              type="text"
+              placeholder="handleName"
+              id="handleName"
+              value={profileState.handleName}
+              onChange={(e) => handleChange(e)}
+              required
+            />
 
             <h3>tempImage1</h3>
             <input
@@ -212,7 +242,18 @@ const Profile = () => {
               height={"200px"}
               width={"200px"}
             />
-
+            <TextField
+              label="telegramToken"
+              multiline
+              sx={{ m: 1, width: "100%" }}
+              // rows={3}
+              type="text"
+              placeholder="telegramToken"
+              id="telegramToken"
+              value={profileState.telegramToken}
+              onChange={(e) => handleChange(e)}
+              required
+            />
             <input type="submit" name="submit" value="Submit" />
           </form>
         </Container>
