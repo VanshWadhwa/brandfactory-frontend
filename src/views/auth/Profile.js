@@ -1,19 +1,32 @@
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container, TextField, Typography } from "@mui/material";
 import React from "react";
+import axios from "axios";
 
 const Profile = () => {
   // let [profileState, setProfileState] = React.useState();
 
-  let [profileState, setProfileState] = React.useState({
-    id: 2,
-    image: "/assets/default.jpg",
-    primaryColor: "#j00ff00",
-    secondaryColor: "#kff0000",
-    user: 2,
-  });
+  let [profileState, setProfileState] = React.useState({});
+  const [selectedFiles, setSelectedFiles] = React.useState({});
 
-  console.log("Profile state : ");
-  console.log(profileState);
+  // console.log("Profile state : ");
+  // console.log(profileState);
+  let handleChange = (e) => {
+    setProfileState({ ...profileState, [e.target.id]: e.target.value });
+  };
+
+  let handleImageChange = (e) => {
+    if (!e.target.files || e.target.files.length === 0) {
+      setSelectedFiles({ ...selectedFiles, [e.target.id]: undefined });
+      return;
+    }
+
+    // I've kept this example simple by using the first image instead of multiple
+    setSelectedFiles({ ...selectedFiles, [e.target.id]: e.target.files[0] });
+    setProfileState({
+      ...profileState,
+      [e.target.id]: e.target.files[0],
+    });
+  };
 
   React.useEffect(() => {
     const url = "http://127.0.0.1:8000/api/v1/users/profile/";
@@ -38,7 +51,7 @@ const Profile = () => {
         console.log("profileData");
         // console.log(typeof newsList);
         console.log(json);
-        // console.log(json.data);
+        console.log(json.data);
       } catch (error) {
         console.log("error", error);
       }
@@ -46,6 +59,82 @@ const Profile = () => {
 
     fetchData();
   }, []);
+
+  let handleSubmit = (e) => {
+    e.preventDefault();
+
+    console.log("on submit");
+    console.log(profileState);
+
+    let form_data = new FormData();
+    form_data.append("user", profileState.user);
+    form_data.append("handleName", profileState.handleName);
+    form_data.append("id", profileState.id);
+
+    form_data.append("primaryColor", profileState.primaryColor);
+    form_data.append("secondaryColor", profileState.secondaryColor);
+    form_data.append("telegramToken", profileState.telegramToken);
+
+    try {
+      form_data.append(
+        "logoImage",
+        profileState.logoImage,
+        profileState.logoImage.name
+      );
+      form_data.append(
+        "tempImage1",
+        profileState.tempImage1,
+        profileState.tempImage1.name
+      );
+      form_data.append(
+        "tempImage2",
+        profileState.tempImage2,
+        profileState.tempImage2.name
+      );
+      form_data.append(
+        "tempImage3",
+        profileState.tempImage3
+        // profileState.tempImage3.name
+      );
+    } catch {
+      // form_data.append("image", profileState.image, "empty image");
+      form_data.append(
+        "tempImage3",
+        profileState.tempImage3
+        // profileState.tempImage3.name
+      );
+      form_data.append(
+        "tempImage2",
+        profileState.tempImage2
+        // profileState.tempImage3.name
+      );
+      form_data.append(
+        "tempImage1",
+        profileState.tempImage1
+        // profileState.tempImage1.name
+      );
+      console.log("Aaj to image blank upload hogi ho rhi hai");
+    }
+
+    let url = "http://127.0.0.1:8000/api/v1/users/profile/";
+    const token = localStorage.getItem("token");
+
+    axios
+      .put(url, form_data, {
+        headers: {
+          "content-type": "multipart/form-data",
+          // "Content-Type": "application/json",
+          Authorization: `Token ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div>
@@ -57,16 +146,75 @@ const Profile = () => {
         }}
       >
         <Container component="main" sx={{ mt: 8, mb: 2 }} maxWidth="sm">
-          <Typography variant="h2" component="h1" gutterBottom>
-            {/* Profile Component primaryColor : {profileState.primaryColor} */}
-            Profile <br />
-            primaryColor : {profileState.primaryColor}
-          </Typography>
-          <img
-            src={`http://127.0.0.1:8000${profileState.image}`}
-            height={"400px"}
-            width={"400px"}
-          />
+          <form onSubmit={(e) => handleSubmit(e)}>
+            <TextField
+              // id="outlined-multiline-static"
+              label="primaryColor"
+              multiline
+              sx={{ m: 1, width: "100%" }}
+              rows={3}
+              type="text"
+              placeholder="primaryColor"
+              id="primaryColor"
+              value={profileState.primaryColor}
+              onChange={(e) => handleChange(e)}
+              required
+              // defaultValue="Default Value"
+            />
+            <div
+              style={{
+                width: "100px",
+                height: "100px",
+                backgroundColor: profileState.primaryColor,
+              }}
+            >
+              {profileState.primaryColor}
+            </div>
+
+            <h3>tempImage1</h3>
+            <input
+              type="file"
+              id="tempImage1"
+              accept="image/png, image/jpeg , image/jpg"
+              onChange={(e) => handleImageChange(e)}
+              // required
+            />
+            <img
+              src={`http://127.0.0.1:8000${profileState.tempImage1}`}
+              height={"200px"}
+              width={"200px"}
+            />
+
+            <h3>tempImage2</h3>
+            <input
+              type="file"
+              id="tempImage2"
+              accept="image/png, image/jpeg , image/jpg"
+              onChange={(e) => handleImageChange(e)}
+              // required
+            />
+            <img
+              src={`http://127.0.0.1:8000${profileState.tempImage2}`}
+              height={"200px"}
+              width={"200px"}
+            />
+            <h3>tempImage3</h3>
+            <input
+              type="file"
+              id="tempImage3"
+              accept="image/png, image/jpeg , image/jpg"
+              onChange={(e) => handleImageChange(e)}
+              // required
+            />
+            <br />
+            <img
+              src={`http://127.0.0.1:8000${profileState.tempImage3}`}
+              height={"200px"}
+              width={"200px"}
+            />
+
+            <input type="submit" name="submit" value="Submit" />
+          </form>
         </Container>
       </Box>
     </div>
