@@ -244,7 +244,20 @@ const stepsComponents = [
   <AddTelegramToken />,
 ];
 
-export default function HorizontalLinearStepper() {
+export default function Onboard() {
+  const [email, setEmail] = React.useState("");
+
+  const [errors, setErrors] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
+
+  React.useEffect(() => {
+    if (localStorage.getItem("token") === null) {
+      window.location.replace("http://localhost:3000/login");
+    } else {
+      setLoading(false);
+    }
+  }, []);
+
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
 
