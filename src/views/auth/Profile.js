@@ -13,6 +13,39 @@ const Profile = () => {
   const [preview2, setPreview2] = React.useState();
   const [preview3, setPreview3] = React.useState();
 
+  const [selectedFileLogo, setSelectedFileLogo] = React.useState();
+  const [selectedFile1, setSelectedFile1] = React.useState();
+  const [selectedFile2, setSelectedFile2] = React.useState();
+  const [selectedFile3, setSelectedFile3] = React.useState();
+
+  // create a preview as a side effect, whenever selected file is changed
+  React.useEffect(() => {
+    if (!selectedFileLogo) {
+      setPreviewLogo(undefined);
+      return;
+    }
+
+    const objectUrl = URL.createObjectURL(selectedFileLogo);
+    setSelectedFileLogo(objectUrl);
+
+    // free memory when ever this component is unmounted
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [selectedFileLogo]);
+
+  // create a preview as a side effect, whenever selected file is changed
+  React.useEffect(() => {
+    if (!selectedFile1) {
+      setPreview1(undefined);
+      return;
+    }
+
+    const objectUrl = URL.createObjectURL(selectedFile1);
+    setSelectedFile1(objectUrl);
+
+    // free memory when ever this component is unmounted
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [selectedFile1]);
+
   // console.log("Profile state : ");
   // console.log(profileState);
   let handleChange = (e) => {
@@ -237,7 +270,8 @@ const Profile = () => {
               // required
             />
             <img
-              src={`http://127.0.0.1:8000${profileState.tempImage1}`}
+              // src={`http://127.0.0.1:8000${profileState.tempImage1}`}
+              src={selectedFile1}
               height={"200px"}
               width={"200px"}
             />

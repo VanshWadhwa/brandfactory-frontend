@@ -13,7 +13,9 @@ import {
   FormControlLabel,
   FormLabel,
   Grid,
+  MenuItem,
   Paper,
+  Select,
   Switch,
   Tab,
   Tabs,
@@ -22,6 +24,7 @@ import {
   ToggleButtonGroup,
   Typography,
 } from "@mui/material";
+
 import { Box, maxWidth } from "@mui/system";
 
 const Editor = ({ editorState, setEditorState }) => {
@@ -93,10 +96,21 @@ const Editor = ({ editorState, setEditorState }) => {
 
   const handleChangeToggle = (e, editorState) => {
     console.log("handle change ; ");
-    console.log([e.target.parentElement.id]);
+    // console.log([e.target.parentElement.id]);
     setEditorState({
       ...editorState,
       [e.target.parentElement.id]: e.target.value,
+    });
+  };
+
+  const handleChangeSelect = (e) => {
+    console.log("handle change ; ");
+    // console.log([e.target.id]);
+    console.log(e.target.value);
+    // console.log(editorState.temp);
+    setEditorState({
+      ...editorState,
+      temp: e.target.value,
     });
   };
 
@@ -170,6 +184,8 @@ const Editor = ({ editorState, setEditorState }) => {
 
       editorState.isContainImportantWords
     );
+    form_data.append("temp", editorState.temp);
+
     form_data.append("savedFilename", editorState.savedFilename);
     form_data.append("abcd", editorState.savedFilename);
 
@@ -396,6 +412,23 @@ const Editor = ({ editorState, setEditorState }) => {
                 </ToggleButton>
               </ToggleButtonGroup>
               <br />
+              <Select
+                labelId="demo-simple-select-label"
+                id="temp"
+                value={editorState.temp}
+                label="temp"
+                onChange={handleChangeSelect}
+              >
+                <MenuItem value="temp1" id="temp">
+                  Template 1
+                </MenuItem>
+                <MenuItem value="temp2" id="temp">
+                  Template 2
+                </MenuItem>
+                <MenuItem value="temp3" id="temp">
+                  Template 3
+                </MenuItem>
+              </Select>
             </Grid>
             <Grid item md={5}>
               <FormControlLabel
