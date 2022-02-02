@@ -1,0 +1,42 @@
+/* div {
+  margin-bottom: -300px;
+  margin-left: 300px;
+} */
+.container {
+  position: relative;
+  width: 250px;
+  height: 815px;
+  background: rgba(0, 0, 0, 0, 0.1);
+  transform: rotate(-30deg) skew(25deg);
+  transition: 0.5s;
+}
+.container img {
+  position: absolute;
+  width: 100%;
+  transition: 0.5s;
+}
+
+.container:hover img:nth-child(1) {
+  transform: translate(-300px, -0);
+  opacity: 1;
+  /* opacity: 0.4; */
+}
+.container:hover img:nth-child(4) {
+  transform: translate(600px, -0);
+  /* opacity: 0.8; */
+  opacity: 1;
+
+  /* opacity: 0.4; */
+}
+.container:hover img:nth-child(3) {
+  transform: translate(300px, -0);
+  /* opacity: 0.6; */
+  opacity: 1;
+
+  /* opacity: 0.4; */
+}
+.container:hover img:nth-child(2) {
+  transform: translate(-0px, -0);
+  /* opacity: 0.4; */
+  opacity: 1;
+}

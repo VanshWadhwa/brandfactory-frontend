@@ -1,6 +1,7 @@
 import { Box, Container, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import "../../Onboard.css";
 
 const Onboard = () => {
   const [email, setEmail] = useState("");
@@ -15,6 +16,12 @@ const Onboard = () => {
       setLoading(false);
     }
   }, []);
+
+  let layerImages = [
+    "https://picsum.photos/1080",
+    "http://127.0.0.1:8000/assets/images/vansh/tempImage3_5W38tTB.png",
+    "http://127.0.0.1:8000/assets/images/vansh/tempImage2_ZVN3Vjy.png",
+  ];
   return (
     <div>
       <Box
@@ -24,12 +31,12 @@ const Onboard = () => {
           minHeight: "100vh",
         }}
       >
-        <Container component="main" sx={{ mt: 8, mb: 2 }} maxWidth="sm">
-          <Typography variant="h2" component="h1" gutterBottom>
-            On boarding Component
-          </Typography>
-
-          <Link to="/editor">Go to editor</Link>
+        <Container component="main" sx={{ mt: 17, mb: 2 }} maxWidth="sm">
+          <div class="container">
+            {layerImages.map((x) => (
+              <img src={x} class="center" />
+            ))}
+          </div>
         </Container>
       </Box>
     </div>
