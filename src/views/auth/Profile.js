@@ -8,6 +8,10 @@ const Profile = () => {
 
   let [profileState, setProfileState] = React.useState({});
   const [selectedFiles, setSelectedFiles] = React.useState({});
+  const [previewLogo, setPreviewLogo] = React.useState();
+  const [preview1, setPreview1] = React.useState();
+  const [preview2, setPreview2] = React.useState();
+  const [preview3, setPreview3] = React.useState();
 
   // console.log("Profile state : ");
   // console.log(profileState);
