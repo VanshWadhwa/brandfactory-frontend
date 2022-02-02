@@ -1,6 +1,7 @@
 import { Box, Container, TextField, Typography } from "@mui/material";
 import React from "react";
 import axios from "axios";
+import { SketchPicker } from "react-color";
 
 const Profile = () => {
   // let [profileState, setProfileState] = React.useState();
@@ -14,6 +15,13 @@ const Profile = () => {
     setProfileState({ ...profileState, [e.target.id]: e.target.value });
   };
 
+  let handleColorChange = (e) => {
+    // console.log("[e.target.id], e.hex");
+    // console.log([e.target.id], e.hex);
+    setProfileState({ ...profileState, primaryColor: e.hex });
+
+    // this.setState({ background: color.hex });
+  };
   let handleImageChange = (e) => {
     if (!e.target.files || e.target.files.length === 0) {
       setSelectedFiles({ ...selectedFiles, [e.target.id]: undefined });
@@ -146,7 +154,7 @@ const Profile = () => {
       >
         <Container component="main" sx={{ mt: 8, mb: 2 }} maxWidth="sm">
           <form onSubmit={(e) => handleSubmit(e)}>
-            <TextField
+            {/* <TextField
               label="primaryColor"
               multiline
               sx={{ m: 1, width: "100%" }}
@@ -157,6 +165,14 @@ const Profile = () => {
               value={profileState.primaryColor}
               onChange={(e) => handleChange(e)}
               required
+            /> */}
+
+            <SketchPicker
+              id="primaryColor"
+              color={profileState.primaryColor}
+              onChange={(e) => {
+                setProfileState({ ...profileState, primaryColor: e.hex });
+              }}
             />
             <div
               style={{
@@ -167,7 +183,7 @@ const Profile = () => {
             >
               {profileState.primaryColor}
             </div>
-            <TextField
+            {/* <TextField
               label="secondaryColor"
               multiline
               sx={{ m: 1, width: "100%" }}
@@ -178,6 +194,13 @@ const Profile = () => {
               value={profileState.secondaryColor}
               onChange={(e) => handleChange(e)}
               required
+            /> */}
+            <SketchPicker
+              id="primaryColor"
+              color={profileState.secondaryColor}
+              onChange={(e) => {
+                setProfileState({ ...profileState, secondaryColor: e.hex });
+              }}
             />
             <div
               style={{
