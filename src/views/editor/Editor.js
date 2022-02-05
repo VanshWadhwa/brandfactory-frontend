@@ -428,6 +428,12 @@ const Editor = ({ editorState, setEditorState }) => {
                 <MenuItem value="temp3" id="temp">
                   Template 3
                 </MenuItem>
+                <MenuItem value="temp4" id="temp">
+                  Template 4
+                </MenuItem>
+                <MenuItem value="temp5" id="temp">
+                  Qr code
+                </MenuItem>
               </Select>
             </Grid>
             <Grid item md={5}>
