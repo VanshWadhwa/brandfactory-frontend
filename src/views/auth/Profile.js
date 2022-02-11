@@ -317,7 +317,7 @@ const Profile = () => {
               required
             /> */}
             <SketchPicker
-              id="primaryColor"
+              id="secondaryColor"
               color={profileState.secondaryColor}
               onChange={(e) => {
                 setProfileState({ ...profileState, secondaryColor: e.hex });

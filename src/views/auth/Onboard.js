@@ -1,6 +1,7 @@
 import * as React from "react";
 import "../../Onboard.css";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 import {
   StepLabel,
@@ -44,7 +45,9 @@ const GettingStarted = () => {
   );
 };
 
-const StepperFinish = () => {
+const StepperFinish = ({ handleSubmit }) => {
+  handleSubmit();
+
   return (
     <Box
       sx={{
@@ -65,7 +68,7 @@ const StepperFinish = () => {
     </Box>
   );
 };
-const AddColors = () => {
+const AddColors = ({ profileState, setProfileState }) => {
   return (
     <Box
       sx={{
@@ -89,10 +92,10 @@ const AddColors = () => {
 
             <ChromePicker
               id="primaryColor"
-              // color={profileState.primaryColor}
-              // onChange={(e) => {
-              //   setProfileState({ ...profileState, primaryColor: e.hex });
-              // }}
+              color={profileState.primaryColor}
+              onChange={(e) => {
+                setProfileState({ ...profileState, primaryColor: e.hex });
+              }}
             />
           </Grid>
           <Grid item xs={6}>
@@ -100,16 +103,31 @@ const AddColors = () => {
               Secondary Color
             </Typography>
             <ChromePicker
-              id="primaryColor"
-              // color={profileState.primaryColor}
-              // onChange={(e) => {
-              //   setProfileState({ ...profileState, primaryColor: e.hex });
-              // }}
+              id="secondaryColor"
+              color={profileState.secondaryColor}
+              onChange={(e) => {
+                setProfileState({ ...profileState, secondaryColor: e.hex });
+              }}
             />
           </Grid>
           <Grid item xs={12}>
-            <Typography variant="h5" component="h4" gutterBottom>
-              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+            <Typography
+              variant="h5"
+              component="h4"
+              gutterBottom
+              display="block"
+              color={profileState.primaryColor}
+            >
+              Lorem ipsum
+            </Typography>
+            <Typography
+              variant="h5"
+              component="h4"
+              gutterBottom
+              display="block"
+              color={profileState.secondaryColor}
+            >
+              dolor sit amet consectetur adipisicing elit.
             </Typography>
           </Grid>
         </Grid>
@@ -117,7 +135,39 @@ const AddColors = () => {
     </Box>
   );
 };
-const AddHandleName = () => {
+const AddHandleName = ({ profileState, setProfileState }) => {
+  const [previewLogo, setPreviewLogo] = React.useState();
+  const [selectedFileLogo, setSelectedFileLogo] = React.useState();
+
+  let handleChange = (e) => {
+    setProfileState({ ...profileState, [e.target.id]: e.target.value });
+  };
+  // handlinglogo
+  let handleLogoImageChange = (e) => {
+    if (!e.target.files || e.target.files.length === 0) {
+      setSelectedFileLogo(undefined);
+      return;
+    }
+
+    // I've kept this example simple by using the first image instead of multiple
+    setSelectedFileLogo(e.target.files[0]);
+    setProfileState({
+      ...profileState,
+      logoImage: e.target.files[0],
+    });
+  };
+  React.useEffect(() => {
+    if (!selectedFileLogo) {
+      setPreviewLogo(undefined);
+      return;
+    }
+
+    const objectUrl = URL.createObjectURL(selectedFileLogo);
+    setPreviewLogo(objectUrl);
+
+    // free memory when ever this component is unmounted
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [selectedFileLogo]);
   return (
     <Box
       sx={{
@@ -132,23 +182,44 @@ const AddHandleName = () => {
           Add Your Handle Name
         </Typography>
         <TextField
-          id="standard-basic"
+          label="handleName"
           fullWidth
           // label="Standard"
           margin="dense"
           autoFocus
           variant="standard"
+          type="text"
+          placeholder="handleName"
+          id="handleName"
+          value={profileState.handleName}
+          onChange={(e) => handleChange(e)}
+          required
         />
         <Typography variant="h5" component="h4" gutterBottom>
           Add Your Logo
         </Typography>
-        <input type="file" />
+        <input
+          type="file"
+          id="logoImage"
+          accept="image/png, image/jpeg , image/jpg"
+          onChange={(e) => handleLogoImageChange(e)}
+          // required
+        />{" "}
+        {typeof profileState.logoImage == "string" ? (
+          <img
+            src={`http://127.0.0.1:8000${profileState.logoImage}`}
+            height={"200px"}
+            width={"200px"}
+          />
+        ) : (
+          <img src={previewLogo} height={"200px"} width={"200px"} />
+        )}
       </Container>
     </Box>
   );
 };
 
-const AddTelegramToken = () => {
+const AddTelegramToken = ({ profileState, setProfileState }) => {
   return (
     <Box
       sx={{
@@ -175,13 +246,108 @@ const AddTelegramToken = () => {
   );
 };
 
-let layerImages = [
-  "https://picsum.photos/1080",
-  "http://127.0.0.1:8000/assets/images/basicGradient.png",
-  "http://127.0.0.1:8000/assets/images/vansh/tempImage2_ZVN3Vjy.png",
-  "http://127.0.0.1:8000/assets/images/TransparentText.png",
-];
-const AddTemplateImages = () => {
+const AddTemplateImages = ({ profileState, setProfileState }) => {
+  const [preview1, setPreview1] = React.useState();
+  const [preview2, setPreview2] = React.useState();
+  const [preview3, setPreview3] = React.useState();
+
+  const [selectedFile1, setSelectedFile1] = React.useState();
+  const [selectedFile2, setSelectedFile2] = React.useState();
+  const [selectedFile3, setSelectedFile3] = React.useState();
+
+  let handleTempImage1Change = (e) => {
+    if (!e.target.files || e.target.files.length === 0) {
+      setSelectedFile1(undefined);
+      return;
+    }
+
+    // I've kept this example simple by using the first image instead of multiple
+    setSelectedFile1(e.target.files[0]);
+    setProfileState({
+      ...profileState,
+      tempImage1: e.target.files[0],
+    });
+  };
+  React.useEffect(() => {
+    if (!selectedFile1) {
+      setPreview1(undefined);
+      return;
+    }
+
+    const objectUrl = URL.createObjectURL(selectedFile1);
+    setPreview1(objectUrl);
+
+    // free memory when ever this component is unmounted
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [selectedFile1]);
+
+  // handlingtempimage2
+  let handleTempImage2Change = (e) => {
+    if (!e.target.files || e.target.files.length === 0) {
+      setSelectedFile2(undefined);
+      return;
+    }
+
+    // I've kept this example simple by using the first image instead of multiple
+    setSelectedFile2(e.target.files[0]);
+    setProfileState({
+      ...profileState,
+      tempImage2: e.target.files[0],
+    });
+  };
+  React.useEffect(() => {
+    if (!selectedFile2) {
+      setPreview2(undefined);
+      return;
+    }
+
+    const objectUrl = URL.createObjectURL(selectedFile2);
+    setPreview2(objectUrl);
+
+    // free memory when ever this component is unmounted
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [selectedFile2]);
+
+  // hanadling temp image 3
+
+  let handleTempImage3Change = (e) => {
+    if (!e.target.files || e.target.files.length === 0) {
+      setSelectedFile3(undefined);
+      return;
+    }
+
+    // I've kept this example simple by using the first image instead of multiple
+    setSelectedFile3(e.target.files[0]);
+    setProfileState({
+      ...profileState,
+      tempImage3: e.target.files[0],
+    });
+  };
+  React.useEffect(() => {
+    if (!selectedFile3) {
+      setPreview3(undefined);
+      return;
+    }
+
+    const objectUrl = URL.createObjectURL(selectedFile3);
+    setPreview3(objectUrl);
+
+    // free memory when ever this component is unmounted
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [selectedFile3]);
+
+  let templateImage =
+    typeof profileState.tempImage1 == "string"
+      ? `http://127.0.0.1:8000${profileState.tempImage1}`
+      : preview1;
+  let layerImages = [
+    "https://picsum.photos/1080",
+    "http://127.0.0.1:8000/assets/images/basicGradient.png",
+    templateImage,
+    // "http://127.0.0.1:8000/assets/images/vansh/tempImage2_ZVN3Vjy.png",
+    "http://127.0.0.1:8000/assets/images/TransparentText.png",
+  ];
+
   return (
     <Box
       sx={{
@@ -214,18 +380,62 @@ const AddTemplateImages = () => {
           </Box>
         </Grid>
         <Grid item xs={6}>
-          <Typography variant="h5" component="h4" gutterBottom>
-            Template 1 Image
-          </Typography>
-          <input type="file" />
-          <Typography variant="h5" component="h4" gutterBottom>
-            Template 2 Image
-          </Typography>
-          <input type="file" />
-          <Typography variant="h5" component="h4" gutterBottom>
-            Template 3 Image
-          </Typography>
-          <input type="file" />
+          <h3>TempImage 1</h3>
+          <input
+            type="file"
+            id="tempImage1"
+            accept="image/png, image/jpeg , image/jpg"
+            onChange={(e) => handleTempImage1Change(e)}
+            // required
+          />
+
+          {typeof profileState.tempImage1 == "string" ? (
+            <img
+              src={`http://127.0.0.1:8000${profileState.tempImage1}`}
+              height={"200px"}
+              width={"200px"}
+            />
+          ) : (
+            <img src={preview1} height={"200px"} width={"200px"} />
+          )}
+
+          <h3>tempImage2</h3>
+          <input
+            type="file"
+            id="tempImage2"
+            accept="image/png, image/jpeg , image/jpg"
+            onChange={(e) => handleTempImage2Change(e)}
+            // required
+          />
+
+          {typeof profileState.tempImage2 == "string" ? (
+            <img
+              src={`http://127.0.0.1:8000${profileState.tempImage2}`}
+              height={"200px"}
+              width={"200px"}
+            />
+          ) : (
+            <img src={preview2} height={"200px"} width={"200px"} />
+          )}
+
+          <h3>tempImage3</h3>
+          <input
+            type="file"
+            id="tempImage3"
+            accept="image/png, image/jpeg , image/jpg"
+            onChange={(e) => handleTempImage3Change(e)}
+            // required
+          />
+
+          {typeof profileState.tempImage3 == "string" ? (
+            <img
+              src={`http://127.0.0.1:8000${profileState.tempImage3}`}
+              height={"200px"}
+              width={"200px"}
+            />
+          ) : (
+            <img src={preview3} height={"200px"} width={"200px"} />
+          )}
           {/* <Typography variant="h5" component="h4" gutterBottom>
             Template 1 Image
           </Typography>
@@ -236,19 +446,30 @@ const AddTemplateImages = () => {
   );
 };
 
-const stepsComponents = [
-  <GettingStarted />,
-  <AddHandleName />,
-  <AddColors />,
-  <AddTemplateImages />,
-  <AddTelegramToken />,
-];
-
 export default function Onboard() {
   const [email, setEmail] = React.useState("");
 
   const [errors, setErrors] = React.useState(false);
   const [loading, setLoading] = React.useState(true);
+
+  let [profileState, setProfileState] = React.useState({});
+
+  const stepsComponents = [
+    <GettingStarted />,
+    <AddHandleName
+      profileState={profileState}
+      setProfileState={setProfileState}
+    />,
+    <AddColors profileState={profileState} setProfileState={setProfileState} />,
+    <AddTemplateImages
+      profileState={profileState}
+      setProfileState={setProfileState}
+    />,
+    <AddTelegramToken
+      profileState={profileState}
+      setProfileState={setProfileState}
+    />,
+  ];
 
   React.useEffect(() => {
     if (localStorage.getItem("token") === null) {
@@ -257,6 +478,116 @@ export default function Onboard() {
       setLoading(false);
     }
   }, []);
+
+  React.useEffect(() => {
+    const url = "http://127.0.0.1:8000/profile/1";
+
+    const token = localStorage.getItem("token");
+    const tokenData = { token: "token123" };
+    const fetchData = async () => {
+      try {
+        const response = await fetch(url, {
+          method: "GET",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            Authorization: `Token ${token}`,
+          },
+          // body: JSON.stringify(tokenData),
+        });
+
+        const json = await response.json();
+        // json.slip.advice
+        setProfileState(json);
+        console.log("profileData");
+        // console.log(typeof newsList);
+        console.log(json);
+        console.log(json.data);
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  let handleSubmit = (e) => {
+    console.log("submiting...");
+    // e.preventDefault();
+
+    console.log("on submit");
+    console.log(profileState);
+
+    let form_data = new FormData();
+    form_data.append("user", profileState.user);
+    form_data.append("handleName", profileState.handleName);
+    form_data.append("id", profileState.id);
+
+    form_data.append("primaryColor", profileState.primaryColor);
+    form_data.append("secondaryColor", profileState.secondaryColor);
+    form_data.append("telegramToken", profileState.telegramToken);
+
+    try {
+      form_data.append(
+        "logoImage",
+        profileState.logoImage,
+        profileState.logoImage.name
+      );
+    } catch {
+      form_data.delete("logoImage");
+    }
+
+    try {
+      form_data.append(
+        "tempImage1",
+        profileState.tempImage1,
+        profileState.tempImage1.name
+      );
+    } catch {
+      form_data.delete("tempImage1");
+    }
+
+    try {
+      form_data.append(
+        "tempImage2",
+        profileState.tempImage2,
+        profileState.tempImage2.name
+      );
+    } catch {
+      form_data.delete("tempImage2");
+    }
+
+    try {
+      form_data.append(
+        "tempImage3",
+        profileState.tempImage3,
+        profileState.tempImage3.name
+      );
+    } catch {
+      form_data.delete("tempImage3");
+    }
+
+    let url = "http://127.0.0.1:8000/profile/1/";
+    const token = localStorage.getItem("token");
+
+    axios
+      .put(url, form_data, {
+        headers: {
+          "content-type": "multipart/form-data",
+          // "Content-Type": "application/json",
+          Authorization: `Token ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  console.log(profileState);
 
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
@@ -333,10 +664,13 @@ export default function Onboard() {
       </Stepper>
       {activeStep === steps.length ? (
         <React.Fragment>
-          <StepperFinish />
+          <StepperFinish handleSubmit={handleSubmit} />
           <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
             <Box sx={{ flex: "1 1 auto" }} />
-            <Button onClick={handleReset}>Reset</Button>
+            {/* <Button onClick={handleReset}>Reset</Button> */}
+            <Button component={Link} to="/editor">
+              Editor
+            </Button>
           </Box>
         </React.Fragment>
       ) : (
