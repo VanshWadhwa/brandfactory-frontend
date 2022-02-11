@@ -19,46 +19,7 @@ const Profile = () => {
   const [selectedFile3, setSelectedFile3] = React.useState();
 
   // create a preview as a side effect, whenever selected file is changed
-  React.useEffect(() => {
-    if (!selectedFileLogo) {
-      setPreviewLogo(undefined);
-      return;
-    }
 
-    const objectUrl = URL.createObjectURL(selectedFileLogo);
-    setSelectedFileLogo(objectUrl);
-
-    // free memory when ever this component is unmounted
-    return () => URL.revokeObjectURL(objectUrl);
-  }, [selectedFileLogo]);
-
-  // create a preview as a side effect, whenever selected file is changed
-  React.useEffect(() => {
-    if (!selectedFile1) {
-      setPreview1(undefined);
-      return;
-    }
-
-    const objectUrl = URL.createObjectURL(selectedFile1);
-    setSelectedFile1(objectUrl);
-
-    // free memory when ever this component is unmounted
-    return () => URL.revokeObjectURL(objectUrl);
-  }, [selectedFile1]);
-
-  // console.log("Profile state : ");
-  // console.log(profileState);
-  let handleChange = (e) => {
-    setProfileState({ ...profileState, [e.target.id]: e.target.value });
-  };
-
-  let handleColorChange = (e) => {
-    // console.log("[e.target.id], e.hex");
-    // console.log([e.target.id], e.hex);
-    setProfileState({ ...profileState, primaryColor: e.hex });
-
-    // this.setState({ background: color.hex });
-  };
   let handleImageChange = (e) => {
     if (!e.target.files || e.target.files.length === 0) {
       setSelectedFiles({ ...selectedFiles, [e.target.id]: undefined });
@@ -72,6 +33,129 @@ const Profile = () => {
       [e.target.id]: e.target.files[0],
     });
   };
+  let handleChange = (e) => {
+    setProfileState({ ...profileState, [e.target.id]: e.target.value });
+  };
+
+  let handleColorChange = (e) => {
+    // console.log("[e.target.id], e.hex");
+    // console.log([e.target.id], e.hex);
+    setProfileState({ ...profileState, primaryColor: e.hex });
+
+    // this.setState({ background: color.hex });
+  };
+
+  // create a preview as a side effect, whenever selected file is changed
+
+  // handlinglogo
+  let handleLogoImageChange = (e) => {
+    if (!e.target.files || e.target.files.length === 0) {
+      setSelectedFileLogo(undefined);
+      return;
+    }
+
+    // I've kept this example simple by using the first image instead of multiple
+    setSelectedFileLogo(e.target.files[0]);
+    setProfileState({
+      ...profileState,
+      logoImage: e.target.files[0],
+    });
+  };
+  React.useEffect(() => {
+    if (!selectedFileLogo) {
+      setPreviewLogo(undefined);
+      return;
+    }
+
+    const objectUrl = URL.createObjectURL(selectedFileLogo);
+    setPreviewLogo(objectUrl);
+
+    // free memory when ever this component is unmounted
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [selectedFileLogo]);
+
+  // handling Tempimage1
+
+  let handleTempImage1Change = (e) => {
+    if (!e.target.files || e.target.files.length === 0) {
+      setSelectedFile1(undefined);
+      return;
+    }
+
+    // I've kept this example simple by using the first image instead of multiple
+    setSelectedFile1(e.target.files[0]);
+    setProfileState({
+      ...profileState,
+      tempImage1: e.target.files[0],
+    });
+  };
+  React.useEffect(() => {
+    if (!selectedFile1) {
+      setPreview1(undefined);
+      return;
+    }
+
+    const objectUrl = URL.createObjectURL(selectedFile1);
+    setPreview1(objectUrl);
+
+    // free memory when ever this component is unmounted
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [selectedFile1]);
+
+  // handlingtempimage2
+  let handleTempImage2Change = (e) => {
+    if (!e.target.files || e.target.files.length === 0) {
+      setSelectedFile2(undefined);
+      return;
+    }
+
+    // I've kept this example simple by using the first image instead of multiple
+    setSelectedFile2(e.target.files[0]);
+    setProfileState({
+      ...profileState,
+      tempImage2: e.target.files[0],
+    });
+  };
+  React.useEffect(() => {
+    if (!selectedFile2) {
+      setPreview2(undefined);
+      return;
+    }
+
+    const objectUrl = URL.createObjectURL(selectedFile2);
+    setPreview2(objectUrl);
+
+    // free memory when ever this component is unmounted
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [selectedFile2]);
+
+  // hanadling temp image 3
+
+  let handleTempImage3Change = (e) => {
+    if (!e.target.files || e.target.files.length === 0) {
+      setSelectedFile3(undefined);
+      return;
+    }
+
+    // I've kept this example simple by using the first image instead of multiple
+    setSelectedFile3(e.target.files[0]);
+    setProfileState({
+      ...profileState,
+      tempImage3: e.target.files[0],
+    });
+  };
+  React.useEffect(() => {
+    if (!selectedFile3) {
+      setPreview3(undefined);
+      return;
+    }
+
+    const objectUrl = URL.createObjectURL(selectedFile3);
+    setPreview3(objectUrl);
+
+    // free memory when ever this component is unmounted
+    return () => URL.revokeObjectURL(objectUrl);
+  }, [selectedFile3]);
 
   React.useEffect(() => {
     const url = "http://127.0.0.1:8000/profile/1";
@@ -261,48 +345,81 @@ const Profile = () => {
               required
             />
 
-            <h3>tempImage1</h3>
+            <h3>Logo</h3>
+            <input
+              type="file"
+              id="logoImage"
+              accept="image/png, image/jpeg , image/jpg"
+              onChange={(e) => handleLogoImageChange(e)}
+              // required
+            />
+
+            {typeof profileState.logoImage == "string" ? (
+              <img
+                src={`http://127.0.0.1:8000${profileState.logoImage}`}
+                height={"200px"}
+                width={"200px"}
+              />
+            ) : (
+              <img src={previewLogo} height={"200px"} width={"200px"} />
+            )}
+
+            <h3>TempImage 1</h3>
             <input
               type="file"
               id="tempImage1"
               accept="image/png, image/jpeg , image/jpg"
-              onChange={(e) => handleImageChange(e)}
+              onChange={(e) => handleTempImage1Change(e)}
               // required
             />
-            <img
-              // src={`http://127.0.0.1:8000${profileState.tempImage1}`}
-              src={selectedFile1}
-              height={"200px"}
-              width={"200px"}
-            />
+
+            {typeof profileState.tempImage1 == "string" ? (
+              <img
+                src={`http://127.0.0.1:8000${profileState.tempImage1}`}
+                height={"200px"}
+                width={"200px"}
+              />
+            ) : (
+              <img src={preview1} height={"200px"} width={"200px"} />
+            )}
 
             <h3>tempImage2</h3>
             <input
               type="file"
               id="tempImage2"
               accept="image/png, image/jpeg , image/jpg"
-              onChange={(e) => handleImageChange(e)}
+              onChange={(e) => handleTempImage2Change(e)}
               // required
             />
-            <img
-              src={`http://127.0.0.1:8000${profileState.tempImage2}`}
-              height={"200px"}
-              width={"200px"}
-            />
+
+            {typeof profileState.tempImage2 == "string" ? (
+              <img
+                src={`http://127.0.0.1:8000${profileState.tempImage2}`}
+                height={"200px"}
+                width={"200px"}
+              />
+            ) : (
+              <img src={preview2} height={"200px"} width={"200px"} />
+            )}
+
             <h3>tempImage3</h3>
             <input
               type="file"
               id="tempImage3"
               accept="image/png, image/jpeg , image/jpg"
-              onChange={(e) => handleImageChange(e)}
+              onChange={(e) => handleTempImage3Change(e)}
               // required
             />
-            <br />
-            <img
-              src={`http://127.0.0.1:8000${profileState.tempImage3}`}
-              height={"200px"}
-              width={"200px"}
-            />
+
+            {typeof profileState.tempImage3 == "string" ? (
+              <img
+                src={`http://127.0.0.1:8000${profileState.tempImage3}`}
+                height={"200px"}
+                width={"200px"}
+              />
+            ) : (
+              <img src={preview3} height={"200px"} width={"200px"} />
+            )}
             <TextField
               label="telegramToken"
               multiline
