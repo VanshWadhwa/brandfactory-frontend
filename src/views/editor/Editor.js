@@ -28,6 +28,15 @@ import {
 import { Box, maxWidth } from "@mui/system";
 
 const Editor = ({ editorState, setEditorState }) => {
+  const [editorDisplayState, setEditorDisplayState] = useState({
+    showImageCropType: true,
+    showTitleTextPosition: true,
+    showTitleTextAlignment: true,
+    showTitleTextAlignment: true,
+    showAddGradient: true,
+    showAddBranding: true,
+    showContainImportantWords: true,
+  });
   let downloadBase64ImgStr = "";
 
   // TEST
@@ -104,14 +113,54 @@ const Editor = ({ editorState, setEditorState }) => {
   };
 
   const handleChangeSelect = (e) => {
-    console.log("handle change ; ");
     // console.log([e.target.id]);
-    console.log(e.target.value);
     // console.log(editorState.temp);
     setEditorState({
       ...editorState,
       temp: e.target.value,
     });
+
+    if (e.target.value == "temp1") {
+      console.log("temp1 selected");
+      editorDisplayState.showImageCropType = true;
+      editorDisplayState.showTitleTextPosition = true;
+      editorDisplayState.showTitleTextAlignment = true;
+      editorDisplayState.showAddGradient = true;
+      editorDisplayState.showAddBranding = true;
+      editorDisplayState.showContainImportantWords = true;
+    } else if (e.target.value == "temp2") {
+      console.log("temp2 selected");
+      editorDisplayState.showImageCropType = true;
+      editorDisplayState.showTitleTextPosition = false;
+      editorDisplayState.showTitleTextAlignment = true;
+      editorDisplayState.showAddGradient = false;
+      editorDisplayState.showAddBranding = false;
+      editorDisplayState.showContainImportantWords = true;
+    } else if (e.target.value == "temp3") {
+      console.log("temp3 selected");
+      editorDisplayState.showImageCropType = true;
+      editorDisplayState.showTitleTextPosition = false;
+      editorDisplayState.showTitleTextAlignment = false;
+      editorDisplayState.showAddGradient = false;
+      editorDisplayState.showAddBranding = true;
+      editorDisplayState.showContainImportantWords = true;
+    } else if (e.target.value == "temp4") {
+      console.log("temp4 selected");
+      editorDisplayState.showImageCropType = false;
+      editorDisplayState.showTitleTextPosition = false;
+      editorDisplayState.showTitleTextAlignment = true;
+      editorDisplayState.showAddGradient = false;
+      editorDisplayState.showAddBranding = false;
+      editorDisplayState.showContainImportantWords = true;
+    } else if (e.target.value == "temp5") {
+      console.log("temp5 selected");
+      editorDisplayState.showImageCropType = false;
+      editorDisplayState.showTitleTextPosition = false;
+      editorDisplayState.showTitleTextAlignment = false;
+      editorDisplayState.showAddGradient = false;
+      editorDisplayState.showAddBranding = true;
+      editorDisplayState.showContainImportantWords = false;
+    }
   };
 
   // handleCheckboxChange
@@ -253,6 +302,29 @@ const Editor = ({ editorState, setEditorState }) => {
           {/* {userEmail} */}
           {/* <h1>h</h1> */}
           <Grid item md={4}>
+            <Select
+              labelId="demo-simple-select-label"
+              id="temp"
+              value={editorState.temp}
+              label="temp"
+              onChange={handleChangeSelect}
+            >
+              <MenuItem value="temp1" id="temp">
+                Template 1
+              </MenuItem>
+              <MenuItem value="temp2" id="temp">
+                Template 2
+              </MenuItem>
+              <MenuItem value="temp3" id="temp">
+                Template 3
+              </MenuItem>
+              <MenuItem value="temp4" id="temp">
+                Template 4
+              </MenuItem>
+              <MenuItem value="temp5" id="temp">
+                Qr code
+              </MenuItem>
+            </Select>
             {/* <Item>Image Containere</Item> */}
             <TabContext value={editorState.imageFrom}>
               <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -352,132 +424,138 @@ const Editor = ({ editorState, setEditorState }) => {
           <Grid container md={8}>
             {/* <Item>xs=6 md=8</Item> */}
 
-            <Grid item md={7}>
-              <FormLabel id="">Image Crop Type</FormLabel>
-              <br />
-              <ToggleButtonGroup
-                color="primary"
-                value={editorState.cropType}
-                exclusive
-                // id="titleTextPosition"
-                // onChange={handleChangeToggle}
-                onChange={handleChange}
-              >
-                <ToggleButton id="cropType" value="corner">
-                  Corner
-                </ToggleButton>
-                <ToggleButton id="cropType" value="center">
-                  Center
-                </ToggleButton>
-              </ToggleButtonGroup>
-              <br />
-              <FormLabel id="">Title Text Position</FormLabel>
-              <ToggleButtonGroup
-                color="primary"
-                value={editorState.titleTextPosition}
-                exclusive
-                // id="titleTextPosition"
-                // onChange={handleChangeToggle}
-                onChange={handleChange}
-              >
-                <ToggleButton id="titleTextPosition" value="top">
-                  Top
-                </ToggleButton>
-                <ToggleButton id="titleTextPosition" value="center">
-                  Center
-                </ToggleButton>
-                <ToggleButton id="titleTextPosition" value="bottom">
-                  Bottom
-                </ToggleButton>
-              </ToggleButtonGroup>
-              <br />
-              <FormLabel id="">Title Text Alignment</FormLabel>
+            {editorDisplayState.showImageCropType && (
+              <>
+                <br />
+                <FormLabel id="">Image Crop Type</FormLabel>
+                <br />
+                <ToggleButtonGroup
+                  color="primary"
+                  value={editorState.cropType}
+                  exclusive
+                  // id="titleTextPosition"
+                  // onChange={handleChangeToggle}
+                  onChange={handleChange}
+                >
+                  <ToggleButton id="cropType" value="corner">
+                    Corner
+                  </ToggleButton>
+                  <ToggleButton id="cropType" value="center">
+                    Center
+                  </ToggleButton>
+                </ToggleButtonGroup>
+                <br />
+              </>
+            )}
 
-              <ToggleButtonGroup
-                color="primary"
-                value={editorState.titleTextAlignment}
-                exclusive
-                // id="titleTextPosition"
-                // onChange={handleChangeToggle}
-                onChange={handleChange}
-              >
-                <ToggleButton id="titleTextAlignment" value="justified">
-                  Justified
-                </ToggleButton>
-                <ToggleButton id="titleTextAlignment" value="center">
-                  Center
-                </ToggleButton>
-                <ToggleButton id="titleTextAlignment" value="leftAlign">
-                  Left Align
-                </ToggleButton>
-              </ToggleButtonGroup>
-              <br />
-              <Select
-                labelId="demo-simple-select-label"
-                id="temp"
-                value={editorState.temp}
-                label="temp"
-                onChange={handleChangeSelect}
-              >
-                <MenuItem value="temp1" id="temp">
-                  Template 1
-                </MenuItem>
-                <MenuItem value="temp2" id="temp">
-                  Template 2
-                </MenuItem>
-                <MenuItem value="temp3" id="temp">
-                  Template 3
-                </MenuItem>
-                <MenuItem value="temp4" id="temp">
-                  Template 4
-                </MenuItem>
-                <MenuItem value="temp5" id="temp">
-                  Qr code
-                </MenuItem>
-              </Select>
+            <Grid item md={7}>
+              {editorDisplayState.showTitleTextPosition && (
+                <>
+                  <FormLabel id="">Title Text Position</FormLabel>
+                  <ToggleButtonGroup
+                    color="primary"
+                    value={editorState.titleTextPosition}
+                    exclusive
+                    // id="titleTextPosition"
+                    // onChange={handleChangeToggle}
+                    onChange={handleChange}
+                  >
+                    <ToggleButton id="titleTextPosition" value="top">
+                      Top
+                    </ToggleButton>
+                    <ToggleButton id="titleTextPosition" value="center">
+                      Center
+                    </ToggleButton>
+                    <ToggleButton id="titleTextPosition" value="bottom">
+                      Bottom
+                    </ToggleButton>
+                  </ToggleButtonGroup>
+                  <br />
+                </>
+              )}
+
+              {editorDisplayState.showTitleTextAlignment && (
+                <>
+                  <FormLabel id="">Title Text Alignment</FormLabel>
+
+                  <ToggleButtonGroup
+                    color="primary"
+                    value={editorState.titleTextAlignment}
+                    exclusive
+                    // id="titleTextPosition"
+                    // onChange={handleChangeToggle}
+                    onChange={handleChange}
+                  >
+                    <ToggleButton id="titleTextAlignment" value="justified">
+                      Justified
+                    </ToggleButton>
+                    <ToggleButton id="titleTextAlignment" value="center">
+                      Center
+                    </ToggleButton>
+                    <ToggleButton id="titleTextAlignment" value="leftAlign">
+                      Left Align
+                    </ToggleButton>
+                  </ToggleButtonGroup>
+                  <br />
+                </>
+              )}
             </Grid>
             <Grid item md={5}>
-              <FormControlLabel
-                control={
-                  <Switch
-                    // checked={state.gilad}
-                    id="isAddGradient"
-                    name="isAddGradient"
-                    checked={editorState.isAddGradient}
-                    // onChange={handleChange}
-                    onChange={(e) => handleCheckboxChange(e)}
+              {editorDisplayState.showAddGradient && (
+                <>
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        // checked={state.gilad}
+                        id="isAddGradient"
+                        name="isAddGradient"
+                        checked={editorState.isAddGradient}
+                        // onChange={handleChange}
+                        onChange={(e) => handleCheckboxChange(e)}
+                      />
+                    }
+                    label="Add Gradient"
                   />
-                }
-                label="Add Gradient"
-              />
-              <br />
-              <FormControlLabel
-                control={
-                  <Switch
-                    // checked={state.gilad}
-                    id="isAddBranding"
-                    name="isAddBranding"
-                    checked={editorState.isAddBranding}
-                    // onChange={handleChange}
-                    onChange={(e) => handleCheckboxChange(e)}
+                  <br />
+                </>
+              )}
+
+              {editorDisplayState.showAddBranding && (
+                <>
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        // checked={state.gilad}
+                        id="isAddBranding"
+                        name="isAddBranding"
+                        checked={editorState.isAddBranding}
+                        // onChange={handleChange}
+                        onChange={(e) => handleCheckboxChange(e)}
+                      />
+                    }
+                    label="Add Branding"
                   />
-                }
-                label="Add Branding"
-              />
-              <br />
-              <FormControlLabel
-                control={
-                  <Switch
-                    // checked={state.gilad}
-                    id="isContainImportantWords"
-                    name="isContainImportantWords"
-                    checked={editorState.isContainImportantWords}
-                    // onChange={handleChange}
-                    onChange={(e) => handleCheckboxChange(e)}
+                  <br />
+                </>
+              )}
+
+              {editorDisplayState.showContainImportantWords && (
+                <>
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        // checked={state.gilad}
+                        id="isContainImportantWords"
+                        name="isContainImportantWords"
+                        checked={editorState.isContainImportantWords}
+                        // onChange={handleChange}
+                        onChange={(e) => handleCheckboxChange(e)}
+                      />
+                    }
+                    label="Contain Important Words"
                   />
-                }
-                label="Contain Important Words"
-              />
+                </>
+              )}
             </Grid>
           </Grid>
         </Grid>
