@@ -26,8 +26,11 @@ import {
 } from "@mui/material";
 
 import { Box, maxWidth } from "@mui/system";
+import { useSearchParams } from "react-router-dom";
 
 const Editor = ({ editorState, setEditorState }) => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const [editorDisplayState, setEditorDisplayState] = useState({
     showImageCropType: true,
     showTitleTextPosition: true,
@@ -200,6 +203,8 @@ const Editor = ({ editorState, setEditorState }) => {
           setLoading(false);
         });
     }
+    const routeTitle = searchParams.get("title");
+    setEditorState({ ...editorState, title: routeTitle });
   }, []);
 
   let handleSubmit = (e) => {
