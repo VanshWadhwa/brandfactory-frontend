@@ -18,7 +18,7 @@ const GodModeEditor = () => {
     titleTextPosition: "bottom",
     titleTextAlignment: "justified",
     temp: "temp1",
-    isContainImportantWords: true,
+    isContainImportantWords: false,
     savedFilename: null,
     finalImage: null,
   });
