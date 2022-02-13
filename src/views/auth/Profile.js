@@ -9,8 +9,7 @@ const Profile = () => {
   // let [profileState, setProfileState] = React.useState();
   const [reqesting, setRequesting] = React.useState(false); //for download button loading
   const SERVER_URL = process.env.REACT_APP_SERVER_URL;
-  console.log("SERVER_URL : ");
-  console.log(SERVER_URL);
+
   function handleClick() {
     setRequesting(true);
   }
@@ -167,8 +166,7 @@ const Profile = () => {
   }, [selectedFile3]);
 
   React.useEffect(() => {
-    // const url = "http://127.0.0.1:8000/profile/1";
-    const url = `${SERVER_URL}profile/1`;
+    const url = `${SERVER_URL}/profile/1`;
 
     const token = localStorage.getItem("token");
     const tokenData = { token: "token123" };
@@ -256,7 +254,7 @@ const Profile = () => {
       form_data.delete("tempImage3");
     }
 
-    const url = `${SERVER_URL}profile/1/`;
+    const url = `${SERVER_URL}/profile/1/`;
 
     const token = localStorage.getItem("token");
 
@@ -372,7 +370,7 @@ const Profile = () => {
 
             {typeof profileState.logoImage == "string" ? (
               <img
-                src={`${SERVER_URL}/${profileState.logoImage}`}
+                src={`${SERVER_URL + profileState.logoImage}`}
                 height={"200px"}
                 width={"200px"}
               />
@@ -391,7 +389,7 @@ const Profile = () => {
 
             {typeof profileState.tempImage1 == "string" ? (
               <img
-                src={`http://127.0.0.1:8000${profileState.tempImage1}`}
+                src={SERVER_URL + profileState.tempImage1}
                 height={"200px"}
                 width={"200px"}
               />
@@ -410,7 +408,7 @@ const Profile = () => {
 
             {typeof profileState.tempImage2 == "string" ? (
               <img
-                src={`http://127.0.0.1:8000${profileState.tempImage2}`}
+                src={SERVER_URL + profileState.tempImage2}
                 height={"200px"}
                 width={"200px"}
               />
@@ -429,7 +427,7 @@ const Profile = () => {
 
             {typeof profileState.tempImage3 == "string" ? (
               <img
-                src={`http://127.0.0.1:8000${profileState.tempImage3}`}
+                src={SERVER_URL + profileState.tempImage3}
                 height={"200px"}
                 width={"200px"}
               />

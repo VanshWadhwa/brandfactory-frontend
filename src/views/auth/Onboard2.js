@@ -11,7 +11,7 @@ const Onboard = () => {
 
   useEffect(() => {
     if (localStorage.getItem("token") === null) {
-      window.location.replace("http://localhost:3000/login");
+      window.location.replace(`${CLIENT_URL}/login`);
     } else {
       setLoading(false);
     }

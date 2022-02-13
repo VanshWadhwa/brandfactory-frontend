@@ -2,10 +2,12 @@ import React, { useState, useEffect, Fragment } from "react";
 
 const Logout = () => {
   const [loading, setLoading] = useState(true);
+  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+  const CLIENT_URL = process.env.REACT_APP_CLIENT_URL;
 
   useEffect(() => {
     if (localStorage.getItem("token") == null) {
-      window.location.replace("http://localhost:3000/login");
+      window.location.replace(`${CLIENT_URL}/login`);
     } else {
       setLoading(false);
     }
@@ -14,7 +16,7 @@ const Logout = () => {
   const handleLogout = (e) => {
     e.preventDefault();
 
-    fetch("http://127.0.0.1:8000/api/v1/users/auth/logout/", {
+    fetch(`${SERVER_URL}/api/v1/users/auth/logout/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -25,7 +27,7 @@ const Logout = () => {
       .then((data) => {
         console.log(data);
         localStorage.clear();
-        window.location.replace("http://localhost:3000/login");
+        window.location.replace(`${CLIENT_URL}/login`);
       });
   };
 

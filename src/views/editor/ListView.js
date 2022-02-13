@@ -10,8 +10,10 @@ import NewsListItem from "./NewsListItem";
 
 export default function ListView({ editorState, setEditorState }) {
   const [newsList, setNewsList] = React.useState([]);
+  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+
   React.useEffect(() => {
-    const url = "http://127.0.0.1:8000/news/";
+    const url = `${SERVER_URL}/news/`;
 
     const fetchData = async () => {
       try {

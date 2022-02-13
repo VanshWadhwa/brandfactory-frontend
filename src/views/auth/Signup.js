@@ -6,10 +6,12 @@ const Signup = () => {
   const [password2, setPassword2] = useState("");
   const [errors, setErrors] = useState(false);
   const [loading, setLoading] = useState(true);
+  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+  const CLIENT_URL = process.env.REACT_APP_CLIENT_URL;
 
   useEffect(() => {
     if (localStorage.getItem("token") !== null) {
-      window.location.replace("http://localhost:3000/editor");
+      window.location.replace(`${CLIENT_URL}/editor`);
     } else {
       setLoading(false);
     }
@@ -24,7 +26,7 @@ const Signup = () => {
       password2: password2,
     };
 
-    fetch("http://127.0.0.1:8000/api/v1/users/auth/register/", {
+    fetch(`${SERVER_URL}/api/v1/users/auth/register/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -36,7 +38,7 @@ const Signup = () => {
         if (data.key) {
           localStorage.clear();
           localStorage.setItem("token", data.key);
-          window.location.replace("http://localhost:3000/onboard");
+          window.location.replace(`${CLIENT_URL}/onboard`);
         } else {
           setEmail("");
           setPassword1("");

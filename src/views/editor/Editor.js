@@ -204,12 +204,14 @@ const Editor = ({ editorState, setEditorState }) => {
 
   const [userEmail, setUserEmail] = useState("");
   const [loading, setLoading] = useState(true);
+  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+  const CLIENT_URL = process.env.REACT_APP_CLIENT_URL;
 
   useEffect(() => {
     if (localStorage.getItem("token") === null) {
-      window.location.replace("http://localhost:3000/login");
+      window.location.replace(`${CLIENT_URL}/login`);
     } else {
-      fetch("http://127.0.0.1:8000/api/v1/users/auth/user/", {
+      fetch(`${SERVER_URL}/api/v1/users/auth/user/`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -262,7 +264,7 @@ const Editor = ({ editorState, setEditorState }) => {
     form_data.append("savedFilename", editorState.savedFilename);
     form_data.append("abcd", editorState.savedFilename);
 
-    let url = "http://127.0.0.1:8000/posts/";
+    let url = `${SERVER_URL}/posts/`;
     axios
       .post(url, form_data, {
         headers: {

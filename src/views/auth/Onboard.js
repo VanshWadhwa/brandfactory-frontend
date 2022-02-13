@@ -24,6 +24,9 @@ const steps = [
   "Add template Images",
   "Add telegram Token",
 ];
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+const CLIENT_URL = process.env.REACT_APP_CLIENT_URL;
+
 const GettingStarted = () => {
   return (
     <Box
@@ -207,7 +210,7 @@ const AddHandleName = ({ profileState, setProfileState }) => {
         />{" "}
         {typeof profileState.logoImage == "string" ? (
           <img
-            src={`http://127.0.0.1:8000${profileState.logoImage}`}
+            src={`${SERVER_URL + profileState.logoImage}`}
             height={"200px"}
             width={"200px"}
           />
@@ -338,14 +341,14 @@ const AddTemplateImages = ({ profileState, setProfileState }) => {
 
   let templateImage =
     typeof profileState.tempImage1 == "string"
-      ? `http://127.0.0.1:8000${profileState.tempImage1}`
+      ? `${SERVER_URL + profileState.tempImage1}`
       : preview1;
   let layerImages = [
     "https://picsum.photos/1080",
-    "http://127.0.0.1:8000/assets/images/basicGradient.png",
+
+    `${SERVER_URL}/assets/images/basicGradient.png`,
     templateImage,
-    // "http://127.0.0.1:8000/assets/images/vansh/tempImage2_ZVN3Vjy.png",
-    "http://127.0.0.1:8000/assets/images/TransparentText.png",
+    `${SERVER_URL}/assets/images/TransparentText.png`,
   ];
 
   return (
@@ -391,7 +394,7 @@ const AddTemplateImages = ({ profileState, setProfileState }) => {
 
           {typeof profileState.tempImage1 == "string" ? (
             <img
-              src={`http://127.0.0.1:8000${profileState.tempImage1}`}
+              src={SERVER_URL + profileState.tempImage1}
               height={"200px"}
               width={"200px"}
             />
@@ -410,7 +413,7 @@ const AddTemplateImages = ({ profileState, setProfileState }) => {
 
           {typeof profileState.tempImage2 == "string" ? (
             <img
-              src={`http://127.0.0.1:8000${profileState.tempImage2}`}
+              src={SERVER_URL + profileState.tempImage2}
               height={"200px"}
               width={"200px"}
             />
@@ -429,7 +432,7 @@ const AddTemplateImages = ({ profileState, setProfileState }) => {
 
           {typeof profileState.tempImage3 == "string" ? (
             <img
-              src={`http://127.0.0.1:8000${profileState.tempImage3}`}
+              src={SERVER_URL + profileState.tempImage3}
               height={"200px"}
               width={"200px"}
             />
@@ -473,14 +476,14 @@ export default function Onboard() {
 
   React.useEffect(() => {
     if (localStorage.getItem("token") === null) {
-      window.location.replace("http://localhost:3000/login");
+      window.location.replace(`${CLIENT_URL}/login`);
     } else {
       setLoading(false);
     }
   }, []);
 
   React.useEffect(() => {
-    const url = "http://127.0.0.1:8000/profile/1";
+    const url = `${SERVER_URL}/profile/1`;
 
     const token = localStorage.getItem("token");
     const tokenData = { token: "token123" };
@@ -567,7 +570,8 @@ export default function Onboard() {
       form_data.delete("tempImage3");
     }
 
-    let url = "http://127.0.0.1:8000/profile/1/";
+    const url = `${SERVER_URL}/profile/1/`;
+
     const token = localStorage.getItem("token");
 
     axios
