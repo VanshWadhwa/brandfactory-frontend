@@ -32,6 +32,10 @@ const Editor = ({ editorState, setEditorState }) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [editorDisplayState, setEditorDisplayState] = useState({
+    showTitle: true,
+    showContent: true,
+    showImageUpload: true,
+
     showImageCropType: true,
     showTitleTextPosition: true,
     showTitleTextAlignment: true,
@@ -125,6 +129,9 @@ const Editor = ({ editorState, setEditorState }) => {
 
     if (e.target.value == "temp1") {
       console.log("temp1 selected");
+      editorDisplayState.showTitle = true;
+      editorDisplayState.showContent = true;
+      editorDisplayState.showImageUpload = true;
       editorDisplayState.showImageCropType = true;
       editorDisplayState.showTitleTextPosition = true;
       editorDisplayState.showTitleTextAlignment = true;
@@ -133,6 +140,9 @@ const Editor = ({ editorState, setEditorState }) => {
       editorDisplayState.showContainImportantWords = true;
     } else if (e.target.value == "temp2") {
       console.log("temp2 selected");
+      editorDisplayState.showTitle = true;
+      editorDisplayState.showContent = true;
+      editorDisplayState.showImageUpload = true;
       editorDisplayState.showImageCropType = true;
       editorDisplayState.showTitleTextPosition = false;
       editorDisplayState.showTitleTextAlignment = true;
@@ -141,6 +151,9 @@ const Editor = ({ editorState, setEditorState }) => {
       editorDisplayState.showContainImportantWords = true;
     } else if (e.target.value == "temp3") {
       console.log("temp3 selected");
+      editorDisplayState.showTitle = true;
+      editorDisplayState.showContent = false;
+      editorDisplayState.showImageUpload = true;
       editorDisplayState.showImageCropType = true;
       editorDisplayState.showTitleTextPosition = false;
       editorDisplayState.showTitleTextAlignment = false;
@@ -149,6 +162,9 @@ const Editor = ({ editorState, setEditorState }) => {
       editorDisplayState.showContainImportantWords = true;
     } else if (e.target.value == "temp4") {
       console.log("temp4 selected");
+      editorDisplayState.showTitle = false;
+      editorDisplayState.showContent = true;
+      editorDisplayState.showImageUpload = false;
       editorDisplayState.showImageCropType = false;
       editorDisplayState.showTitleTextPosition = false;
       editorDisplayState.showTitleTextAlignment = true;
@@ -157,6 +173,9 @@ const Editor = ({ editorState, setEditorState }) => {
       editorDisplayState.showContainImportantWords = true;
     } else if (e.target.value == "temp5") {
       console.log("temp5 selected");
+      editorDisplayState.showTitle = true;
+      editorDisplayState.showContent = false;
+      editorDisplayState.showImageUpload = false;
       editorDisplayState.showImageCropType = false;
       editorDisplayState.showTitleTextPosition = false;
       editorDisplayState.showTitleTextAlignment = false;
@@ -331,95 +350,107 @@ const Editor = ({ editorState, setEditorState }) => {
               </MenuItem>
             </Select>
             {/* <Item>Image Containere</Item> */}
-            <TabContext value={editorState.imageFrom}>
-              <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-                <TabList
-                  onChange={handleTabChange}
-                  aria-label="lab API tabs example"
-                >
-                  <Tab label="From Upload" value="upload" />
-                  <Tab label="From Url" value="url" />
-                </TabList>
-              </Box>
-              <TabPanel value="upload">
-                {" "}
-                <input
-                  type="file"
-                  id="image"
-                  accept="image/png, image/jpeg , image/jpg"
-                  onChange={(e) => handleImageChange(e)}
-                  required
-                />
-                {selectedFile && (
-                  <img
-                    style={{
-                      maxWidth: "100%",
-                      // max-:100%,
-                      height: "auto",
-                      width: "auto",
-                    }}
-                    src={preview}
-                  />
-                )}
-              </TabPanel>
-              <TabPanel value="url">
-                {" "}
+            {editorDisplayState.showImageUpload && (
+              <>
+                <TabContext value={editorState.imageFrom}>
+                  <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                    <TabList
+                      onChange={handleTabChange}
+                      aria-label="lab API tabs example"
+                    >
+                      <Tab label="From Upload" value="upload" />
+                      <Tab label="From Url" value="url" />
+                    </TabList>
+                  </Box>
+                  <TabPanel value="upload">
+                    {" "}
+                    <input
+                      type="file"
+                      id="image"
+                      accept="image/png, image/jpeg , image/jpg"
+                      onChange={(e) => handleImageChange(e)}
+                      required
+                    />
+                    {selectedFile && (
+                      <img
+                        style={{
+                          maxWidth: "100%",
+                          // max-:100%,
+                          height: "auto",
+                          width: "auto",
+                        }}
+                        src={preview}
+                      />
+                    )}
+                  </TabPanel>
+                  <TabPanel value="url">
+                    {" "}
+                    <TextField
+                      // id="outlined-multiline-static"
+                      label="imageURL"
+                      multiline
+                      sx={{ width: "100%" }}
+                      rows={3}
+                      type="text"
+                      placeholder="imageURL"
+                      id="imageURL"
+                      value={editorState.imageURL}
+                      onChange={(e) => handleChange(e)}
+                      required
+                      // defaultValue="Default Value"
+                    />
+                    <img
+                      style={{
+                        maxWidth: "100%",
+                        // max-:100%,
+                        height: "auto",
+                        width: "auto",
+                      }}
+                      src={editorState.imageURL}
+                    />
+                  </TabPanel>
+                </TabContext>
+              </>
+            )}
+          </Grid>
+          <Grid item md={8}>
+            {/* <Item>Text</Item> */}
+            {editorDisplayState.showTitle && (
+              <>
                 <TextField
                   // id="outlined-multiline-static"
-                  label="imageURL"
+                  label="Title"
                   multiline
-                  sx={{ width: "100%" }}
+                  sx={{ m: 1, width: "100%" }}
                   rows={3}
                   type="text"
-                  placeholder="imageURL"
-                  id="imageURL"
-                  value={editorState.imageURL}
+                  placeholder="Title"
+                  id="title"
+                  value={editorState.title}
                   onChange={(e) => handleChange(e)}
                   required
                   // defaultValue="Default Value"
                 />
-                <img
-                  style={{
-                    maxWidth: "100%",
-                    // max-:100%,
-                    height: "auto",
-                    width: "auto",
-                  }}
-                  src={editorState.imageURL}
+              </>
+            )}
+            {editorDisplayState.showContent && (
+              <>
+                <TextField
+                  // id="outlined-multiline-static"
+                  label="Content"
+                  multiline
+                  sx={{ m: 1, width: "100%" }}
+                  rows={3}
+                  type="text"
+                  placeholder="Content"
+                  id="content"
+                  value={editorState.content}
+                  onChange={(e) => handleChange(e)}
+                  // required
+                  // defaultValue="Default Value"
                 />
-              </TabPanel>
-            </TabContext>
-          </Grid>
-          <Grid item md={8}>
-            {/* <Item>Text</Item> */}
-            <TextField
-              // id="outlined-multiline-static"
-              label="Title"
-              multiline
-              sx={{ m: 1, width: "100%" }}
-              rows={3}
-              type="text"
-              placeholder="Title"
-              id="title"
-              value={editorState.title}
-              onChange={(e) => handleChange(e)}
-              required
-              // defaultValue="Default Value"
-            />
-            <TextField
-              // id="outlined-multiline-static"
-              label="Content"
-              multiline
-              sx={{ m: 1, width: "100%" }}
-              rows={3}
-              type="text"
-              placeholder="Content"
-              id="content"
-              value={editorState.content}
-              onChange={(e) => handleChange(e)}
-              // required
-              // defaultValue="Default Value"
-            />
+              </>
+            )}
           </Grid>
 
           <Grid item md={4}>

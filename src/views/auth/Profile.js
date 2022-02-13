@@ -2,9 +2,18 @@ import { Box, Container, TextField, Typography } from "@mui/material";
 import React from "react";
 import axios from "axios";
 import { SketchPicker } from "react-color";
+import { LoadingButton } from "@mui/lab";
+import UpgradeIcon from "@mui/icons-material/Upgrade";
 
 const Profile = () => {
   // let [profileState, setProfileState] = React.useState();
+  const [reqesting, setRequesting] = React.useState(false); //for download button loading
+  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+  console.log("SERVER_URL : ");
+  console.log(SERVER_URL);
+  function handleClick() {
+    setRequesting(true);
+  }
 
   let [profileState, setProfileState] = React.useState({});
   const [selectedFiles, setSelectedFiles] = React.useState({});
@@ -158,7 +167,8 @@ const Profile = () => {
   }, [selectedFile3]);
 
   React.useEffect(() => {
-    const url = "http://127.0.0.1:8000/profile/1";
+    // const url = "http://127.0.0.1:8000/profile/1";
+    const url = `${SERVER_URL}profile/1`;
 
     const token = localStorage.getItem("token");
     const tokenData = { token: "token123" };
@@ -190,6 +200,8 @@ const Profile = () => {
   }, []);
 
   let handleSubmit = (e) => {
+    setRequesting(true);
+
     e.preventDefault();
 
     console.log("on submit");
@@ -244,7 +256,8 @@ const Profile = () => {
       form_data.delete("tempImage3");
     }
 
-    let url = "http://127.0.0.1:8000/profile/1/";
+    const url = `${SERVER_URL}profile/1/`;
+
     const token = localStorage.getItem("token");
 
     axios
@@ -261,6 +274,9 @@ const Profile = () => {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setRequesting(false);
       });
   };
 
@@ -356,7 +372,7 @@ const Profile = () => {
 
             {typeof profileState.logoImage == "string" ? (
               <img
-                src={`http://127.0.0.1:8000${profileState.logoImage}`}
+                src={`${SERVER_URL}/${profileState.logoImage}`}
                 height={"200px"}
                 width={"200px"}
               />
@@ -432,7 +448,18 @@ const Profile = () => {
               onChange={(e) => handleChange(e)}
               // required
             />
-            <input type="submit" name="submit" value="Submit" />
+            {/* <input type="submit" name="submit" value="Submit" /> */}
+            <LoadingButton
+              color="primary"
+              // onClick={handleClick}
+              loading={reqesting}
+              loadingPosition="start"
+              endIcon={<UpgradeIcon />}
+              variant="contained"
+              type="submit"
+            >
+              Update Profile
+            </LoadingButton>
           </form>
         </Container>
       </Box>
