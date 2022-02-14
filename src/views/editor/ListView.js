@@ -8,31 +8,7 @@ import Avatar from "@mui/material/Avatar";
 import Typography from "@mui/material/Typography";
 import NewsListItem from "./NewsListItem";
 
-export default function ListView({ editorState, setEditorState }) {
-  const [newsList, setNewsList] = React.useState([]);
-  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
-
-  React.useEffect(() => {
-    const url = `${SERVER_URL}/news/`;
-
-    const fetchData = async () => {
-      try {
-        const response = await fetch(url);
-        const json = await response.json();
-        // json.slip.advice
-        setNewsList(json.data);
-        console.log("newsList");
-        // console.log(typeof newsList);
-        // console.log(json);
-        // console.log(json.data);
-      } catch (error) {
-        console.log("error", error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
+export default function ListView({ newsList, editorState, setEditorState }) {
   return (
     <List
       sx={{

@@ -46,6 +46,64 @@ export default function BasicTabs({ editorState, setEditorState }) {
     setValue(newValue);
   };
 
+  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+
+  const [newsListShorts, setNewsListShorts] = React.useState([]);
+  const [newsListFlips, setNewsListFlips] = React.useState([]);
+  const [newsListNewsApi, setNewsListNewsApi] = React.useState([]);
+
+  React.useEffect(() => {
+    const urlShorts = `${SERVER_URL}/news/shorts`;
+    const urlFlips = `${SERVER_URL}/news/flips`;
+    const urlNewsApi = `${SERVER_URL}/news/newsApi`;
+
+    const fetchDataShorts = async () => {
+      try {
+        const response = await fetch(urlShorts);
+        const json = await response.json();
+        // json.slip.advice
+        setNewsListShorts(json.data);
+        console.log("newsList");
+        // console.log(typeof newsList);
+        // console.log(json);
+        // console.log(json.data);
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+    const fetchDataFlips = async () => {
+      try {
+        const response = await fetch(urlFlips);
+        const json = await response.json();
+        // json.slip.advice
+        setNewsListFlips(json.data);
+        console.log("newsList");
+        // console.log(typeof newsList);
+        // console.log(json);
+        // console.log(json.data);
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+    const fetchDataNewsApi = async () => {
+      try {
+        const response = await fetch(urlNewsApi);
+        const json = await response.json();
+        // json.slip.advice
+        setNewsListNewsApi(json.data);
+        console.log("newsList");
+        // console.log(typeof newsList);
+        // console.log(json);
+        // console.log(json.data);
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+
+    fetchDataShorts();
+    fetchDataFlips();
+    fetchDataNewsApi();
+  }, []);
   return (
     <Box sx={{ width: "60%" }}>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
@@ -60,16 +118,25 @@ export default function BasicTabs({ editorState, setEditorState }) {
         </Tabs>
       </Box>
       <NewsSideBar value={value} index={0}>
-        Item One
-        <ListView editorState={editorState} setEditorState={setEditorState} />
+        <ListView
+          newsList={newsListShorts}
+          editorState={editorState}
+          setEditorState={setEditorState}
+        />
       </NewsSideBar>
       <NewsSideBar value={value} index={1}>
-        Item Two
-        <ListView />
+        <ListView
+          newsList={newsListFlips}
+          editorState={editorState}
+          setEditorState={setEditorState}
+        />
       </NewsSideBar>
       <NewsSideBar value={value} index={2}>
-        Item Three
-        <ListView />
+        <ListView
+          newsList={newsListNewsApi}
+          editorState={editorState}
+          setEditorState={setEditorState}
+        />
       </NewsSideBar>
     </Box>
   );
