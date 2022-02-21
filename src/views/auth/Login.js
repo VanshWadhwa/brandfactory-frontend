@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { SnackbarContext } from "../../App.js";
 
 const Login = () => {
+  const { snack, setSnack } = useContext(SnackbarContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState(false);
@@ -37,11 +39,13 @@ const Login = () => {
           localStorage.clear();
           localStorage.setItem("token", data.key);
           window.location.replace(`${CLIENT_URL}/editor`);
+          setSnack({ message: "hello", open: true });
         } else {
           setEmail("");
           setPassword("");
           localStorage.clear();
           setErrors(true);
+          setSnack({ message: "hey", open: true });
         }
       });
   };

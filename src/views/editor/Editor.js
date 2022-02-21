@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { styled } from "@mui/material/styles";
 // import LoadingButton from "@mui/lab/LoadingButton";
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
 import { LoadingButton, TabContext, TabList, TabPanel } from "@mui/lab";
 import SaveIcon from "@mui/icons-material/Save";
+import { SnackbarContext } from "../../App.js";
 
 import axios from "axios";
 import {
@@ -29,6 +30,8 @@ import { Box, maxWidth } from "@mui/system";
 import { useSearchParams } from "react-router-dom";
 
 const Editor = ({ editorState, setEditorState }) => {
+  const { snack, setSnack } = useContext(SnackbarContext);
+
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [editorDisplayState, setEditorDisplayState] = useState({
@@ -296,6 +299,7 @@ const Editor = ({ editorState, setEditorState }) => {
         // console.log(this.downloadBase64ImgStr);
         // console.log(typeof res.data["report"]);
         // setRequesting(false);
+        setSnack({ message: `Downloaded ${savedFilename}`, open: true });
       })
 
       .catch((err) => {
