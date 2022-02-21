@@ -4,7 +4,6 @@ import { styled } from "@mui/material/styles";
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
 import { LoadingButton, TabContext, TabList, TabPanel } from "@mui/lab";
 import SaveIcon from "@mui/icons-material/Save";
-import { SnackbarContext } from "../../App.js";
 
 import axios from "axios";
 import {
@@ -26,11 +25,14 @@ import {
   Typography,
 } from "@mui/material";
 
+import { useSnackbar } from "notistack";
+
 import { Box, maxWidth } from "@mui/system";
 import { useSearchParams } from "react-router-dom";
+import useNotification from "../../components/layout/Snackbar.js";
 
 const Editor = ({ editorState, setEditorState }) => {
-  const { snack, setSnack } = useContext(SnackbarContext);
+  const [msg, sendNotification] = useNotification();
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -299,10 +301,18 @@ const Editor = ({ editorState, setEditorState }) => {
         // console.log(this.downloadBase64ImgStr);
         // console.log(typeof res.data["report"]);
         // setRequesting(false);
-        setSnack({ message: `Downloaded ${savedFilename}`, open: true });
+
+        sendNotification({
+          msg: `Image Downloaded ${savedFilename}`,
+          variant: "info",
+        });
       })
 
       .catch((err) => {
+        sendNotification({
+          msg: `Image Download Failed`,
+          variant: "error",
+        });
         console.log(err);
       })
       .finally(() => {

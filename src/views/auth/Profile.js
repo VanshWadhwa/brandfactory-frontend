@@ -4,10 +4,13 @@ import axios from "axios";
 import { SketchPicker } from "react-color";
 import { LoadingButton } from "@mui/lab";
 import UpgradeIcon from "@mui/icons-material/Upgrade";
+import useNotification from "../../components/layout/Snackbar";
 
 const Profile = () => {
   // let [profileState, setProfileState] = React.useState();
   const [reqesting, setRequesting] = React.useState(false); //for download button loading
+  const [msg, sendNotification] = useNotification();
+
   const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
   function handleClick() {
@@ -269,9 +272,17 @@ const Profile = () => {
       .then((res) => {
         console.log(res);
         console.log(res.data);
+        sendNotification({
+          msg: "Profile Updated Successfully",
+          variant: "info",
+        });
       })
       .catch((err) => {
         console.log(err);
+        sendNotification({
+          msg: "Profile Updated Failed",
+          variant: "error",
+        });
       })
       .finally(() => {
         setRequesting(false);

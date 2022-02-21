@@ -1,7 +1,10 @@
 import React, { useState, useEffect, Fragment } from "react";
+import useNotification from "../../components/layout/Snackbar";
 
 const Logout = () => {
   const [loading, setLoading] = useState(true);
+  const [msg, sendNotification] = useNotification();
+
   const SERVER_URL = process.env.REACT_APP_SERVER_URL;
   const CLIENT_URL = process.env.REACT_APP_CLIENT_URL;
 
@@ -25,6 +28,10 @@ const Logout = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        sendNotification({
+          msg: "Loged Out",
+          variant: "info",
+        });
         console.log(data);
         localStorage.clear();
         window.location.replace(`${CLIENT_URL}/login`);

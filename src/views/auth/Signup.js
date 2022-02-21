@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import useNotification from "../../components/layout/Snackbar";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -6,6 +7,9 @@ const Signup = () => {
   const [password2, setPassword2] = useState("");
   const [errors, setErrors] = useState(false);
   const [loading, setLoading] = useState(true);
+
+  const [msg, sendNotification] = useNotification();
+
   const SERVER_URL = process.env.REACT_APP_SERVER_URL;
   const CLIENT_URL = process.env.REACT_APP_CLIENT_URL;
 
@@ -38,8 +42,16 @@ const Signup = () => {
         if (data.key) {
           localStorage.clear();
           localStorage.setItem("token", data.key);
+          sendNotification({
+            msg: "Signed Up",
+            variant: "info",
+          });
           window.location.replace(`${CLIENT_URL}/onboard`);
         } else {
+          sendNotification({
+            msg: "Wrong Credentials",
+            variant: "error",
+          });
           setEmail("");
           setPassword1("");
           setPassword2("");

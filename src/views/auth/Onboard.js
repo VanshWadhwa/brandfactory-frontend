@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 
 import { ChromePicker } from "react-color";
+import useNotification from "../../components/layout/Snackbar";
 
 const steps = [
   "Getting Started",
@@ -450,6 +451,8 @@ const AddTemplateImages = ({ profileState, setProfileState }) => {
 };
 
 export default function Onboard() {
+  const [msg, sendNotification] = useNotification();
+
   const [email, setEmail] = React.useState("");
 
   const [errors, setErrors] = React.useState(false);
@@ -585,6 +588,10 @@ export default function Onboard() {
       .then((res) => {
         console.log(res);
         console.log(res.data);
+        sendNotification({
+          msg: "Profile Updated",
+          variant: "info",
+        });
       })
       .catch((err) => {
         console.log(err);

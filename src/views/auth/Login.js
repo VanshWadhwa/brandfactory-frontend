@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
-import { SnackbarContext } from "../../App.js";
+import useNotification from "../../components/layout/Snackbar";
 
 const Login = () => {
-  const { snack, setSnack } = useContext(SnackbarContext);
+  const [msg, sendNotification] = useNotification();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState(false);
@@ -39,13 +40,20 @@ const Login = () => {
           localStorage.clear();
           localStorage.setItem("token", data.key);
           window.location.replace(`${CLIENT_URL}/editor`);
-          setSnack({ message: "hello", open: true });
+          // setSnack({ message: "hello", open: true });
+          sendNotification({
+            msg: "Loged In",
+            variant: "info",
+          });
         } else {
           setEmail("");
           setPassword("");
           localStorage.clear();
           setErrors(true);
-          setSnack({ message: "hey", open: true });
+          sendNotification({
+            msg: "Wrong Credentials",
+            variant: "error",
+          });
         }
       });
   };

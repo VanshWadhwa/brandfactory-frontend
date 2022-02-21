@@ -12,6 +12,8 @@ import NotFound from "./views/NotFound";
 import GodModeEditor from "./views/editor/GodModeEditor";
 import Onboard from "./views/auth/Onboard";
 import { createContext, useState } from "react";
+import { SnackbarProvider } from "notistack";
+
 import { Alert, Snackbar } from "@mui/material";
 
 export const SnackbarContext = createContext({});
@@ -24,10 +26,7 @@ function App() {
   });
   return (
     <BrowserRouter>
-      <SnackbarContext.Provider value={{ snack, setSnack }}>
-        <Snackbar open={snack.open} autoHideDuration={600}>
-          <Alert>{snack.message}</Alert>
-        </Snackbar>
+      <SnackbarProvider>
         <div className="App">
           <ResponsiveAppBar />
           {/* <Home /> */}
@@ -46,7 +45,8 @@ function App() {
           </Routes>
           <StickyFooter />
         </div>
-      </SnackbarContext.Provider>
+        {/* </SnackbarContext.Provider> */}
+      </SnackbarProvider>
     </BrowserRouter>
   );
 }
