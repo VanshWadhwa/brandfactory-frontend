@@ -33,6 +33,8 @@ const ResponsiveAppBar = () => {
   React.useEffect(() => {
     if (localStorage.getItem("token") !== null) {
       setIsAuth(true);
+    } else {
+      setIsAuth(false);
     }
   }, []);
 
@@ -65,7 +67,6 @@ const ResponsiveAppBar = () => {
               Brand Folder
             </Typography>
           </Link>
-
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -112,19 +113,56 @@ const ResponsiveAppBar = () => {
             Brand Folder
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Link to={page}>
-                <Button
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: "white", display: "block" }}
-                >
-                  {page}
-                </Button>
-              </Link>
-            ))}
-          </Box>
+            <Link to="/editor">
+              <Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
+                Editor
+              </Button>
+            </Link>
 
+            {isAuth ? (
+              <React.Fragment>
+                <Link to="/profile">
+                  <Button
+                    onClick={handleCloseNavMenu}
+                    sx={{ my: 2, color: "white", display: "block" }}
+                  >
+                    Profile
+                  </Button>
+                </Link>
+
+                <Link to="/logout">
+                  <Button
+                    onClick={handleCloseNavMenu}
+                    sx={{ my: 2, color: "white", display: "block" }}
+                  >
+                    Logout
+                  </Button>
+                </Link>
+              </React.Fragment>
+            ) : (
+              <React.Fragment>
+                <Link to="/login">
+                  <Button
+                    onClick={handleCloseNavMenu}
+                    sx={{ my: 2, color: "white", display: "block" }}
+                  >
+                    Login
+                  </Button>
+                </Link>
+                <Link to="/Signup">
+                  <Button
+                    onClick={handleCloseNavMenu}
+                    sx={{ my: 2, color: "white", display: "block" }}
+                  >
+                    Sign Up
+                  </Button>
+                </Link>
+              </React.Fragment>
+            )}
+          </Box>
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -147,11 +185,41 @@ const ResponsiveAppBar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+              <Link to="/editor">
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center">Editor</Typography>
                 </MenuItem>
-              ))}
+              </Link>
+
+              {isAuth ? (
+                <React.Fragment>
+                  <Link to="/profile">
+                    <MenuItem onClick={handleCloseUserMenu}>
+                      <Typography textAlign="center">Profile</Typography>
+                    </MenuItem>
+                  </Link>
+
+                  <Link to="/logout">
+                    <MenuItem onClick={handleCloseUserMenu}>
+                      <Typography textAlign="center">Logout</Typography>
+                    </MenuItem>
+                  </Link>
+                </React.Fragment>
+              ) : (
+                <React.Fragment>
+                  <Link to="/login">
+                    <MenuItem onClick={handleCloseUserMenu}>
+                      <Typography textAlign="center">Login</Typography>
+                    </MenuItem>
+                  </Link>
+
+                  <Link to="/signup">
+                    <MenuItem onClick={handleCloseUserMenu}>
+                      <Typography textAlign="center">Sign up</Typography>
+                    </MenuItem>
+                  </Link>
+                </React.Fragment>
+              )}
             </Menu>
           </Box>
         </Toolbar>
