@@ -49,8 +49,9 @@ const GettingStarted = () => {
   );
 };
 
-const StepperFinish = ({ handleSubmit }) => {
-  handleSubmit();
+const StepperFinish = () => {
+  console.log("handle submit called : ");
+  // handleSubmit();
 
   return (
     <Box
@@ -598,6 +599,8 @@ export default function Onboard() {
       });
   };
 
+  console.log("profileState : ");
+
   console.log(profileState);
 
   const [activeStep, setActiveStep] = React.useState(0);
@@ -616,6 +619,12 @@ export default function Onboard() {
     if (isStepSkipped(activeStep)) {
       newSkipped = new Set(newSkipped.values());
       newSkipped.delete(activeStep);
+    }
+    console.log("activeStep");
+    console.log(activeStep);
+    if (activeStep === steps.length - 1) {
+      console.log("printing inside handleNext : ");
+      handleSubmit();
     }
 
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -675,7 +684,14 @@ export default function Onboard() {
       </Stepper>
       {activeStep === steps.length ? (
         <React.Fragment>
-          <StepperFinish handleSubmit={handleSubmit} />
+          {
+            // (console.log("handing submit in fragments 1"),
+            // () =>handleSubmit
+            // handleSubmit()
+            // console.log("handing submit in fragments 2")
+          }
+
+          <StepperFinish />
           <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
             <Box sx={{ flex: "1 1 auto" }} />
             {/* <Button onClick={handleReset}>Reset</Button> */}
