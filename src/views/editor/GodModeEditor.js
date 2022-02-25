@@ -33,14 +33,15 @@ const GodModeEditor = () => {
       >
         {/* <Container component="main" sx={{ mt: 8, mb: 2 }} maxWidth="sm"> */}
         <Container component="main" maxWidth="md">
-          <Typography variant="h4" component="h4" gutterBottom>
-            God Mode Editor
-            <Editor editorState={editorState} setEditorState={setEditorState} />
-            {/* <NewsList
+          {/* <Typography variant="h4" component="h4" gutterBottom> */}
+          {/* God Mode Editor */}
+          {/* <NewsList
               editorState={editorState}
               setEditorState={setEditorState}
             /> */}
-          </Typography>
+          {/* </Typography> */}
+          <br />
+          <Editor editorState={editorState} setEditorState={setEditorState} />
         </Container>
 
         {/* <ListView /> */}

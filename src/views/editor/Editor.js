@@ -2,13 +2,16 @@ import React, { useState, useEffect, useContext } from "react";
 import { styled } from "@mui/material/styles";
 // import LoadingButton from "@mui/lab/LoadingButton";
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
+// import ButtonGroup from '@mui/material/ButtonGroup';
 import { LoadingButton, TabContext, TabList, TabPanel } from "@mui/lab";
 import SaveIcon from "@mui/icons-material/Save";
+import uploadImage from "../../img/uploadImg.png";
 
 import axios from "axios";
 import {
   Button,
   ButtonGroup,
+  Card,
   Container,
   FormControlLabel,
   FormLabel,
@@ -329,21 +332,49 @@ const Editor = ({ editorState, setEditorState }) => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <Typography
-        sx={{ display: "inline" }}
-        component="span"
-        variant="body2"
-        color="text.primary"
-      >
-        Loged in as {userEmail}
-      </Typography>
       <form onSubmit={(e) => handleSubmit(e)}>
-        <Grid container spacing={2}>
-          {/* {userEmail} */}
-          {/* <h1>h</h1> */}
-          <Grid item md={4}>
+        {/* <Typography
+          sx={{ display: "inline" }}
+          component="span"
+          variant="body2"
+          color="text.primary"
+        > */}
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            // justify-content: space-between;
+            /* align-content: center; */
+            // align-items: center;
+          }}
+        >
+          <Typography variant="h4" component="h4" gutterBottom>
+            {/* Loged in as {userEmail} */}
+            Editor
+          </Typography>
+          <ButtonGroup
+          // variant="contained"
+          // ref={anchorRef}
+
+          // aria-label="split button"
+          // fullWidth="true"
+          >
+            <LoadingButton
+              color="primary"
+              // onClick={handleClick}
+              loading={reqesting}
+              loadingPosition="start"
+              startIcon={<CloudDownloadIcon />}
+              variant="contained"
+              type="submit"
+              sx={{ margin: "0px 10px" }}
+            >
+              Download
+            </LoadingButton>
             <Select
               labelId="demo-simple-select-label"
+              size="small"
               id="temp"
               value={editorState.temp}
               label="temp"
@@ -365,67 +396,100 @@ const Editor = ({ editorState, setEditorState }) => {
                 Qr code
               </MenuItem>
             </Select>
+          </ButtonGroup>
+        </Box>
+
+        <Grid container spacing={2}>
+          {/* {userEmail} */}
+          {/* <h1>h</h1> */}
+          <Grid item md={4}>
             {/* <Item>Image Containere</Item> */}
             {editorDisplayState.showImageUpload && (
               <>
-                <TabContext value={editorState.imageFrom}>
-                  <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-                    <TabList
-                      onChange={handleTabChange}
-                      aria-label="lab API tabs example"
-                    >
-                      <Tab label="From Upload" value="upload" />
-                      <Tab label="From Url" value="url" />
-                    </TabList>
-                  </Box>
-                  <TabPanel value="upload">
-                    {" "}
-                    <input
-                      type="file"
-                      id="image"
-                      accept="image/png, image/jpeg , image/jpg"
-                      onChange={(e) => handleImageChange(e)}
-                      required
-                    />
-                    {selectedFile && (
-                      <img
-                        style={{
-                          maxWidth: "100%",
-                          // max-:100%,
-                          height: "auto",
-                          width: "auto",
-                        }}
-                        src={preview}
+                <Card>
+                  <TabContext value={editorState.imageFrom}>
+                    <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                      <TabList
+                        onChange={handleTabChange}
+                        aria-label="lab API tabs example"
+                      >
+                        <Tab label="From Upload" value="upload" />
+                        <Tab label="From Url" value="url" />
+                      </TabList>
+                    </Box>
+
+                    <TabPanel value="upload">
+                      {" "}
+                      <input
+                        type="file"
+                        id="image"
+                        accept="image/png, image/jpeg , image/jpg"
+                        onChange={(e) => handleImageChange(e)}
+                        required
                       />
-                    )}
-                  </TabPanel>
-                  <TabPanel value="url">
-                    {" "}
-                    <TextField
-                      // id="outlined-multiline-static"
-                      label="imageURL"
-                      multiline
-                      sx={{ width: "100%" }}
-                      rows={3}
-                      type="text"
-                      placeholder="imageURL"
-                      id="imageURL"
-                      value={editorState.imageURL}
-                      onChange={(e) => handleChange(e)}
-                      required
-                      // defaultValue="Default Value"
-                    />
-                    <img
-                      style={{
-                        maxWidth: "100%",
-                        // max-:100%,
-                        height: "auto",
-                        width: "auto",
-                      }}
-                      src={editorState.imageURL}
-                    />
-                  </TabPanel>
-                </TabContext>
+                      {selectedFile ? (
+                        <img
+                          style={{
+                            maxWidth: "100%",
+                            // max-:100%,
+                            height: "auto",
+                            width: "auto",
+                          }}
+                          src={preview}
+                        />
+                      ) : (
+                        <img
+                          style={{
+                            maxWidth: "100%",
+                            // max-:100%,
+                            height: "auto",
+                            width: "auto",
+                          }}
+                          src={uploadImage}
+                        />
+                      )}
+                    </TabPanel>
+                    <TabPanel value="url">
+                      {" "}
+                      <TextField
+                        // id="outlined-multiline-static"
+                        label="imageURL"
+                        multiline
+                        sx={{ width: "100%" }}
+                        rows={3}
+                        type="text"
+                        placeholder="imageURL"
+                        id="imageURL"
+                        value={editorState.imageURL}
+                        onChange={(e) => handleChange(e)}
+                        required
+                        // defaultValue="Default Value"
+                      />
+                      {editorState.imageURL ? (
+                        <img
+                          style={{
+                            maxWidth: "100%",
+                            // max-:100%,
+                            height: "auto",
+                            width: "auto",
+                            marginTop: "5px",
+                          }}
+                          src={editorState.imageURL}
+                        />
+                      ) : (
+                        <img
+                          style={{
+                            maxWidth: "100%",
+                            // max-:100%,
+                            height: "auto",
+                            width: "auto",
+                          }}
+                          src={uploadImage}
+                        />
+                      )}
+                    </TabPanel>
+                  </TabContext>
+                </Card>
               </>
             )}
           </Grid>
@@ -469,9 +533,9 @@ const Editor = ({ editorState, setEditorState }) => {
             )}
           </Grid>
 
-          <Grid item md={4}>
+          {/* <Grid item md={4}>
             <Item>xs=6 md=4</Item>
-          </Grid>
+          </Grid> */}
 
           <Grid container md={8}>
             {/* <Item>xs=6 md=8</Item> */}
@@ -482,6 +546,7 @@ const Editor = ({ editorState, setEditorState }) => {
                 <FormLabel id="">Image Crop Type</FormLabel>
                 <br />
                 <ToggleButtonGroup
+                  size="small"
                   color="primary"
                   value={editorState.cropType}
                   exclusive
@@ -505,6 +570,7 @@ const Editor = ({ editorState, setEditorState }) => {
                 <>
                   <FormLabel id="">Title Text Position</FormLabel>
                   <ToggleButtonGroup
+                    size="small"
                     color="primary"
                     value={editorState.titleTextPosition}
                     exclusive
@@ -531,6 +597,7 @@ const Editor = ({ editorState, setEditorState }) => {
                   <FormLabel id="">Title Text Alignment</FormLabel>
 
                   <ToggleButtonGroup
+                    size="small"
                     color="primary"
                     value={editorState.titleTextAlignment}
                     exclusive
