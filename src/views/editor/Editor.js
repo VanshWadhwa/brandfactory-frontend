@@ -531,165 +531,168 @@ const Editor = ({ editorState, setEditorState }) => {
                 />
               </>
             )}
+            {/* <Grid container md={8}> */}
+            <Grid container>
+              {/* <Item>xs=6 md=8</Item> */}
+
+              <Grid item md={7}>
+                {editorDisplayState.showImageCropType && (
+                  <>
+                    <FormLabel id="">Image Crop Type</FormLabel>
+                    <br />
+
+                    <ToggleButtonGroup
+                      size="small"
+                      color="primary"
+                      value={editorState.cropType}
+                      exclusive
+                      // id="titleTextPosition"
+                      // onChange={handleChangeToggle}
+                      onChange={handleChange}
+                    >
+                      <ToggleButton id="cropType" value="corner">
+                        Corner
+                      </ToggleButton>
+                      <ToggleButton id="cropType" value="center">
+                        Center
+                      </ToggleButton>
+                    </ToggleButtonGroup>
+                    <br />
+                  </>
+                )}
+                {editorDisplayState.showTitleTextPosition && (
+                  <>
+                    <FormLabel id="">Title Text Position</FormLabel>
+                    <ToggleButtonGroup
+                      size="small"
+                      color="primary"
+                      value={editorState.titleTextPosition}
+                      exclusive
+                      // id="titleTextPosition"
+                      // onChange={handleChangeToggle}
+                      onChange={handleChange}
+                    >
+                      <ToggleButton id="titleTextPosition" value="top">
+                        Top
+                      </ToggleButton>
+                      <ToggleButton id="titleTextPosition" value="center">
+                        Center
+                      </ToggleButton>
+                      <ToggleButton id="titleTextPosition" value="bottom">
+                        Bottom
+                      </ToggleButton>
+                    </ToggleButtonGroup>
+                    <br />
+                  </>
+                )}
+
+                {editorDisplayState.showTitleTextAlignment && (
+                  <>
+                    <FormLabel id="">Title Text Alignment</FormLabel>
+
+                    <ToggleButtonGroup
+                      size="small"
+                      color="primary"
+                      value={editorState.titleTextAlignment}
+                      exclusive
+                      // id="titleTextPosition"
+                      // onChange={handleChangeToggle}
+                      onChange={handleChange}
+                    >
+                      <ToggleButton id="titleTextAlignment" value="justified">
+                        Justified
+                      </ToggleButton>
+                      <ToggleButton id="titleTextAlignment" value="center">
+                        Center
+                      </ToggleButton>
+                      <ToggleButton id="titleTextAlignment" value="leftAlign">
+                        Left Align
+                      </ToggleButton>
+                    </ToggleButtonGroup>
+                    <br />
+                  </>
+                )}
+              </Grid>
+              <Grid item md={5}>
+                {editorDisplayState.showAddGradient && (
+                  <>
+                    <FormControlLabel
+                      control={
+                        <Switch
+                          // checked={state.gilad}
+                          id="isAddGradient"
+                          name="isAddGradient"
+                          checked={editorState.isAddGradient}
+                          size="small"
+                          // onChange={handleChange}
+                          onChange={(e) => handleCheckboxChange(e)}
+                        />
+                      }
+                      // size="small"
+                      // label="Add Gradient"
+                      label={
+                        <Typography variant="body2">Add Gradient</Typography>
+                      }
+                    />
+                    <br />
+                  </>
+                )}
+
+                {editorDisplayState.showAddBranding && (
+                  <>
+                    <FormControlLabel
+                      control={
+                        <Switch
+                          // checked={state.gilad}
+                          id="isAddBranding"
+                          size="small"
+                          name="isAddBranding"
+                          checked={editorState.isAddBranding}
+                          // onChange={handleChange}
+                          onChange={(e) => handleCheckboxChange(e)}
+                        />
+                      }
+                      // label="Add Branding"
+                      label={
+                        <Typography variant="body2">Add Branding</Typography>
+                      }
+                    />
+                    <br />
+                  </>
+                )}
+
+                {editorDisplayState.showContainImportantWords && (
+                  <>
+                    <FormControlLabel
+                      control={
+                        <Switch
+                          // checked={state.gilad}
+                          id="isContainImportantWords"
+                          size="small"
+                          name="isContainImportantWords"
+                          checked={editorState.isContainImportantWords}
+                          // onChange={handleChange}
+                          onChange={(e) => handleCheckboxChange(e)}
+                        />
+                      }
+                      // label="Contain Important Words"
+                      label={
+                        <Typography variant="body2">
+                          Contain Important Words
+                        </Typography>
+                      }
+                    />
+                  </>
+                )}
+              </Grid>
+            </Grid>
           </Grid>
 
           {/* <Grid item md={4}>
             <Item>xs=6 md=4</Item>
           </Grid> */}
-
-          <Grid container md={8}>
-            {/* <Item>xs=6 md=8</Item> */}
-
-            {editorDisplayState.showImageCropType && (
-              <>
-                <br />
-                <FormLabel id="">Image Crop Type</FormLabel>
-                <br />
-                <ToggleButtonGroup
-                  size="small"
-                  color="primary"
-                  value={editorState.cropType}
-                  exclusive
-                  // id="titleTextPosition"
-                  // onChange={handleChangeToggle}
-                  onChange={handleChange}
-                >
-                  <ToggleButton id="cropType" value="corner">
-                    Corner
-                  </ToggleButton>
-                  <ToggleButton id="cropType" value="center">
-                    Center
-                  </ToggleButton>
-                </ToggleButtonGroup>
-                <br />
-              </>
-            )}
-
-            <Grid item md={7}>
-              {editorDisplayState.showTitleTextPosition && (
-                <>
-                  <FormLabel id="">Title Text Position</FormLabel>
-                  <ToggleButtonGroup
-                    size="small"
-                    color="primary"
-                    value={editorState.titleTextPosition}
-                    exclusive
-                    // id="titleTextPosition"
-                    // onChange={handleChangeToggle}
-                    onChange={handleChange}
-                  >
-                    <ToggleButton id="titleTextPosition" value="top">
-                      Top
-                    </ToggleButton>
-                    <ToggleButton id="titleTextPosition" value="center">
-                      Center
-                    </ToggleButton>
-                    <ToggleButton id="titleTextPosition" value="bottom">
-                      Bottom
-                    </ToggleButton>
-                  </ToggleButtonGroup>
-                  <br />
-                </>
-              )}
-
-              {editorDisplayState.showTitleTextAlignment && (
-                <>
-                  <FormLabel id="">Title Text Alignment</FormLabel>
-
-                  <ToggleButtonGroup
-                    size="small"
-                    color="primary"
-                    value={editorState.titleTextAlignment}
-                    exclusive
-                    // id="titleTextPosition"
-                    // onChange={handleChangeToggle}
-                    onChange={handleChange}
-                  >
-                    <ToggleButton id="titleTextAlignment" value="justified">
-                      Justified
-                    </ToggleButton>
-                    <ToggleButton id="titleTextAlignment" value="center">
-                      Center
-                    </ToggleButton>
-                    <ToggleButton id="titleTextAlignment" value="leftAlign">
-                      Left Align
-                    </ToggleButton>
-                  </ToggleButtonGroup>
-                  <br />
-                </>
-              )}
-            </Grid>
-            <Grid item md={5}>
-              {editorDisplayState.showAddGradient && (
-                <>
-                  <FormControlLabel
-                    control={
-                      <Switch
-                        // checked={state.gilad}
-                        id="isAddGradient"
-                        name="isAddGradient"
-                        checked={editorState.isAddGradient}
-                        // onChange={handleChange}
-                        onChange={(e) => handleCheckboxChange(e)}
-                      />
-                    }
-                    label="Add Gradient"
-                  />
-                  <br />
-                </>
-              )}
-
-              {editorDisplayState.showAddBranding && (
-                <>
-                  <FormControlLabel
-                    control={
-                      <Switch
-                        // checked={state.gilad}
-                        id="isAddBranding"
-                        name="isAddBranding"
-                        checked={editorState.isAddBranding}
-                        // onChange={handleChange}
-                        onChange={(e) => handleCheckboxChange(e)}
-                      />
-                    }
-                    label="Add Branding"
-                  />
-                  <br />
-                </>
-              )}
-
-              {editorDisplayState.showContainImportantWords && (
-                <>
-                  <FormControlLabel
-                    control={
-                      <Switch
-                        // checked={state.gilad}
-                        id="isContainImportantWords"
-                        name="isContainImportantWords"
-                        checked={editorState.isContainImportantWords}
-                        // onChange={handleChange}
-                        onChange={(e) => handleCheckboxChange(e)}
-                      />
-                    }
-                    label="Contain Important Words"
-                  />
-                </>
-              )}
-            </Grid>
-          </Grid>
         </Grid>
         {/* <input type="submit" /> */}
-        <LoadingButton
-          color="primary"
-          // onClick={handleClick}
-          loading={reqesting}
-          loadingPosition="start"
-          startIcon={<CloudDownloadIcon />}
-          variant="contained"
-          type="submit"
-        >
-          Download
-        </LoadingButton>
 
         {/* TEST */}
         <div>{/* <input type="file" onChange={onSelectFile} /> */}</div>
