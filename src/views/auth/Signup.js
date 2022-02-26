@@ -1,5 +1,17 @@
 import React, { useState, useEffect } from "react";
 import useNotification from "../../components/layout/Snackbar";
+import LoginIcon from "@mui/icons-material/Login";
+import { Box, typography } from "@mui/system";
+import { Link } from "react-router-dom";
+import {
+  Button,
+  Card,
+  Container,
+  Divider,
+  Paper,
+  TextField,
+  Typography,
+} from "@mui/material";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -63,38 +75,98 @@ const Signup = () => {
 
   return (
     <div>
-      {loading === false && <h1>Signup</h1>}
-      {errors === true && <h2>Cannot signup with provided credentials</h2>}
-      <form onSubmit={onSubmit}>
-        <label htmlFor="email">Email address:</label> <br />
-        <input
-          name="email"
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />{" "}
-        <br />
-        <label htmlFor="password1">Password:</label> <br />
-        <input
-          name="password1"
-          type="password"
-          value={password1}
-          onChange={(e) => setPassword1(e.target.value)}
-          required
-        />{" "}
-        <br />
-        <label htmlFor="password2">Confirm password:</label> <br />
-        <input
-          name="password2"
-          type="password"
-          value={password2}
-          onChange={(e) => setPassword2(e.target.value)}
-          required
-        />{" "}
-        <br />
-        <input type="submit" value="Signup" />
-      </form>
+      <Container
+        component="main"
+        maxWidth="sm"
+        sx={{ minHeight: "90vh" }}
+        style={{ display: "flex", justifyContent: "center" }}
+      >
+        {loading === false && (
+          <Paper
+            style={
+              {
+                // backgroundColor: "pink",
+              }
+            }
+            sx={{ p: 4, m: "auto" }}
+          >
+            <Typography component="h1" variant="h3">
+              Sign Up
+            </Typography>
+            <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 3 }}>
+              <TextField
+                required
+                fullWidth
+                autoFocus
+                name="email"
+                type="email"
+                value={email}
+                required
+                margin="dense"
+                variant="outlined"
+                label="Email"
+                size="small"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <TextField
+                required
+                fullWidth
+                autoFocus
+                name="password1"
+                type="password"
+                value={password1}
+                required
+                onChange={(e) => setPassword1(e.target.value)}
+                margin="dense"
+                variant="outlined"
+                label="Password"
+                size="small"
+              />
+              <TextField
+                required
+                fullWidth
+                autoFocus
+                name="password2"
+                type="password"
+                value={password2}
+                required
+                onChange={(e) => setPassword2(e.target.value)}
+                margin="dense"
+                variant="outlined"
+                label="Confirm Password"
+                size="small"
+              />
+
+              <br />
+              <br />
+
+              <Button
+                variant="contained"
+                type="submit"
+                fullWidth
+                endIcon={<LoginIcon />}
+              >
+                Sign up
+              </Button>
+            </Box>
+            <br />
+
+            <Divider variant="middle" />
+            <br />
+            <>
+              <Typography component="p" variant="body2">
+                Already have an account ?
+                <Link to="/login">
+                  <Button variant="text" to="/login">
+                    Login
+                  </Button>
+                </Link>
+              </Typography>
+            </>
+          </Paper>
+        )}
+        {/* </Box> */}
+      </Container>
     </div>
   );
 };

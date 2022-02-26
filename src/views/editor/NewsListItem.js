@@ -41,6 +41,8 @@ const NewsListItem = ({ news, editorState, setEditorState }) => {
           <Fab
             aria-label="add"
             onClick={() => changeState()}
+            // color="primary"
+            color="text.secondary"
             style={{
               position: "absolute",
               left: "5px",

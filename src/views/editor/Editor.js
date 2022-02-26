@@ -25,6 +25,7 @@ import {
   TextField,
   ToggleButton,
   ToggleButtonGroup,
+  Tooltip,
   Typography,
 } from "@mui/material";
 
@@ -372,30 +373,31 @@ const Editor = ({ editorState, setEditorState }) => {
             >
               Download
             </LoadingButton>
-            <Select
-              labelId="demo-simple-select-label"
-              size="small"
-              id="temp"
-              value={editorState.temp}
-              label="temp"
-              onChange={handleChangeSelect}
-            >
-              <MenuItem value="temp1" id="temp">
-                Template 1
-              </MenuItem>
-              <MenuItem value="temp2" id="temp">
-                Template 2
-              </MenuItem>
-              <MenuItem value="temp3" id="temp">
-                Template 3
-              </MenuItem>
-              <MenuItem value="temp4" id="temp">
-                Template 4
-              </MenuItem>
-              <MenuItem value="temp5" id="temp">
-                Qr code
-              </MenuItem>
-            </Select>
+            <Tooltip title="Template style of generated image" placement="top">
+              <Select
+                labelId="demo-simple-select-label"
+                size="small"
+                id="temp"
+                value={editorState.temp}
+                onChange={handleChangeSelect}
+              >
+                <MenuItem value="temp1" id="temp">
+                  Template 1
+                </MenuItem>
+                <MenuItem value="temp2" id="temp">
+                  Template 2
+                </MenuItem>
+                <MenuItem value="temp3" id="temp">
+                  Template 3
+                </MenuItem>
+                <MenuItem value="temp4" id="temp">
+                  Template 4
+                </MenuItem>
+                <MenuItem value="temp5" id="temp">
+                  Qr code
+                </MenuItem>
+              </Select>
+            </Tooltip>
           </ButtonGroup>
         </Box>
 
