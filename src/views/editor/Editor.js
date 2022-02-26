@@ -361,6 +361,22 @@ const Editor = ({ editorState, setEditorState }) => {
           // aria-label="split button"
           // fullWidth="true"
           >
+            <Button
+              variant="text"
+              sx={{ margin: "0px 10px" }}
+              onClick={(e) => {
+                setEditorState({
+                  ...editorState,
+                  title: "",
+                  content: "",
+                  image: null,
+                  imageURL: "",
+                });
+                setPreview("");
+              }}
+            >
+              Clear
+            </Button>
             <LoadingButton
               color="primary"
               // onClick={handleClick}

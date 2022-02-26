@@ -205,6 +205,10 @@ const Profile = () => {
         console.log(json);
         console.log(json.data);
       } catch (error) {
+        sendNotification({
+          msg: "Backend Server Partially Down",
+          variant: "error",
+        });
         console.log("error", error);
       }
     };
