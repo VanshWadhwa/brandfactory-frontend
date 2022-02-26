@@ -37,12 +37,12 @@ const GettingStarted = () => {
         height: "70vh",
       }}
     >
-      <Container component="main" sx={{ mt: 8, mb: 2 }} maxWidth="sm">
+      <Container component="main" sx={{ mt: 8, mb: 2 }} maxWidth="md">
         <Typography variant="h2" component="h1" gutterBottom>
           Getting Started
         </Typography>
         <Typography variant="h5" component="h4" gutterBottom>
-          Create your profile with Full customisation
+          Create your profile with full customisation
         </Typography>
       </Container>
     </Box>
@@ -61,7 +61,7 @@ const StepperFinish = () => {
         height: "70vh",
       }}
     >
-      <Container component="main" sx={{ mt: 8, mb: 2 }} maxWidth="sm">
+      <Container component="main" sx={{ mt: 8, mb: 2 }} maxWidth="md">
         <Typography variant="h2" component="h1" gutterBottom>
           Your Onboarding is complete
         </Typography>
@@ -83,37 +83,59 @@ const AddColors = ({ profileState, setProfileState }) => {
         height: "70vh",
       }}
     >
-      <Container component="main" sx={{ mt: 8, mb: 2 }} maxWidth="sm">
+      <Container component="main" sx={{ mt: 8, mb: 2 }} maxWidth="md">
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
           <Grid item xs={12}>
             <Typography variant="h5" component="h4" gutterBottom>
               Choose Your Colors
             </Typography>
           </Grid>
-          <Grid item xs={6}>
-            <Typography variant="h6" component="h5" gutterBottom>
-              Primary Color
-            </Typography>
+          <Grid item xs={12} md={12} sx={{ display: "flex" }}>
+            <Grid
+              item
+              xs={6}
+              sx={{
+                // backgroundColor: "primary.main",
+                display: "flex",
+                alignItems: "center",
+                flexDirection: "column",
+                m: 1,
+              }}
+            >
+              <Typography variant="h6" component="h5" gutterBottom>
+                Primary Color
+              </Typography>
 
-            <ChromePicker
-              id="primaryColor"
-              color={profileState.primaryColor}
-              onChange={(e) => {
-                setProfileState({ ...profileState, primaryColor: e.hex });
+              <ChromePicker
+                id="primaryColor"
+                color={profileState.primaryColor}
+                onChange={(e) => {
+                  setProfileState({ ...profileState, primaryColor: e.hex });
+                }}
+              />
+            </Grid>
+            <Grid
+              item
+              xs={6}
+              sx={{
+                // backgroundColor: "primary.main",
+                display: "flex",
+                alignItems: "center",
+                flexDirection: "column",
+                m: 1,
               }}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <Typography variant="h6" component="h5" gutterBottom>
-              Secondary Color
-            </Typography>
-            <ChromePicker
-              id="secondaryColor"
-              color={profileState.secondaryColor}
-              onChange={(e) => {
-                setProfileState({ ...profileState, secondaryColor: e.hex });
-              }}
-            />
+            >
+              <Typography variant="h6" component="h5" gutterBottom>
+                Secondary Color
+              </Typography>
+              <ChromePicker
+                id="secondaryColor"
+                color={profileState.secondaryColor}
+                onChange={(e) => {
+                  setProfileState({ ...profileState, secondaryColor: e.hex });
+                }}
+              />
+            </Grid>
           </Grid>
           <Grid item xs={12}>
             <Typography
@@ -122,6 +144,7 @@ const AddColors = ({ profileState, setProfileState }) => {
               gutterBottom
               display="block"
               color={profileState.primaryColor}
+              style={{ fontWeight: "bold" }}
             >
               Lorem ipsum
             </Typography>
@@ -131,6 +154,7 @@ const AddColors = ({ profileState, setProfileState }) => {
               gutterBottom
               display="block"
               color={profileState.secondaryColor}
+              style={{ fontWeight: "bold" }}
             >
               dolor sit amet consectetur adipisicing elit.
             </Typography>
@@ -182,43 +206,61 @@ const AddHandleName = ({ profileState, setProfileState }) => {
         height: "70vh",
       }}
     >
-      <Container component="main" sx={{ mt: 8, mb: 2 }} maxWidth="sm">
+      <Container component="main" sx={{ mt: 8, mb: 2 }} maxWidth="md">
         <Typography variant="h5" component="h4" gutterBottom>
           Add Your Handle Name
         </Typography>
-        <TextField
-          label="handleName"
-          fullWidth
-          // label="Standard"
-          margin="dense"
-          autoFocus
-          variant="standard"
-          type="text"
-          placeholder="handleName"
-          id="handleName"
-          value={profileState.handleName}
-          onChange={(e) => handleChange(e)}
-          required
-        />
-        <Typography variant="h5" component="h4" gutterBottom>
-          Add Your Logo
-        </Typography>
-        <input
-          type="file"
-          id="logoImage"
-          accept="image/png, image/jpeg , image/jpg"
-          onChange={(e) => handleLogoImageChange(e)}
-          // required
-        />{" "}
-        {typeof profileState.logoImage == "string" ? (
-          <img
-            src={`${SERVER_URL + profileState.logoImage}`}
-            height={"200px"}
-            width={"200px"}
+
+        <Box
+          sx={{
+            // backgroundColor: "primary.main",
+            display: "flex",
+            alignItems: "center",
+            m: 1,
+          }}
+        >
+          {typeof profileState.logoImage == "string" ? (
+            <img
+              src={`${SERVER_URL + profileState.logoImage}`}
+              height={"100px"}
+              width={"100px"}
+            />
+          ) : (
+            <img src={previewLogo} height={"100px"} width={"100px"} />
+          )}
+          <TextField
+            label="handleName"
+            size="small"
+            sx={{ m: 1, width: "100%" }}
+            // rows={3}
+            type="text"
+            placeholder="handleName"
+            id="handleName"
+            value={profileState.handleName}
+            onChange={(e) => handleChange(e)}
+            required
           />
-        ) : (
-          <img src={previewLogo} height={"200px"} width={"200px"} />
-        )}
+
+          <label htmlFor="btn-upload">
+            <input
+              id="btn-upload"
+              name="btn-upload"
+              style={{ display: "none" }}
+              type="file"
+              accept="image/*"
+              onChange={(e) => handleLogoImageChange(e)}
+            />
+            <Button
+              className="btn-choose"
+              variant="contained"
+              component="span"
+              size="small"
+              onChange={(e) => handleLogoImageChange(e)}
+            >
+              Change Logo
+            </Button>
+          </label>
+        </Box>
       </Container>
     </Box>
   );
@@ -234,7 +276,7 @@ const AddTelegramToken = ({ profileState, setProfileState }) => {
         height: "70vh",
       }}
     >
-      <Container component="main" sx={{ mt: 8, mb: 2 }} maxWidth="sm">
+      <Container component="main" sx={{ mt: 8, mb: 2 }} maxWidth="md">
         <Typography variant="h5" component="h4" gutterBottom>
           Add Your Telegram Token
         </Typography>
@@ -375,7 +417,7 @@ const AddTemplateImages = ({ profileState, setProfileState }) => {
               minHeight: "100vh",
             }}
           >
-            <Container component="main" sx={{ mt: 17, mb: 2 }} maxWidth="sm">
+            <Container component="main" sx={{ mt: 17, mb: 2 }} maxWidth="md">
               <div class="container">
                 {layerImages.map((x) => (
                   <img src={x} class="center" />
