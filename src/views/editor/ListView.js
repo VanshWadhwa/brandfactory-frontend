@@ -17,6 +17,7 @@ export default function ListView({ newsList, editorState, setEditorState }) {
         bgcolor: "background.paper",
         maxHeight: "70vh",
         // p: "10",
+        // position:"absol"
         overflow: "auto",
       }}
     >
@@ -30,7 +31,7 @@ export default function ListView({ newsList, editorState, setEditorState }) {
             editorState={editorState}
             setEditorState={setEditorState}
           />
-          <Divider variant="inset" component="li" />
+          {/* <Divider variant="inset" component="li" /> */}
         </>
       ))}
 

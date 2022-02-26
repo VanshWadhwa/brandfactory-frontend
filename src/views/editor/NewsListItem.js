@@ -3,6 +3,7 @@ import {
   Card,
   CardContent,
   CardMedia,
+  Fab,
   IconButton,
   ListItem,
   ListItemAvatar,
@@ -10,6 +11,7 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
+import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import ArrowRight from "@mui/icons-material/ArrowRight";
 import KeyboardArrowDown from "@mui/icons-material/KeyboardArrowDown";
 import Home from "@mui/icons-material/Home";
@@ -34,36 +36,56 @@ const NewsListItem = ({ news, editorState, setEditorState }) => {
   // console.log(news);
   return (
     <>
-      <ListItem sx={{ p: 0 }} alignItems="flex-start">
-        <ListItemAvatar>
+      <div style={{ position: "relative" }}>
+        <Tooltip title="Add to Editor">
+          <Fab
+            aria-label="add"
+            onClick={() => changeState()}
+            style={{
+              position: "absolute",
+              left: "5px",
+              top: "50%",
+            }}
+          >
+            {/* <AddIcon /> */}
+            <ArrowCircleLeftIcon size="large" sx={{ transform: "scale(2)" }} />
+          </Fab>
+        </Tooltip>
+        <Card sx={{ p: 1, m: 1, ml: 4, pl: 4 }} alignItems="flex-start">
           <img
             style={{
-              maxWidth: "200px",
+              // maxWidth: "200px",
               // max-:100%,
-              height: "auto",
-              width: "auto",
+              // maxHeight: "200px",
+              objectFit: "cover",
+              // height: "auto",
+              // width: "auto",
+              height: "100px",
+              float: "left",
+
+              margin: "5px",
+              width: "100px",
             }}
             src={news.imageURL}
           />
-        </ListItemAvatar>
-        <ListItemText
-          primary={news.title}
-          secondary={
-            <React.Fragment>
-              <Typography
-                sx={{ display: "inline" }}
-                component="span"
-                variant="body2"
-                color="text.primary"
-              >
-                {news.content}
-              </Typography>
-
-              <button onClick={() => changeState()}>Change State</button>
-            </React.Fragment>
-          }
-        />
-      </ListItem>
+          <Typography
+            sx={{ textAlign: "justify" }}
+            component="h5"
+            variant="b"
+            color="text.primary"
+          >
+            {news.title}
+          </Typography>
+          <Typography
+            sx={{ textAlign: "justify" }}
+            component="p"
+            variant="caption"
+            color="text.primary"
+          >
+            {news.content}
+          </Typography>
+        </Card>
+      </div>
 
       {/* <Card sx={{ display: "flex" }}>
         <Box sx={{ display: "flex", flexDirection: "column" }}>
