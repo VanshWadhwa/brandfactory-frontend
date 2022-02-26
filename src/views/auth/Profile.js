@@ -1,10 +1,22 @@
-import { Box, Container, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Container,
+  Divider,
+  Grid,
+  Input,
+  Paper,
+  TextField,
+  Typography,
+} from "@mui/material";
 import React from "react";
 import axios from "axios";
 import { SketchPicker } from "react-color";
 import { LoadingButton } from "@mui/lab";
 import UpgradeIcon from "@mui/icons-material/Upgrade";
 import useNotification from "../../components/layout/Snackbar";
+import { height } from "@mui/system";
+import { Link } from "react-router-dom";
 
 const Profile = () => {
   // let [profileState, setProfileState] = React.useState();
@@ -291,160 +303,293 @@ const Profile = () => {
 
   return (
     <div>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          minHeight: "100vh",
-        }}
+      <Container
+        component="main"
+        maxWidth="md"
+        sx={{ minHeight: "90vh" }}
+        sx={{ mt: 2, mb: 2 }}
+        style={{ display: "flex", justifyContent: "left" }}
       >
-        <Container component="main" sx={{ mt: 8, mb: 2 }} maxWidth="sm">
-          <form onSubmit={(e) => handleSubmit(e)}>
-            {/* <TextField
-              label="primaryColor"
-              multiline
-              sx={{ m: 1, width: "100%" }}
-              // rows={3}
-              type="text"
-              placeholder="primaryColor"
-              id="primaryColor"
-              value={profileState.primaryColor}
-              onChange={(e) => handleChange(e)}
-              required
-            /> */}
-
-            <SketchPicker
-              id="primaryColor"
-              color={profileState.primaryColor}
-              onChange={(e) => {
-                setProfileState({ ...profileState, primaryColor: e.hex });
-              }}
-            />
-            <div
-              style={{
-                width: "100px",
-                height: "100px",
-                backgroundColor: profileState.primaryColor,
+        <Paper sx={{ p: 2, m: "auto" }}>
+          <Box component="form" noValidate onSubmit={(e) => handleSubmit(e)}>
+            <Box
+              sx={{
+                // backgroundColor: "primary.main",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                m: 1,
               }}
             >
-              {profileState.primaryColor}
-            </div>
-            {/* <TextField
-              label="secondaryColor"
-              multiline
-              sx={{ m: 1, width: "100%" }}
-              // rows={3}
-              type="text"
-              placeholder="secondaryColor"
-              id="secondaryColor"
-              value={profileState.secondaryColor}
-              onChange={(e) => handleChange(e)}
-              required
-            /> */}
-            <SketchPicker
-              id="secondaryColor"
-              color={profileState.secondaryColor}
-              onChange={(e) => {
-                setProfileState({ ...profileState, secondaryColor: e.hex });
-              }}
-            />
-            <div
-              style={{
-                width: "100px",
-                height: "100px",
-                backgroundColor: profileState.secondaryColor,
+              <Typography component="h4" variant="h4" align="left">
+                Your Profile
+              </Typography>
+              <Link to="/onboard">Edit via onboard</Link>
+            </Box>
+
+            <Box
+              sx={{
+                // backgroundColor: "primary.main",
+                display: "flex",
+                alignItems: "center",
+                m: 1,
               }}
             >
-              {profileState.secondaryColor}
-            </div>
-            <TextField
-              label="handleName"
-              multiline
-              sx={{ m: 1, width: "100%" }}
-              // rows={3}
-              type="text"
-              placeholder="handleName"
-              id="handleName"
-              value={profileState.handleName}
-              onChange={(e) => handleChange(e)}
-              required
-            />
-
-            <h3>Logo</h3>
-            <input
-              type="file"
-              id="logoImage"
-              accept="image/png, image/jpeg , image/jpg"
-              onChange={(e) => handleLogoImageChange(e)}
-              // required
-            />
-
-            {typeof profileState.logoImage == "string" ? (
-              <img
-                src={`${SERVER_URL + profileState.logoImage}`}
-                height={"200px"}
-                width={"200px"}
+              {typeof profileState.logoImage == "string" ? (
+                <img
+                  src={`${SERVER_URL + profileState.logoImage}`}
+                  height={"100px"}
+                  width={"100px"}
+                />
+              ) : (
+                <img src={previewLogo} height={"100px"} width={"100px"} />
+              )}
+              <TextField
+                label="handleName"
+                size="small"
+                sx={{ m: 1, width: "100%" }}
+                // rows={3}
+                type="text"
+                placeholder="handleName"
+                id="handleName"
+                value={profileState.handleName}
+                onChange={(e) => handleChange(e)}
+                required
               />
-            ) : (
-              <img src={previewLogo} height={"200px"} width={"200px"} />
-            )}
 
-            <h3>TempImage 1</h3>
-            <input
-              type="file"
-              id="tempImage1"
-              accept="image/png, image/jpeg , image/jpg"
-              onChange={(e) => handleTempImage1Change(e)}
-              // required
-            />
+              <label htmlFor="btn-upload">
+                <input
+                  id="btn-upload"
+                  name="btn-upload"
+                  style={{ display: "none" }}
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => handleLogoImageChange(e)}
+                />
+                <Button
+                  className="btn-choose"
+                  variant="contained"
+                  component="span"
+                  size="small"
+                  onChange={(e) => handleLogoImageChange(e)}
+                >
+                  Change Logo
+                </Button>
+              </label>
+            </Box>
+            <Divider variant="middle" />
 
-            {typeof profileState.tempImage1 == "string" ? (
-              <img
-                src={SERVER_URL + profileState.tempImage1}
-                height={"200px"}
-                width={"200px"}
+            {/* primary Color */}
+            <Box
+              sx={{
+                // backgroundColor: "primary.main",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                m: 1,
+              }}
+            >
+              <Typography
+                component="h3"
+                variant="body"
+                sx={{ fontWeight: "bold" }}
+                align="left"
+              >
+                Primary Color :
+              </Typography>
+              <Typography
+                component="p"
+                variant="p"
+                // sx={{ fontWeight: "bold" }}
+                align="left"
+              >
+                {" "}
+                {profileState.primaryColor}{" "}
+              </Typography>
+
+              <input
+                label="change color"
+                type="color"
+                value={profileState.primaryColor}
+                onChange={(e) => {
+                  setProfileState({
+                    ...profileState,
+                    primaryColor: e.target.value,
+                  });
+                }}
               />
-            ) : (
-              <img src={preview1} height={"200px"} width={"200px"} />
-            )}
+            </Box>
 
-            <h3>tempImage2</h3>
-            <input
-              type="file"
-              id="tempImage2"
-              accept="image/png, image/jpeg , image/jpg"
-              onChange={(e) => handleTempImage2Change(e)}
-              // required
-            />
+            {/* Secondary Color */}
+            <Box
+              sx={{
+                // backgroundColor: "primary.main",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                m: 1,
+              }}
+            >
+              <Typography
+                component="h3"
+                variant="body"
+                sx={{ fontWeight: "bold" }}
+                align="left"
+              >
+                Secondary Color :
+              </Typography>
+              <Typography
+                component="p"
+                variant="p"
+                // sx={{ fontWeight: "bold" }}
+                align="left"
+              >
+                {" "}
+                {profileState.secondaryColor}{" "}
+              </Typography>
 
-            {typeof profileState.tempImage2 == "string" ? (
-              <img
-                src={SERVER_URL + profileState.tempImage2}
-                height={"200px"}
-                width={"200px"}
+              <input
+                label="change color"
+                type="color"
+                value={profileState.secondaryColor}
+                onChange={(e) => {
+                  setProfileState({
+                    ...profileState,
+                    secondaryColor: e.target.value,
+                  });
+                }}
               />
-            ) : (
-              <img src={preview2} height={"200px"} width={"200px"} />
-            )}
+            </Box>
 
-            <h3>tempImage3</h3>
-            <input
-              type="file"
-              id="tempImage3"
-              accept="image/png, image/jpeg , image/jpg"
-              onChange={(e) => handleTempImage3Change(e)}
-              // required
-            />
+            <Divider variant="middle" />
 
-            {typeof profileState.tempImage3 == "string" ? (
-              <img
-                src={SERVER_URL + profileState.tempImage3}
-                height={"200px"}
-                width={"200px"}
-              />
-            ) : (
-              <img src={preview3} height={"200px"} width={"200px"} />
-            )}
+            <Typography
+              component="h3"
+              variant="body"
+              sx={{ fontWeight: "bold" }}
+              align="left"
+            >
+              Template Images
+            </Typography>
+
+            <Grid
+              container
+              spacing={{ xs: 2, md: 3 }}
+              columns={{ xs: 4, sm: 8, md: 12 }}
+              sx={{ p: 2 }}
+            >
+              <Grid item xs={2} sm={4} md={4} key={1}>
+                <Paper style={{ width: "100%" }}>
+                  {typeof profileState.tempImage1 == "string" ? (
+                    <img
+                      src={SERVER_URL + profileState.tempImage1}
+                      height={"200px"}
+                      width={"200px"}
+                    />
+                  ) : (
+                    <img src={preview1} height={"200px"} width={"200px"} />
+                  )}
+                  <label htmlFor="btn-upload-temp1">
+                    <input
+                      type="file"
+                      id="tempImage1"
+                      id="btn-upload-temp1"
+                      name="btn-upload-temp1"
+                      accept="image/png, image/jpeg , image/jpg"
+                      style={{ display: "none" }}
+                      onChange={(e) => handleTempImage1Change(e)}
+                      // required
+                    />
+                    {/* <p>Hyeu</p> */}
+                    <Button
+                      className="btn-choose"
+                      variant="contained"
+                      component="span"
+                      size="small"
+                      fullWidth
+                      // onChange={(e) => handleLogoImageChange(e)}
+                    >
+                      Template 1
+                    </Button>
+                  </label>
+                </Paper>
+              </Grid>
+              <Grid item xs={2} sm={4} md={4} key={1}>
+                <Paper style={{ width: "100%" }}>
+                  {typeof profileState.tempImage2 == "string" ? (
+                    <img
+                      src={SERVER_URL + profileState.tempImage2}
+                      height={"200px"}
+                      width={"200px"}
+                    />
+                  ) : (
+                    <img src={preview2} height={"200px"} width={"200px"} />
+                  )}
+                  <label htmlFor="btn-upload-temp1">
+                    <input
+                      type="file"
+                      id="tempImage2"
+                      id="btn-upload-temp2"
+                      name="btn-upload-temp2"
+                      accept="image/png, image/jpeg , image/jpg"
+                      style={{ display: "none" }}
+                      onChange={(e) => handleTempImage2Change(e)}
+                      // required
+                    />
+                    {/* <p>Hyeu</p> */}
+                    <Button
+                      className="btn-choose"
+                      variant="contained"
+                      component="span"
+                      size="small"
+                      fullWidth
+                      // onChange={(e) => handleLogoImageChange(e)}
+                    >
+                      Template 2
+                    </Button>
+                  </label>
+                </Paper>
+              </Grid>
+              <Grid item xs={2} sm={4} md={4} key={1}>
+                <Paper style={{ width: "100%" }}>
+                  {typeof profileState.tempImage3 == "string" ? (
+                    <img
+                      src={SERVER_URL + profileState.tempImage3}
+                      height={"200px"}
+                      width={"200px"}
+                    />
+                  ) : (
+                    <img src={preview3} height={"200px"} width={"200px"} />
+                  )}
+                  <label htmlFor="btn-upload-temp3">
+                    <input
+                      type="file"
+                      id="tempImage3"
+                      id="btn-upload-temp3"
+                      name="btn-upload-temp3"
+                      accept="image/png, image/jpeg , image/jpg"
+                      style={{ display: "none" }}
+                      onChange={(e) => handleTempImage1Change(e)}
+                      // required
+                    />
+                    {/* <p>Hyeu</p> */}
+                    <Button
+                      className="btn-choose"
+                      variant="contained"
+                      component="span"
+                      size="small"
+                      fullWidth
+                      // onChange={(e) => handleLogoImageChange(e)}
+                    >
+                      Template 3
+                    </Button>
+                  </label>
+                </Paper>
+              </Grid>
+            </Grid>
+
+            <Divider variant="middle" />
+
             <TextField
               label="telegramToken"
               multiline
@@ -457,7 +602,9 @@ const Profile = () => {
               onChange={(e) => handleChange(e)}
               // required
             />
-            {/* <input type="submit" name="submit" value="Submit" /> */}
+            <br />
+            <br />
+
             <LoadingButton
               color="primary"
               // onClick={handleClick}
@@ -466,12 +613,15 @@ const Profile = () => {
               endIcon={<UpgradeIcon />}
               variant="contained"
               type="submit"
+              fullWidth
             >
               Update Profile
             </LoadingButton>
-          </form>
-        </Container>
-      </Box>
+          </Box>
+          <br />
+        </Paper>
+        {/* </Box> */}
+      </Container>
     </div>
   );
 };

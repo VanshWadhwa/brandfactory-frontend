@@ -1,4 +1,6 @@
 import "./App.css";
+import "./brand.css";
+
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import ResponsiveAppBar from "./components/layout/ResponsiveAppBar";
 import StickyFooter from "./components/layout/StickyFooter";
