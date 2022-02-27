@@ -340,82 +340,95 @@ const Editor = ({ editorState, setEditorState }) => {
           variant="body2"
           color="text.primary"
         > */}
-        <Box
+        {/* <Box
           sx={{
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            // justify-content: space-between;
-            /* align-content: center; */
-            // align-items: center;
           }}
+        > */}
+        <Grid
+          container
+          // spacing={{ xs: 2, md: 3 }}
+          direction="row"
+          justifyContent="center"
+          spacing={3}
+          alignItems="center"
         >
-          <Typography variant="h4" component="h4" gutterBottom>
-            {/* Loged in as {userEmail} */}
-            Editor
-          </Typography>
-          <ButtonGroup
-          // variant="contained"
-          // ref={anchorRef}
+          <Grid item xs={12} sm={12} md lg>
+            <Typography variant="h4" component="h4" gutterBottom>
+              {/* Loged in as {userEmail} */}
+              Editor
+            </Typography>
+          </Grid>
+          <Grid item xs={12} sm={12} md lg>
+            <ButtonGroup
+            // variant="contained"
+            // ref={anchorRef}
 
-          // aria-label="split button"
-          // fullWidth="true"
-          >
-            <Button
-              variant="text"
-              sx={{ margin: "0px 10px" }}
-              onClick={(e) => {
-                setEditorState({
-                  ...editorState,
-                  title: "",
-                  content: "",
-                  image: null,
-                  imageURL: "",
-                });
-                setPreview("");
-              }}
+            // aria-label="split button"
+            // fullWidth="true"
             >
-              Clear
-            </Button>
-            <LoadingButton
-              color="primary"
-              // onClick={handleClick}
-              loading={reqesting}
-              loadingPosition="start"
-              startIcon={<CloudDownloadIcon />}
-              variant="contained"
-              type="submit"
-              sx={{ margin: "0px 10px" }}
-            >
-              Download
-            </LoadingButton>
-            <Tooltip title="Template style of generated image" placement="top">
-              <Select
-                labelId="demo-simple-select-label"
-                size="small"
-                id="temp"
-                value={editorState.temp}
-                onChange={handleChangeSelect}
+              <Button
+                variant="text"
+                sx={{ margin: "0px 10px" }}
+                onClick={(e) => {
+                  setEditorState({
+                    ...editorState,
+                    title: "",
+                    content: "",
+                    image: null,
+                    imageURL: "",
+                  });
+                  setPreview("");
+                }}
               >
-                <MenuItem value="temp1" id="temp">
-                  Template 1
-                </MenuItem>
-                <MenuItem value="temp2" id="temp">
-                  Template 2
-                </MenuItem>
-                <MenuItem value="temp3" id="temp">
-                  Template 3
-                </MenuItem>
-                <MenuItem value="temp4" id="temp">
-                  Template 4
-                </MenuItem>
-                <MenuItem value="temp5" id="temp">
-                  Qr code
-                </MenuItem>
-              </Select>
-            </Tooltip>
-          </ButtonGroup>
-        </Box>
+                Clear
+              </Button>
+              <LoadingButton
+                color="primary"
+                // onClick={handleClick}
+                loading={reqesting}
+                loadingPosition="start"
+                startIcon={<CloudDownloadIcon />}
+                variant="contained"
+                type="submit"
+                sx={{ margin: "0px 10px" }}
+              >
+                Download
+              </LoadingButton>
+              <Tooltip
+                title="Template style of generated image"
+                placement="top"
+              >
+                <Select
+                  labelId="demo-simple-select-label"
+                  size="small"
+                  id="temp"
+                  value={editorState.temp}
+                  onChange={handleChangeSelect}
+                >
+                  <MenuItem value="temp1" id="temp">
+                    Template 1
+                  </MenuItem>
+                  <MenuItem value="temp2" id="temp">
+                    Template 2
+                  </MenuItem>
+                  <MenuItem value="temp3" id="temp">
+                    Template 3
+                  </MenuItem>
+                  <MenuItem value="temp4" id="temp">
+                    Template 4
+                  </MenuItem>
+                  <MenuItem value="temp5" id="temp">
+                    Qr code
+                  </MenuItem>
+                </Select>
+              </Tooltip>
+            </ButtonGroup>
+          </Grid>
+        </Grid>
+        {/* </Box> */}
 
         <Grid container spacing={2}>
           {/* {userEmail} */}
@@ -458,7 +471,7 @@ const Editor = ({ editorState, setEditorState }) => {
                       ) : (
                         <img
                           style={{
-                            maxWidth: "100%",
+                            maxWidth: "50%",
                             // max-:100%,
                             height: "auto",
                             width: "auto",
@@ -497,7 +510,7 @@ const Editor = ({ editorState, setEditorState }) => {
                       ) : (
                         <img
                           style={{
-                            maxWidth: "100%",
+                            maxWidth: "50%",
                             // max-:100%,
                             height: "auto",
                             width: "auto",

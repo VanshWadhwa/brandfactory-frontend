@@ -1,4 +1,4 @@
-import { Box, Container, Typography } from "@mui/material";
+import { Box, Container, Grid, Typography } from "@mui/material";
 import React, { useState } from "react";
 import Editor from "./Editor";
 import NewsSideBar from "./NewsSideBar";
@@ -32,24 +32,33 @@ const GodModeEditor = () => {
         }}
       >
         {/* <Container component="main" sx={{ mt: 8, mb: 2 }} maxWidth="sm"> */}
-        <Container component="main" maxWidth="md">
-          {/* <Typography variant="h4" component="h4" gutterBottom> */}
-          {/* God Mode Editor */}
-          {/* <NewsList
+        <Grid container spacing={{ xs: 2, md: 3 }}>
+          <Grid item xs={12} sm={12} md={8} lg={8}>
+            <Container component="main" maxWidth="md">
+              {/* <Typography variant="h4" component="h4" gutterBottom> */}
+              {/* God Mode Editor */}
+              {/* <NewsList
               editorState={editorState}
               setEditorState={setEditorState}
             /> */}
-          {/* </Typography> */}
-          <br />
-          <Editor editorState={editorState} setEditorState={setEditorState} />
-        </Container>
+              {/* </Typography> */}
+              <br />
+              <Editor
+                editorState={editorState}
+                setEditorState={setEditorState}
+              />
+            </Container>
+          </Grid>
 
-        {/* <ListView /> */}
+          {/* <ListView /> */}
 
-        <NewsSideBar
-          editorState={editorState}
-          setEditorState={setEditorState}
-        />
+          <Grid item xs={12} sm={12} md={4} lg={4}>
+            <NewsSideBar
+              editorState={editorState}
+              setEditorState={setEditorState}
+            />
+          </Grid>
+        </Grid>
       </Box>
     </div>
   );

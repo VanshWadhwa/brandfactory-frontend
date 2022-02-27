@@ -105,7 +105,7 @@ export default function BasicTabs({ editorState, setEditorState }) {
     fetchDataNewsApi();
   }, []);
   return (
-    <Box sx={{ width: "60%" }}>
+    <Box>
       <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
         <Tabs
           value={value}
