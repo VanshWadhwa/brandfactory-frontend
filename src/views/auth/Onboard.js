@@ -13,6 +13,7 @@ import {
   Typography,
   TextField,
   Grid,
+  Paper,
 } from "@mui/material";
 
 import { ChromePicker } from "react-color";
@@ -426,67 +427,118 @@ const AddTemplateImages = ({ profileState, setProfileState }) => {
             </Container>
           </Box>
         </Grid>
+
         <Grid item xs={6}>
-          <h3>TempImage 1</h3>
-          <input
-            type="file"
-            id="tempImage1"
-            accept="image/png, image/jpeg , image/jpg"
-            onChange={(e) => handleTempImage1Change(e)}
-            // required
-          />
-
-          {typeof profileState.tempImage1 == "string" ? (
-            <img
-              src={SERVER_URL + profileState.tempImage1}
-              height={"200px"}
-              width={"200px"}
-            />
-          ) : (
-            <img src={preview1} height={"200px"} width={"200px"} />
-          )}
-
-          <h3>tempImage2</h3>
-          <input
-            type="file"
-            id="tempImage2"
-            accept="image/png, image/jpeg , image/jpg"
-            onChange={(e) => handleTempImage2Change(e)}
-            // required
-          />
-
-          {typeof profileState.tempImage2 == "string" ? (
-            <img
-              src={SERVER_URL + profileState.tempImage2}
-              height={"200px"}
-              width={"200px"}
-            />
-          ) : (
-            <img src={preview2} height={"200px"} width={"200px"} />
-          )}
-
-          <h3>tempImage3</h3>
-          <input
-            type="file"
-            id="tempImage3"
-            accept="image/png, image/jpeg , image/jpg"
-            onChange={(e) => handleTempImage3Change(e)}
-            // required
-          />
-
-          {typeof profileState.tempImage3 == "string" ? (
-            <img
-              src={SERVER_URL + profileState.tempImage3}
-              height={"200px"}
-              width={"200px"}
-            />
-          ) : (
-            <img src={preview3} height={"200px"} width={"200px"} />
-          )}
-          {/* <Typography variant="h5" component="h4" gutterBottom>
-            Template 1 Image
-          </Typography>
-          <input type="file" /> */}
+          <Grid container spacing={3}>
+            <Grid item key={1}>
+              <Paper>
+                {typeof profileState.tempImage1 == "string" ? (
+                  <img
+                    src={SERVER_URL + profileState.tempImage1}
+                    height={"150px"}
+                    width={"150px"}
+                  />
+                ) : (
+                  <img src={preview1} height={"150px"} width={"150px"} />
+                )}
+                <label htmlFor="btn-upload-temp1">
+                  <input
+                    type="file"
+                    id="tempImage1"
+                    id="btn-upload-temp1"
+                    name="btn-upload-temp1"
+                    accept="image/png, image/jpeg , image/jpg"
+                    style={{ display: "none" }}
+                    onChange={(e) => handleTempImage1Change(e)}
+                    // required
+                  />
+                  {/* <p>Hyeu</p> */}
+                  <Button
+                    className="btn-choose"
+                    variant="contained"
+                    component="span"
+                    size="small"
+                    fullWidth
+                    // onChange={(e) => handleLogoImageChange(e)}
+                  >
+                    Template 1
+                  </Button>
+                </label>
+              </Paper>
+            </Grid>
+            <Grid item key={2}>
+              <Paper>
+                {typeof profileState.tempImage2 == "string" ? (
+                  <img
+                    src={SERVER_URL + profileState.tempImage2}
+                    height={"150px"}
+                    width={"150px"}
+                  />
+                ) : (
+                  <img src={preview2} height={"150px"} width={"150px"} />
+                )}
+                <label htmlFor="btn-upload-temp1">
+                  <input
+                    type="file"
+                    id="tempImage2"
+                    id="btn-upload-temp2"
+                    name="btn-upload-temp2"
+                    accept="image/png, image/jpeg , image/jpg"
+                    style={{ display: "none" }}
+                    onChange={(e) => handleTempImage2Change(e)}
+                    // required
+                  />
+                  {/* <p>Hyeu</p> */}
+                  <Button
+                    className="btn-choose"
+                    variant="contained"
+                    component="span"
+                    size="small"
+                    fullWidth
+                    // onChange={(e) => handleLogoImageChange(e)}
+                  >
+                    Template 2
+                  </Button>
+                </label>
+              </Paper>
+            </Grid>
+            <Grid item key={3}>
+              <Paper>
+                {typeof profileState.tempImage3 == "string" ? (
+                  <img
+                    src={SERVER_URL + profileState.tempImage3}
+                    height={"150px"}
+                    width={"150px"}
+                  />
+                ) : (
+                  <img src={preview3} height={"150px"} width={"150px"} />
+                )}
+                <label htmlFor="btn-upload-temp3">
+                  <input
+                    type="file"
+                    id="tempImage3"
+                    id="btn-upload-temp3"
+                    name="btn-upload-temp3"
+                    accept="image/png, image/jpeg , image/jpg"
+                    style={{ display: "none" }}
+                    onChange={(e) => handleTempImage1Change(e)}
+                    // required
+                  />
+                  {/* <p>Hyeu</p> */}
+                  <Button
+                    className="btn-choose"
+                    variant="contained"
+                    component="span"
+                    size="small"
+                    fullWidth
+                    // onChange={(e) => handleLogoImageChange(e)}
+                  >
+                    Template 3
+                  </Button>
+                </label>
+              </Paper>
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     </Box>
@@ -705,72 +757,74 @@ export default function Onboard() {
         p: 3,
       }}
     >
-      <Stepper activeStep={activeStep}>
-        {steps.map((label, index) => {
-          const stepProps = {};
-          const labelProps = {};
-          if (isStepOptional(index)) {
-            labelProps.optional = (
-              <Typography variant="caption">Optional</Typography>
+      <Paper style={{ width: "100%", padding: "10px" }}>
+        <Stepper activeStep={activeStep}>
+          {steps.map((label, index) => {
+            const stepProps = {};
+            const labelProps = {};
+            if (isStepOptional(index)) {
+              labelProps.optional = (
+                <Typography variant="caption">Optional</Typography>
+              );
+            }
+            if (isStepSkipped(index)) {
+              stepProps.completed = false;
+            }
+            return (
+              <Step key={label} {...stepProps}>
+                <StepLabel {...labelProps}>{label}</StepLabel>
+              </Step>
             );
-          }
-          if (isStepSkipped(index)) {
-            stepProps.completed = false;
-          }
-          return (
-            <Step key={label} {...stepProps}>
-              <StepLabel {...labelProps}>{label}</StepLabel>
-            </Step>
-          );
-        })}
-      </Stepper>
-      {activeStep === steps.length ? (
-        <React.Fragment>
-          {
-            // (console.log("handing submit in fragments 1"),
-            // () =>handleSubmit
-            // handleSubmit()
-            // console.log("handing submit in fragments 2")
-          }
+          })}
+        </Stepper>
+        {activeStep === steps.length ? (
+          <React.Fragment>
+            {
+              // (console.log("handing submit in fragments 1"),
+              // () =>handleSubmit
+              // handleSubmit()
+              // console.log("handing submit in fragments 2")
+            }
 
-          <StepperFinish />
-          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-            <Box sx={{ flex: "1 1 auto" }} />
-            {/* <Button onClick={handleReset}>Reset</Button> */}
-            <Button component={Link} to="/editor">
-              Editor
-            </Button>
-          </Box>
-        </React.Fragment>
-      ) : (
-        <React.Fragment>
-          {/* <Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography>
-          <Typography sx={{ mt: 2, mb: 1 }}> */}
-          {stepsComponents[activeStep]}
-          {/* </Typography> */}
-
-          <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
-            <Button
-              color="inherit"
-              disabled={activeStep === 0}
-              onClick={handleBack}
-              sx={{ mr: 1 }}
-            >
-              Back
-            </Button>
-            <Box sx={{ flex: "1 1 auto" }} />
-            {isStepOptional(activeStep) && (
-              <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
-                Skip
+            <StepperFinish />
+            <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+              <Box sx={{ flex: "1 1 auto" }} />
+              {/* <Button onClick={handleReset}>Reset</Button> */}
+              <Button component={Link} to="/editor">
+                Editor
               </Button>
-            )}
+            </Box>
+          </React.Fragment>
+        ) : (
+          <React.Fragment>
+            {/* <Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography>
+          <Typography sx={{ mt: 2, mb: 1 }}> */}
+            {stepsComponents[activeStep]}
+            {/* </Typography> */}
 
-            <Button onClick={handleNext}>
-              {activeStep === steps.length - 1 ? "Finish" : "Next"}
-            </Button>
-          </Box>
-        </React.Fragment>
-      )}
+            <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
+              <Button
+                color="inherit"
+                disabled={activeStep === 0}
+                onClick={handleBack}
+                sx={{ mr: 1 }}
+              >
+                Back
+              </Button>
+              <Box sx={{ flex: "1 1 auto" }} />
+              {isStepOptional(activeStep) && (
+                <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
+                  Skip
+                </Button>
+              )}
+
+              <Button onClick={handleNext}>
+                {activeStep === steps.length - 1 ? "Finish" : "Next"}
+              </Button>
+            </Box>
+          </React.Fragment>
+        )}
+      </Paper>
     </Box>
   );
 }
