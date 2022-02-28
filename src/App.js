@@ -13,14 +13,57 @@ import Signup from "./views/auth/Signup";
 import NotFound from "./views/NotFound";
 import GodModeEditor from "./views/editor/GodModeEditor";
 import Onboard from "./views/auth/Onboard";
-import { createContext, useState } from "react";
+import { createContext, useContext, useMemo, useState } from "react";
 import { SnackbarProvider } from "notistack";
+import CssBaseline from "@mui/material/CssBaseline";
 
 import { Alert, Snackbar } from "@mui/material";
+import { useTheme, ThemeProvider, createTheme } from "@mui/material/styles";
+
+export const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
 export const SnackbarContext = createContext({});
 
 function App() {
+  const [mode, setMode] = useState("light");
+  const colorMode = useMemo(
+    () => ({
+      toggleColorMode: () => {
+        setMode((prevMode) => (prevMode === "light" ? "dark" : "light"));
+      },
+    }),
+    []
+  );
+
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode,
+          // background: {
+          //   default: "#e4f0e2",
+          //   light: "#ff7961",
+          //   main: "#f44336",
+          //   dark: "#ba000d",
+          //   contrastText: "#000",
+          // },
+
+          primary: {
+            light: "#757ce8",
+            main: "#3f50b5",
+            dark: "#002884",
+            contrastText: "#fff",
+          },
+          secondary: {
+            light: "#ff7961",
+            main: "#f44336",
+            dark: "#ba000d",
+            contrastText: "#000",
+          },
+        },
+      }),
+    [mode]
+  );
   const [snack, setSnack] = useState({
     message: "",
     color: "",
@@ -28,27 +71,39 @@ function App() {
   });
   return (
     <BrowserRouter>
-      <SnackbarProvider>
-        <div className="App">
-          <ResponsiveAppBar />
-          {/* <Home /> */}
+      <ColorModeContext.Provider value={colorMode}>
+        <ThemeProvider theme={theme}>
+          <SnackbarProvider>
+            <CssBaseline />
+            <div
+              className="App"
+              style={
+                {
+                  // backgroundColor: theme.palette,
+                }
+              }
+            >
+              <ResponsiveAppBar />
+              {/* <Home /> */}
 
-          <Routes>
-            <Route path="*" element={<NotFound />} />
-            <Route path="/" element={<Home />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/editor" element={<GodModeEditor />} />
-            <Route path="/profile" element={<Profile />} />
+              <Routes>
+                <Route path="*" element={<NotFound />} />
+                <Route path="/" element={<Home />} />
+                <Route path="/home" element={<Home />} />
+                <Route path="/editor" element={<GodModeEditor />} />
+                <Route path="/profile" element={<Profile />} />
 
-            <Route path="/login" element={<Login />} />
-            <Route path="/logout" element={<Logout />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/onboard" element={<Onboard />} />
-          </Routes>
-          <StickyFooter />
-        </div>
-        {/* </SnackbarContext.Provider> */}
-      </SnackbarProvider>
+                <Route path="/login" element={<Login />} />
+                <Route path="/logout" element={<Logout />} />
+                <Route path="/signup" element={<Signup />} />
+                <Route path="/onboard" element={<Onboard />} />
+              </Routes>
+              <StickyFooter />
+            </div>
+            {/* </SnackbarContext.Provider> */}
+          </SnackbarProvider>
+        </ThemeProvider>
+      </ColorModeContext.Provider>
     </BrowserRouter>
   );
 }

@@ -71,90 +71,91 @@ const Login = () => {
   };
 
   return (
-    // <Box>
-    <Container
-      component="main"
-      maxWidth="sm"
-      sx={{ minHeight: "90vh" }}
-      style={{ display: "flex", justifyContent: "center" }}
-    >
-      {errors === true && (
-        <h2>
-          Cannot log in with provided credentials
-          {errors}
-        </h2>
-      )}
-      {loading === false && (
-        <Paper
-          style={
-            {
-              // backgroundColor: "pink",
+    <Box className="bg-shapes">
+      <Container
+        component="main"
+        maxWidth="sm"
+        sx={{ minHeight: "90vh" }}
+        style={{ display: "flex", justifyContent: "center" }}
+      >
+        {errors === true && (
+          <h2>
+            Cannot log in with provided credentials
+            {errors}
+          </h2>
+        )}
+        {loading === false && (
+          <Paper
+            style={
+              {
+                // backgroundColor: "pink",
+              }
             }
-          }
-          sx={{ p: 4, m: "auto" }}
-        >
-          <Typography component="h1" variant="h3">
-            Login
-          </Typography>
-          <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 3 }}>
-            <TextField
-              required
-              fullWidth
-              autoFocus
-              name="email"
-              type="email"
-              value={email}
-              required
-              margin="dense"
-              variant="outlined"
-              label="Email"
-              size="small"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <TextField
-              required
-              fullWidth
-              autoFocus
-              name="password"
-              type="password"
-              value={password}
-              required
-              onChange={(e) => setPassword(e.target.value)}
-              margin="dense"
-              variant="outlined"
-              label="Password"
-              size="small"
-            />
-            <br />
-            <br />
-
-            <Button
-              variant="contained"
-              type="submit"
-              fullWidth
-              endIcon={<LoginIcon />}
-            >
+            sx={{ p: 4, m: "auto" }}
+          >
+            <Typography component="h1" variant="h3">
               Login
-            </Button>
-          </Box>
-          <br />
-
-          <Divider variant="middle" />
-          <br />
-          <>
-            <Typography component="p" variant="body2">
-              Don't have an account?
-              <Link to="/signup">
-                <Button variant="text" to="/signup">
-                  Sign Up
-                </Button>
-              </Link>
             </Typography>
-          </>
-        </Paper>
-      )}
-      {/* </Box> */}
-    </Container>
+            <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 3 }}>
+              <TextField
+                required
+                fullWidth
+                autoFocus
+                name="email"
+                type="email"
+                value={email}
+                required
+                margin="dense"
+                variant="outlined"
+                label="Email"
+                size="small"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <TextField
+                required
+                fullWidth
+                autoFocus
+                name="password"
+                type="password"
+                value={password}
+                required
+                onChange={(e) => setPassword(e.target.value)}
+                margin="dense"
+                variant="outlined"
+                label="Password"
+                size="small"
+              />
+              <br />
+              <br />
+
+              <Button
+                variant="contained"
+                type="submit"
+                fullWidth
+                endIcon={<LoginIcon />}
+              >
+                Login
+              </Button>
+            </Box>
+            <br />
+
+            <Divider variant="middle" />
+            <br />
+            <>
+              <Typography component="p" variant="body2">
+                Don't have an account?
+                <Link to="/signup">
+                  <Button variant="text" to="/signup">
+                    Sign Up
+                  </Button>
+                </Link>
+              </Typography>
+            </>
+          </Paper>
+        )}
+        {/* </Box> */}
+      </Container>
+    </Box>
   );
 };
 

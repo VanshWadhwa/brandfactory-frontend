@@ -306,12 +306,13 @@ const Profile = () => {
   };
 
   return (
-    <div>
+    // <Box>
+    <Box className="bg-shapes">
       <Container
         component="main"
-        maxWidth="md"
+        maxWidth="lg"
         sx={{ minHeight: "90vh" }}
-        sx={{ mt: 2, mb: 2 }}
+        sx={{ mt: 5, mb: 10 }}
         style={{ display: "flex", justifyContent: "left" }}
       >
         <Paper sx={{ p: 2, m: "auto" }}>
@@ -617,7 +618,7 @@ const Profile = () => {
               endIcon={<UpgradeIcon />}
               variant="contained"
               type="submit"
-              fullWidth
+              // fullWidth
             >
               Update Profile
             </LoadingButton>
@@ -626,7 +627,7 @@ const Profile = () => {
         </Paper>
         {/* </Box> */}
       </Container>
-    </div>
+    </Box>
   );
 };
 

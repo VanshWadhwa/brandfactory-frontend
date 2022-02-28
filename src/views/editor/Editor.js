@@ -594,6 +594,7 @@ const Editor = ({ editorState, setEditorState }) => {
                 {editorDisplayState.showTitleTextPosition && (
                   <>
                     <FormLabel id="">Title Text Position</FormLabel>
+                    <br />
                     <ToggleButtonGroup
                       size="small"
                       color="primary"

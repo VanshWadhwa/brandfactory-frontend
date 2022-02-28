@@ -74,7 +74,7 @@ const Signup = () => {
   };
 
   return (
-    <div>
+    <Box className="bg-shapes">
       <Container
         component="main"
         maxWidth="sm"
@@ -167,7 +167,7 @@ const Signup = () => {
         )}
         {/* </Box> */}
       </Container>
-    </div>
+    </Box>
   );
 };
 

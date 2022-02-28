@@ -29,52 +29,76 @@ const Home = () => {
         {/* <Typography variant="h2" component="h1" gutterBottom>
             Home Component
           </Typography> */}
-        <Grid container>
-          <Grid
-            item
-            xs={12}
-            sm={12}
-            md={6}
-            lg={6}
+
+        <Grid
+          container
+          className="hero"
+          alignContent="center"
+          justifyContent="center"
+        >
+          <Box
+            maxWidth="lg"
             sx={{ minHeight: "90vh" }}
             style={{
               display: "flex",
-              flexDirection: "column",
+              // flexDirection: "column",
               justifyContent: "center",
+              alignItems: "center",
             }}
           >
-            <Typography variant="h1" component="h1" align="left">
-              Brand Folder
-            </Typography>
-            <Typography variant="h6" component="h6" align="left">
-              Create Easy To Go Content
-            </Typography>
-            <ButtonGroup fullWidth>
-              <Button variant="contained" sx={{ margin: "0px 10px" }}>
-                Get Started
-              </Button>
-              <Button variant="text" sx={{ margin: "0px 10px" }}>
-                Clear
-              </Button>
-            </ButtonGroup>
-          </Grid>
-
-          <Grid item xs={12} sm={12} md={6} lg={6}>
-            <img
+            <Grid
+              item
+              xs={12}
+              sm={12}
+              md={6}
+              lg={6}
+              sx={{ minHeight: "90vh" }}
               style={{
-                maxWidth: "100%",
-                // max-:100%,
-                height: "auto",
-                width: "auto",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
               }}
-              src={HeroImage}
-            />
-          </Grid>
-        </Grid>
+            >
+              <Typography variant="h1" component="h1" align="left">
+                Brand Folder
+              </Typography>
+              <Typography variant="h6" component="h6" align="left">
+                Create Easy To Go Content
+              </Typography>
+              <ButtonGroup fullWidth>
+                <Button variant="contained" sx={{ margin: "0px 10px" }}>
+                  Get Started
+                </Button>
+                <Button variant="text" sx={{ margin: "0px 10px" }}>
+                  Clear
+                </Button>
+              </ButtonGroup>
+            </Grid>
 
+            <Grid item xs={12} sm={12} md={6} lg={6}>
+              <img
+                style={{
+                  maxWidth: "100%",
+                  // max-:100%,
+                  height: "auto",
+                  width: "auto",
+                }}
+                src={HeroImage}
+              />
+            </Grid>
+          </Box>
+        </Grid>
         {/* sec-1 editor */}
         {/* <Box className="bg-blob1 bg-blob"> */}
         <Grid container className="bg-blob1 bg-blob">
+          <Grid item xs={12} sm={12} md={12} lg={12} mt={5}>
+            <Typography variant="h2" component="h2" color={"#fff"}>
+              Solutions We Provide
+            </Typography>
+            <Typography variant="h6" component="h6" color={"#fff"}>
+              A Complete Suit
+            </Typography>
+          </Grid>
           <Grid item xs={12} sm={12} md={6} lg={6}>
             <img
               style={{
@@ -86,6 +110,7 @@ const Home = () => {
               src={HeroImage}
             />
           </Grid>
+
           <Grid
             item
             xs={12}
@@ -122,7 +147,6 @@ const Home = () => {
           </Grid>
         </Grid>
         {/* </Box> */}
-
         {/* sec-2 Chrome extenstion */}
         {/* <Box className="bg-blob2 bg-blob"> */}
         <Grid container className="bg-blob2 bg-blob">
@@ -173,7 +197,6 @@ const Home = () => {
           </Grid>
         </Grid>
         {/* </Box> */}
-
         {/* sec-3 Inbuilt News */}
         <Grid container className="bg-blob1 bg-blob">
           <Grid item xs={12} sm={12} md={6} lg={6}>
@@ -222,7 +245,6 @@ const Home = () => {
             </Box>
           </Grid>
         </Grid>
-
         {/* sec-4 Customised */}
         <Grid container className="bg-blob2 bg-blob">
           <Grid
@@ -271,10 +293,9 @@ const Home = () => {
             />
           </Grid>
         </Grid>
-
         <Grid item item xs={12} sm={12} md={12} lg={12}>
           <Box
-            sx={{ minHeight: "90vh" }}
+            sx={{ minHeight: "100vh" }}
             style={{
               display: "flex",
               flexDirection: "column",
@@ -296,9 +317,8 @@ const Home = () => {
             </ButtonGroup>
           </Box>
         </Grid>
-
         {/* sec opt */}
-        <Grid container justifyContent="center" alignItems="center" spacing={2}>
+        {/* <Grid container justifyContent="center" alignItems="center" spacing={2}>
           <Grid item xs={12} sm={12} md={12} lg={12}>
             <Typography variant="h4" component="h4">
               Solutions We Provide
@@ -358,7 +378,7 @@ const Home = () => {
               </Typography>
             </Paper>
           </Grid>
-        </Grid>
+        </Grid> */}
         {/* </Container> */}
         {/* <div className="shapedividers_com-5655"> hey </div> */}
         {/* <divider1 /> */}

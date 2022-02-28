@@ -22,6 +22,8 @@ function Copyright() {
     </Typography>
   );
 }
+// FBAE3C
+// 001220
 
 export default function StickyFooter() {
   return (
@@ -44,7 +46,7 @@ export default function StickyFooter() {
           //       ? theme.palette.grey[200]
           //       : theme.palette.grey[800],
           //
-          backgroundColor: "#0066FF",
+          backgroundColor: "secondary",
         }}
       >
         <Grid container>

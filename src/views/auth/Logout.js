@@ -1,4 +1,4 @@
-import { Button, Container, Paper, Typography } from "@mui/material";
+import { Box, Button, Container, Paper, Typography } from "@mui/material";
 import React, { useState, useEffect, Fragment } from "react";
 import useNotification from "../../components/layout/Snackbar";
 import LogoutIcon from "@mui/icons-material/Logout";
@@ -41,7 +41,7 @@ const Logout = () => {
   };
 
   return (
-    <div>
+    <Box className="bg-shapes">
       {loading === false && (
         <Container
           component="main"
@@ -79,7 +79,7 @@ const Logout = () => {
           {/* </Box> */}
         </Container>
       )}
-    </div>
+    </Box>
   );
 };
 
