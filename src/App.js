@@ -26,6 +26,9 @@ export const SnackbarContext = createContext({});
 
 function App() {
   const [mode, setMode] = useState("light");
+  const localTheme = localStorage.getItem("theme");
+  console.log("theme");
+  console.log(localTheme);
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {

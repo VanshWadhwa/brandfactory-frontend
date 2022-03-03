@@ -15,7 +15,7 @@ export default function ListView({ newsList, editorState, setEditorState }) {
         width: "100%",
         maxWidth: "100%",
         bgcolor: "background.paper",
-        maxHeight: "70vh",
+        maxHeight: "80vh",
         // p: "10",
         // position:"absol"
         overflow: "auto",

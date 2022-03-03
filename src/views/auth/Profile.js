@@ -530,7 +530,7 @@ const Profile = () => {
                   ) : (
                     <img src={preview2} height={"200px"} width={"200px"} />
                   )}
-                  <label htmlFor="btn-upload-temp1">
+                  <label htmlFor="btn-upload-temp2">
                     <input
                       type="file"
                       id="tempImage2"
@@ -574,7 +574,7 @@ const Profile = () => {
                       name="btn-upload-temp3"
                       accept="image/png, image/jpeg , image/jpg"
                       style={{ display: "none" }}
-                      onChange={(e) => handleTempImage1Change(e)}
+                      onChange={(e) => handleTempImage3Change(e)}
                       // required
                     />
                     {/* <p>Hyeu</p> */}

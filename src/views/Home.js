@@ -11,6 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import HeroImage from "../img/landingPage/Saly-13.png";
+import editorDemo from "../img/landingPage/editorDemo.png";
 import divider1 from "../img/landingPage/divider.svg";
 
 import React from "react";
@@ -104,10 +105,10 @@ const Home = () => {
               style={{
                 maxWidth: "100%",
                 // max-:100%,
-                height: "auto",
+                height: "600px",
                 width: "auto",
               }}
-              src={HeroImage}
+              src={editorDemo}
             />
           </Grid>
 
