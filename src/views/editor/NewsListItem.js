@@ -53,7 +53,7 @@ const NewsListItem = ({ news, editorState, setEditorState }) => {
             <ArrowCircleLeftIcon size="large" sx={{ transform: "scale(2)" }} />
           </Fab>
         </Tooltip>
-        <Card sx={{ p: 1, m: 1, ml: 4, pl: 4 }} alignItems="flex-start">
+        <Card sx={{ p: 1, m: 1, ml: 4, pl: 4 }}>
           <img
             style={{
               // maxWidth: "200px",

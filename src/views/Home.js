@@ -1,17 +1,12 @@
-import {
-  Box,
-  Button,
-  ButtonGroup,
-  Card,
-  Container,
-  Grid,
-  ImageList,
-  ImageListItem,
-  Paper,
-  Typography,
-} from "@mui/material";
+import { Box, Button, ButtonGroup, Grid, Typography } from "@mui/material";
 import HeroImage from "../img/landingPage/Saly-13.png";
+import CustomisedImage from "../img/landingPage/Saly-23.png";
+import NewsImage from "../img/landingPage/news.jpeg";
+import { Link } from "react-router-dom";
+
 import editorDemo from "../img/landingPage/editorDemo.png";
+import chromeWebkitLogo from "../img/landingPage/chromeWebkitLogo.png";
+
 import divider1 from "../img/landingPage/divider.svg";
 
 import React from "react";
@@ -31,63 +26,63 @@ const Home = () => {
             Home Component
           </Typography> */}
 
-        <Grid
-          container
-          className="hero"
-          alignContent="center"
-          justifyContent="center"
-        >
-          <Box
+        <Grid container className="hero">
+          {/* <Box
             maxWidth="lg"
-            sx={{ minHeight: "90vh" }}
+            sx={{ minHeight: "70vh" }}
             style={{
               display: "flex",
               // flexDirection: "column",
               justifyContent: "center",
               alignItems: "center",
             }}
+          > */}
+          <Grid
+            item
+            xs={12}
+            sm={12}
+            md={6}
+            lg={6}
+            sx={{ minHeight: "70vh" }}
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              padding: "50px",
+            }}
           >
-            <Grid
-              item
-              xs={12}
-              sm={12}
-              md={6}
-              lg={6}
-              sx={{ minHeight: "90vh" }}
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-              }}
-            >
-              <Typography variant="h1" component="h1" align="left">
-                Brand Folder
-              </Typography>
-              <Typography variant="h6" component="h6" align="left">
-                Create Easy To Go Content
-              </Typography>
-              <ButtonGroup fullWidth>
-                <Button variant="contained" sx={{ margin: "0px 10px" }}>
-                  Get Started
-                </Button>
-                <Button variant="text" sx={{ margin: "0px 10px" }}>
-                  Clear
-                </Button>
-              </ButtonGroup>
-            </Grid>
+            <Typography variant="h1" component="h1" align="left" color={"#fff"}>
+              Brand Folder
+            </Typography>
+            <Typography variant="h6" component="h6" align="left" color={"#fff"}>
+              Create Easy To Go Content
+            </Typography>
+            <ButtonGroup fullWidth>
+              <Button variant="contained" component={Link} to="/editor">
+                Get Started
+              </Button>
+              <Button
+                variant="text"
+                sx={{ margin: "0px 10px" }}
+                component={Link}
+                to="/login"
+              >
+                Login
+              </Button>
+            </ButtonGroup>
+          </Grid>
 
-            <Grid item xs={12} sm={12} md={6} lg={6}>
-              <img
-                style={{
-                  maxWidth: "100%",
-                  // max-:100%,
-                  height: "auto",
-                  width: "auto",
-                }}
-                src={HeroImage}
-              />
-            </Grid>
-          </Box>
+          <Grid item xs={12} sm={12} md={6} lg={6}>
+            <img
+              style={{
+                maxWidth: "100%",
+                height: "auto",
+                width: "auto",
+              }}
+              src={HeroImage}
+            />
+          </Grid>
+          {/* </Box> */}
         </Grid>
         {/* sec-1 editor */}
         {/* <Box className="bg-blob1 bg-blob"> */}
@@ -97,7 +92,7 @@ const Home = () => {
               Solutions We Provide
             </Typography>
             <Typography variant="h6" component="h6" color={"#fff"}>
-              A Complete Suit
+              A Complete Suit For All Your Needs
             </Typography>
           </Grid>
           <Grid item xs={12} sm={12} md={6} lg={6}>
@@ -119,13 +114,12 @@ const Home = () => {
             md={6}
             lg={6}
             // sx={{
-            //   minHeight: "90vh",
+            //   minHeight: "70vh",
             // }}
             justifyContent="center"
-            alignItems="center"
           >
             <Box
-              sx={{ minHeight: "90vh" }}
+              sx={{ minHeight: "70vh" }}
               style={{
                 display: "flex",
                 flexDirection: "column",
@@ -139,11 +133,16 @@ const Home = () => {
               <Typography variant="h6" component="h6" color={"#fff"}>
                 One Stop Editor
               </Typography>
-              <ButtonGroup>
-                <Button variant="contained" sx={{ margin: "0px 10px" }}>
-                  Get Started
-                </Button>
-              </ButtonGroup>
+              {/* <ButtonGroup> */}
+              <Button
+                variant="contained"
+                sx={{ margin: "0px 10px" }}
+                component={Link}
+                to="/editor"
+              >
+                Go To Editor
+              </Button>
+              {/* </ButtonGroup> */}
             </Box>
           </Grid>
         </Grid>
@@ -151,20 +150,9 @@ const Home = () => {
         {/* sec-2 Chrome extenstion */}
         {/* <Box className="bg-blob2 bg-blob"> */}
         <Grid container className="bg-blob2 bg-blob">
-          <Grid
-            item
-            xs={12}
-            sm={12}
-            md={6}
-            lg={6}
-            // sx={{
-            //   minHeight: "90vh",
-            // }}
-            justifyContent="center"
-            alignItems="center"
-          >
+          <Grid item xs={12} sm={12} md={6} lg={6} justifyContent="center">
             <Box
-              sx={{ minHeight: "90vh" }}
+              sx={{ minHeight: "70vh" }}
               style={{
                 display: "flex",
                 flexDirection: "column",
@@ -178,11 +166,15 @@ const Home = () => {
               <Typography variant="h6" component="h6" color={"#fff"}>
                 Chrome Extention
               </Typography>
-              <ButtonGroup>
-                <Button variant="contained" sx={{ margin: "0px 10px" }}>
-                  Add to chrome
-                </Button>
-              </ButtonGroup>
+              <Button
+                variant="contained"
+                sx={{ margin: "0px 10px" }}
+                component={Link}
+                to="/chrome"
+                disabled
+              >
+                Add to chrome
+              </Button>
             </Box>
           </Grid>
           <Grid item xs={12} sm={12} md={6} lg={6}>
@@ -193,7 +185,7 @@ const Home = () => {
                 height: "auto",
                 width: "auto",
               }}
-              src={HeroImage}
+              src={chromeWebkitLogo}
             />
           </Grid>
         </Grid>
@@ -208,7 +200,7 @@ const Home = () => {
                 height: "auto",
                 width: "auto",
               }}
-              src={HeroImage}
+              src={NewsImage}
             />
           </Grid>
           <Grid
@@ -218,13 +210,12 @@ const Home = () => {
             md={6}
             lg={6}
             // sx={{
-            //   minHeight: "90vh",
+            //   minHeight: "70vh",
             // }}
             justifyContent="center"
-            alignItems="center"
           >
             <Box
-              sx={{ minHeight: "90vh" }}
+              sx={{ minHeight: "70vh" }}
               style={{
                 display: "flex",
                 flexDirection: "column",
@@ -238,11 +229,16 @@ const Home = () => {
               <Typography variant="h6" component="h6" color={"#fff"}>
                 In built News
               </Typography>
-              <ButtonGroup>
-                <Button variant="contained" sx={{ margin: "0px 10px" }}>
-                  Get Started
-                </Button>
-              </ButtonGroup>
+              {/* <ButtonGroup> */}
+              <Button
+                variant="contained"
+                sx={{ margin: "0px 10px" }}
+                component={Link}
+                to="/Editor"
+              >
+                Go To News
+              </Button>
+              {/* </ButtonGroup> */}
             </Box>
           </Grid>
         </Grid>
@@ -255,13 +251,12 @@ const Home = () => {
             md={6}
             lg={6}
             // sx={{
-            //   minHeight: "90vh",
+            //   minHeight: "70vh",
             // }}
             justifyContent="center"
-            alignItems="center"
           >
             <Box
-              sx={{ minHeight: "90vh" }}
+              sx={{ minHeight: "70vh" }}
               style={{
                 display: "flex",
                 flexDirection: "column",
@@ -275,11 +270,16 @@ const Home = () => {
               <Typography variant="h6" component="h6" color={"#fff"}>
                 Highly customisable
               </Typography>
-              <ButtonGroup>
-                <Button variant="contained" sx={{ margin: "0px 10px" }}>
-                  Customise
-                </Button>
-              </ButtonGroup>
+              {/* <ButtonGroup> */}
+              <Button
+                variant="contained"
+                sx={{ margin: "0px 10px" }}
+                component={Link}
+                to="/profile"
+              >
+                Customise
+              </Button>
+              {/* </ButtonGroup> */}
             </Box>
           </Grid>
           <Grid item xs={12} sm={12} md={6} lg={6}>
@@ -290,13 +290,13 @@ const Home = () => {
                 height: "auto",
                 width: "auto",
               }}
-              src={HeroImage}
+              src={CustomisedImage}
             />
           </Grid>
         </Grid>
         <Grid item item xs={12} sm={12} md={12} lg={12}>
           <Box
-            sx={{ minHeight: "100vh" }}
+            sx={{ minHeight: "40vh" }}
             style={{
               display: "flex",
               flexDirection: "column",
@@ -312,14 +312,28 @@ const Home = () => {
               Start Making Your Life Simpler
             </Typography>
             <ButtonGroup>
-              <Button variant="contained" sx={{ margin: "0px 10px" }}>
-                Get Started
+              <Button
+                variant="contained"
+                sx={{ margin: "0px 10px" }}
+                component={Link}
+                to="/login"
+              >
+                Login
+              </Button>
+
+              <Button
+                variant="contained"
+                sx={{ margin: "0px 10px" }}
+                component={Link}
+                to="/signupt"
+              >
+                Sign Up
               </Button>
             </ButtonGroup>
           </Box>
         </Grid>
         {/* sec opt */}
-        {/* <Grid container justifyContent="center" alignItems="center" spacing={2}>
+        {/* <Grid container justifyContent="center" spacing={2}>
           <Grid item xs={12} sm={12} md={12} lg={12}>
             <Typography variant="h4" component="h4">
               Solutions We Provide

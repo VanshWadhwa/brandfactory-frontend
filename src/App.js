@@ -5,7 +5,6 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import ResponsiveAppBar from "./components/layout/ResponsiveAppBar";
 import StickyFooter from "./components/layout/StickyFooter";
 import Home from "./views/Home";
-import Editor from "./views/editor/Editor";
 import Profile from "./views/auth/Profile";
 import Login from "./views/auth/Login";
 import Logout from "./views/auth/Logout";
@@ -13,7 +12,7 @@ import Signup from "./views/auth/Signup";
 import NotFound from "./views/NotFound";
 import GodModeEditor from "./views/editor/GodModeEditor";
 import Onboard from "./views/auth/Onboard";
-import { createContext, useContext, useMemo, useState } from "react";
+import { createContext, useEffect, useMemo, useState } from "react";
 import { SnackbarProvider } from "notistack";
 import CssBaseline from "@mui/material/CssBaseline";
 
@@ -25,10 +24,30 @@ export const ColorModeContext = createContext({ toggleColorMode: () => {} });
 export const SnackbarContext = createContext({});
 
 function App() {
-  const [mode, setMode] = useState("light");
-  const localTheme = localStorage.getItem("theme");
-  console.log("theme");
-  console.log(localTheme);
+  let localTheme = localStorage.getItem("theme");
+  if (localTheme === null) {
+    localTheme = "light";
+  }
+
+  const [mode, setMode] = useState(localTheme);
+
+  useEffect(() => {
+    let localTheme = localStorage.getItem("theme");
+    if (localTheme === null) {
+      localTheme = "light";
+    }
+
+    setMode(localTheme);
+  }, []);
+
+  useEffect(() => {
+    if (mode == "light") {
+      localStorage.setItem("theme", "dark");
+    } else {
+      console.log("Local storage set to light");
+    }
+  }, [mode]);
+
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
@@ -43,14 +62,6 @@ function App() {
       createTheme({
         palette: {
           mode,
-          // background: {
-          //   default: "#e4f0e2",
-          //   light: "#ff7961",
-          //   main: "#f44336",
-          //   dark: "#ba000d",
-          //   contrastText: "#000",
-          // },
-
           primary: {
             light: "#757ce8",
             main: "#3f50b5",
@@ -72,6 +83,7 @@ function App() {
     color: "",
     open: false,
   });
+
   return (
     <BrowserRouter>
       <ColorModeContext.Provider value={colorMode}>

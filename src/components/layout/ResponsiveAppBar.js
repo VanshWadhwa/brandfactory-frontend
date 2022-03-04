@@ -65,16 +65,18 @@ const ResponsiveAppBar = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Link to="/">
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
-            >
-              Brand Folder
-            </Typography>
-          </Link>
+          {/* <Link to="/"> */}
+          <Typography
+            component={Link}
+            to="/"
+            variant="h6"
+            noWrap
+            // component="div"
+            sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
+          >
+            Brand Folder
+          </Typography>
+          {/* </Link> */}
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -104,12 +106,73 @@ const ResponsiveAppBar = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page} </Typography>
-                  {/* mobile view */}
-                </MenuItem>
-              ))}
+              <MenuItem>
+                <Typography
+                  component={Link}
+                  to="/"
+                  textAlign="center"
+                  onClick={handleCloseNavMenu}
+                >
+                  Home
+                </Typography>
+              </MenuItem>
+              <MenuItem>
+                <Typography
+                  component={Link}
+                  to="/profile"
+                  textAlign="center"
+                  onClick={handleCloseNavMenu}
+                >
+                  Editor
+                </Typography>
+              </MenuItem>
+              {isAuth ? (
+                <React.Fragment>
+                  <MenuItem>
+                    <Typography
+                      component={Link}
+                      to="/profile"
+                      textAlign="center"
+                      onClick={handleCloseNavMenu}
+                    >
+                      Profile
+                    </Typography>
+                  </MenuItem>
+                  <MenuItem>
+                    <Typography
+                      component={Link}
+                      to="/logout"
+                      textAlign="center"
+                      onClick={handleCloseNavMenu}
+                    >
+                      Logout
+                    </Typography>
+                  </MenuItem>
+                </React.Fragment>
+              ) : (
+                <React.Fragment>
+                  <MenuItem>
+                    <Typography
+                      component={Link}
+                      to="/login"
+                      textAlign="center"
+                      onClick={handleCloseNavMenu}
+                    >
+                      Login
+                    </Typography>
+                  </MenuItem>
+                  <MenuItem>
+                    <Typography
+                      component={Link}
+                      to="/signup"
+                      textAlign="center"
+                      onClick={handleCloseNavMenu}
+                    >
+                      Sign Up
+                    </Typography>
+                  </MenuItem>
+                </React.Fragment>
+              )}
             </Menu>
           </Box>
           <Typography
@@ -121,14 +184,14 @@ const ResponsiveAppBar = () => {
             Brand Folder
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            <Link to="/editor">
-              <Button
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                Editor
-              </Button>
-            </Link>
+            <Button
+              component={Link}
+              to="/editor"
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: "white", display: "block" }}
+            >
+              Editor
+            </Button>
 
             {isAuth ? (
               <React.Fragment>

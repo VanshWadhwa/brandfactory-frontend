@@ -1,10 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { styled } from "@mui/material/styles";
-// import LoadingButton from "@mui/lab/LoadingButton";
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
-// import ButtonGroup from '@mui/material/ButtonGroup';
 import { LoadingButton, TabContext, TabList, TabPanel } from "@mui/lab";
-import SaveIcon from "@mui/icons-material/Save";
 import uploadImage from "../../img/uploadImg.png";
 
 import axios from "axios";
@@ -353,7 +350,6 @@ const Editor = ({ editorState, setEditorState }) => {
           direction="row"
           justifyContent="center"
           spacing={3}
-          alignItems="center"
         >
           <Grid item xs={12} sm={12} md lg>
             <Typography variant="h4" component="h4" gutterBottom>

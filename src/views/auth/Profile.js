@@ -4,18 +4,15 @@ import {
   Container,
   Divider,
   Grid,
-  Input,
   Paper,
   TextField,
   Typography,
 } from "@mui/material";
 import React from "react";
 import axios from "axios";
-import { SketchPicker } from "react-color";
 import { LoadingButton } from "@mui/lab";
 import UpgradeIcon from "@mui/icons-material/Upgrade";
 import useNotification from "../../components/layout/Snackbar";
-import { height } from "@mui/system";
 import { Link } from "react-router-dom";
 
 const Profile = () => {
