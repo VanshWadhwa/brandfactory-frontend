@@ -55,7 +55,7 @@ const Home = () => {
               Brand Folder
             </Typography>
             <Typography variant="h6" component="h6" align="left" color={"#fff"}>
-              Create Easy To Go Content
+              Create Easy To Go Content In Just Few Clicks
             </Typography>
             <ButtonGroup fullWidth>
               <Button variant="contained" component={Link} to="/editor">
@@ -128,10 +128,10 @@ const Home = () => {
               }}
             >
               <Typography variant="h2" component="h2" color={"#fff"}>
-                Editor Pro
+                Editor
               </Typography>
               <Typography variant="h6" component="h6" color={"#fff"}>
-                One Stop Editor
+                One Stop Editor which can generate images in few seconds.
               </Typography>
               {/* <ButtonGroup> */}
               <Button
@@ -164,7 +164,8 @@ const Home = () => {
                 Chrome Extension
               </Typography>
               <Typography variant="h6" component="h6" color={"#fff"}>
-                Chrome Extention
+                A Chrome Extention which get browser content directly to editor
+                in click of a button.
               </Typography>
               <Button
                 variant="contained"
@@ -227,7 +228,8 @@ const Home = () => {
                 News
               </Typography>
               <Typography variant="h6" component="h6" color={"#fff"}>
-                In built News
+                No need for gathering NEWS articles when you get it directly to
+                site.
               </Typography>
               {/* <ButtonGroup> */}
               <Button
@@ -268,7 +270,7 @@ const Home = () => {
                 Customised
               </Typography>
               <Typography variant="h6" component="h6" color={"#fff"}>
-                Highly customisable
+                Customise your profile according to your brandkit.
               </Typography>
               {/* <ButtonGroup> */}
               <Button

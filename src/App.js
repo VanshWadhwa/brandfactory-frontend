@@ -90,7 +90,7 @@ function App() {
       <ColorModeContext.Provider value={colorMode}>
         <ThemeProvider theme={theme}>
           <SnackbarProvider>
-            <CssBaseline />
+            <CssBaseline enableColorScheme />
             <div
               className="App"
               style={

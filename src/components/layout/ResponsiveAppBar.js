@@ -72,11 +72,13 @@ const ResponsiveAppBar = () => {
             to="/"
             variant="h6"
             noWrap
+            color="#fff"
             // component="div"
             sx={{ mr: 2, display: { xs: "none", md: "flex" } }}
           >
             Brand Folder
           </Typography>
+
           {/* </Link> */}
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -107,80 +109,79 @@ const ResponsiveAppBar = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              <MenuItem>
-                <Typography
-                  component={Link}
-                  to="/"
-                  textAlign="center"
+              <Link to="/">
+                <Button
                   onClick={handleCloseNavMenu}
+                  sx={{ color: "text.primary", display: "block" }}
                 >
                   Home
-                </Typography>
-              </MenuItem>
-              <MenuItem>
-                <Typography
-                  component={Link}
-                  to="/profile"
-                  textAlign="center"
+                </Button>
+              </Link>
+              <Link to="/editor">
+                <Button
                   onClick={handleCloseNavMenu}
+                  sx={{ color: "text.primary", display: "block" }}
                 >
                   Editor
-                </Typography>
-              </MenuItem>
+                </Button>
+              </Link>
               {isAuth ? (
                 <React.Fragment>
-                  <MenuItem>
-                    <Typography
-                      component={Link}
-                      to="/profile"
-                      textAlign="center"
+                  <Link to="/Profile">
+                    <Button
                       onClick={handleCloseNavMenu}
+                      sx={{ color: "text.primary", display: "block" }}
                     >
                       Profile
-                    </Typography>
-                  </MenuItem>
-                  <MenuItem>
-                    <Typography
-                      component={Link}
-                      to="/logout"
-                      textAlign="center"
+                    </Button>
+                  </Link>
+                  <Link to="/logout">
+                    <Button
                       onClick={handleCloseNavMenu}
+                      sx={{ color: "text.primary", display: "block" }}
                     >
-                      Logout
-                    </Typography>
-                  </MenuItem>
+                      Log Out
+                    </Button>
+                  </Link>
                 </React.Fragment>
               ) : (
                 <React.Fragment>
-                  <MenuItem>
-                    <Typography
-                      component={Link}
-                      to="/login"
-                      textAlign="center"
+                  <Link to="/login">
+                    <Button
                       onClick={handleCloseNavMenu}
+                      sx={{ color: "text.primary", display: "block" }}
                     >
-                      Login
-                    </Typography>
-                  </MenuItem>
-                  <MenuItem>
-                    <Typography
-                      component={Link}
-                      to="/signup"
-                      textAlign="center"
+                      Log In
+                    </Button>
+                  </Link>
+                  <Link to="/signup">
+                    <Button
                       onClick={handleCloseNavMenu}
+                      sx={{ color: "text.primary", display: "block" }}
                     >
                       Sign Up
-                    </Typography>
-                  </MenuItem>
+                    </Button>
+                  </Link>
                 </React.Fragment>
               )}
+              <Link to="/PremiumServices">
+                <Button
+                  onClick={handleCloseNavMenu}
+                  sx={{ color: "text.primary", display: "block" }}
+                >
+                  Premium Services
+                </Button>
+              </Link>
             </Menu>
           </Box>
           <Typography
             variant="h6"
             noWrap
             component="div"
-            sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}
+            sx={{
+              flexGrow: 1,
+              display: { xs: "flex", md: "none", color: "#fff" },
+            }}
           >
             Brand Folder
           </Typography>
@@ -189,7 +190,7 @@ const ResponsiveAppBar = () => {
               component={Link}
               to="/editor"
               onClick={handleCloseNavMenu}
-              sx={{ my: 2, color: "white", display: "block" }}
+              sx={{ my: 2, color: "#fff", display: "block" }}
             >
               Editor
             </Button>
@@ -199,7 +200,7 @@ const ResponsiveAppBar = () => {
                 <Link to="/profile">
                   <Button
                     onClick={handleCloseNavMenu}
-                    sx={{ my: 2, color: "white", display: "block" }}
+                    sx={{ my: 2, color: "#fff", display: "block" }}
                   >
                     Profile
                   </Button>
@@ -208,7 +209,7 @@ const ResponsiveAppBar = () => {
                 <Link to="/logout">
                   <Button
                     onClick={handleCloseNavMenu}
-                    sx={{ my: 2, color: "white", display: "block" }}
+                    sx={{ my: 2, color: "#fff", display: "block" }}
                   >
                     Logout
                   </Button>
@@ -219,7 +220,7 @@ const ResponsiveAppBar = () => {
                 <Link to="/login">
                   <Button
                     onClick={handleCloseNavMenu}
-                    sx={{ my: 2, color: "white", display: "block" }}
+                    sx={{ my: 2, color: "#fff", display: "block" }}
                   >
                     Login
                   </Button>
@@ -227,17 +228,26 @@ const ResponsiveAppBar = () => {
                 <Link to="/Signup">
                   <Button
                     onClick={handleCloseNavMenu}
-                    sx={{ my: 2, color: "white", display: "block" }}
+                    sx={{ my: 2, color: "#fff", display: "block" }}
                   >
                     Sign Up
                   </Button>
                 </Link>
               </React.Fragment>
             )}
+
+            <Link to="/PremiumServices">
+              <Button
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: "#fff", display: "block" }}
+              >
+                Premium Services
+              </Button>
+            </Link>
           </Box>
           <Box sx={{ flexGrow: 0 }}>
             <IconButton
-              sx={{ ml: 1 }}
+              sx={{ mx: 2 }}
               onClick={colorMode.toggleColorMode}
               color="inherit"
             >
@@ -269,7 +279,10 @@ const ResponsiveAppBar = () => {
               onClose={handleCloseUserMenu}
             >
               <Link to="/editor">
-                <MenuItem onClick={handleCloseUserMenu}>
+                <MenuItem
+                  onClick={handleCloseUserMenu}
+                  sx={{ color: "text.primary", display: "block" }}
+                >
                   <Typography textAlign="center">Editor</Typography>
                 </MenuItem>
               </Link>
@@ -277,13 +290,19 @@ const ResponsiveAppBar = () => {
               {isAuth ? (
                 <React.Fragment>
                   <Link to="/profile">
-                    <MenuItem onClick={handleCloseUserMenu}>
+                    <MenuItem
+                      onClick={handleCloseUserMenu}
+                      sx={{ color: "text.primary", display: "block" }}
+                    >
                       <Typography textAlign="center">Profile</Typography>
                     </MenuItem>
                   </Link>
 
                   <Link to="/logout">
-                    <MenuItem onClick={handleCloseUserMenu}>
+                    <MenuItem
+                      onClick={handleCloseUserMenu}
+                      sx={{ color: "text.primary", display: "block" }}
+                    >
                       <Typography textAlign="center">Logout</Typography>
                     </MenuItem>
                   </Link>
@@ -291,18 +310,32 @@ const ResponsiveAppBar = () => {
               ) : (
                 <React.Fragment>
                   <Link to="/login">
-                    <MenuItem onClick={handleCloseUserMenu}>
+                    <MenuItem
+                      onClick={handleCloseUserMenu}
+                      sx={{ color: "text.primary", display: "block" }}
+                    >
                       <Typography textAlign="center">Login</Typography>
                     </MenuItem>
                   </Link>
 
                   <Link to="/signup">
-                    <MenuItem onClick={handleCloseUserMenu}>
+                    <MenuItem
+                      onClick={handleCloseUserMenu}
+                      sx={{ color: "text.primary", display: "block" }}
+                    >
                       <Typography textAlign="center">Sign up</Typography>
                     </MenuItem>
                   </Link>
                 </React.Fragment>
               )}
+              <Link to="/PremiumServices">
+                <MenuItem
+                  onClick={handleCloseUserMenu}
+                  sx={{ color: "text.primary", display: "block" }}
+                >
+                  <Typography textAlign="center">Premium Services</Typography>
+                </MenuItem>
+              </Link>
             </Menu>
           </Box>
         </Toolbar>

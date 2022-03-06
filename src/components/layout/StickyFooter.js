@@ -11,14 +11,26 @@ import { ButtonGroup, Divider, Grid, IconButton } from "@mui/material";
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="text.secondary">
-      {"Copyright © "}
-      <Link color="inherit" href="#">
-        Brand Folder
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
+    <>
+      <Typography variant="body2" color="text.secondary">
+        {"Copyright © "}
+        <Link color="inherit" href="#">
+          Brand Folder
+        </Link>{" "}
+        {new Date().getFullYear()}
+        {"."}
+      </Typography>
+      <Typography variant="body2" color="text.secondary">
+        Made by{" "}
+        <Link
+          color="inherit"
+          href="https://api.whatsapp.com/send/?phone=917827405893&text=Hey+%2C+I+love+your+project,+Brand+Folder"
+          target="_blank"
+        >
+          1sh_wadhwa
+        </Link>{" "}
+      </Typography>
+    </>
   );
 }
 // FBAE3C
@@ -50,7 +62,14 @@ export default function StickyFooter() {
       >
         <Grid container>
           <Grid item xs={12} sm={12} md={6} lg={6}>
-            <Typography variant="h4" component="h4" gutterBottom>
+            <Typography
+              variant="h4"
+              component="h4"
+              gutterBottom
+              component={Link}
+              to="/"
+              color="text.primary"
+            >
               Brand Folder
             </Typography>
             <Typography variant="p" component="p" gutterBottom>
