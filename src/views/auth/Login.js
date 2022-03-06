@@ -78,12 +78,6 @@ const Login = () => {
         sx={{ minHeight: "90vh" }}
         style={{ display: "flex", justifyContent: "center" }}
       >
-        {errors === true && (
-          <h2>
-            Cannot log in with provided credentials
-            {errors}
-          </h2>
-        )}
         {loading === false && (
           <Paper
             style={

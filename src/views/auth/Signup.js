@@ -27,6 +27,10 @@ const Signup = () => {
 
   useEffect(() => {
     if (localStorage.getItem("token") !== null) {
+      sendNotification({
+        msg: "You are already Loged in",
+        variant: "info",
+      });
       window.location.replace(`${CLIENT_URL}/editor`);
     } else {
       setLoading(false);

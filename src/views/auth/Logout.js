@@ -13,6 +13,10 @@ const Logout = () => {
   useEffect(() => {
     if (localStorage.getItem("token") == null) {
       window.location.replace(`${CLIENT_URL}/login`);
+      sendNotification({
+        msg: "You are not loged in",
+        variant: "info",
+      });
     } else {
       setLoading(false);
     }

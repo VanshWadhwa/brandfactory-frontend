@@ -18,6 +18,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 
 import { Alert, Snackbar } from "@mui/material";
 import { useTheme, ThemeProvider, createTheme } from "@mui/material/styles";
+import PremiumServices from "./views/PremiumServices";
 
 export const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
@@ -105,6 +106,8 @@ function App() {
                 <Route path="*" element={<NotFound />} />
                 <Route path="/" element={<Home />} />
                 <Route path="/home" element={<Home />} />
+                <Route path="/PremiumServices" element={<PremiumServices />} />
+
                 <Route path="/editor" element={<GodModeEditor />} />
                 <Route path="/profile" element={<Profile />} />
 

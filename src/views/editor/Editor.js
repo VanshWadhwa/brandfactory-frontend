@@ -26,9 +26,7 @@ import {
   Typography,
 } from "@mui/material";
 
-import { useSnackbar } from "notistack";
-
-import { Box, maxWidth } from "@mui/system";
+import { Box } from "@mui/system";
 import { useSearchParams } from "react-router-dom";
 import useNotification from "../../components/layout/Snackbar.js";
 
@@ -215,6 +213,10 @@ const Editor = ({ editorState, setEditorState }) => {
 
   useEffect(() => {
     if (localStorage.getItem("token") === null) {
+      sendNotification({
+        msg: "You are not loged in",
+        variant: "info",
+      });
       window.location.replace(`${CLIENT_URL}/login`);
     } else {
       fetch(`${SERVER_URL}/api/v1/users/auth/user/`, {
