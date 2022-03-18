@@ -48,7 +48,7 @@ const ResponsiveAppBar = () => {
     // });
 
     sendNotification({
-      msg: `API will take few seconds to load at the very first time`,
+      msg: `API may take few seconds to load at the very first time`,
       variant: "info",
     });
     if (localStorage.getItem("token") !== null) {
