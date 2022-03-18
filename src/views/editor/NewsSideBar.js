@@ -5,6 +5,7 @@ import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import ListView from "./ListView";
+import ListView2 from "./ListView2";
 
 function NewsSideBar(props) {
   const { children, value, index, ...other } = props;
@@ -51,11 +52,13 @@ export default function BasicTabs({ editorState, setEditorState }) {
   const [newsListShorts, setNewsListShorts] = React.useState([]);
   const [newsListFlips, setNewsListFlips] = React.useState([]);
   const [newsListNewsApi, setNewsListNewsApi] = React.useState([]);
+  const [newsServerFlipDirect, setNewsServerFlipDirect] = React.useState([]);
 
   React.useEffect(() => {
     const urlShorts = `${SERVER_URL}/news/shorts`;
     const urlFlips = `${SERVER_URL}/news/flips`;
     const urlNewsApi = `${SERVER_URL}/news/newsApi`;
+    const urlServerFlipDirect = "https://data.flipitnews.com/en/flips.json";
 
     const fetchDataShorts = async () => {
       try {
@@ -63,10 +66,27 @@ export default function BasicTabs({ editorState, setEditorState }) {
         const json = await response.json();
         // json.slip.advice
         setNewsListShorts(json.data);
-        console.log("newsList");
         // console.log(typeof newsList);
         // console.log(json);
         // console.log(json.data);
+        console.log("News data ");
+        console.log(json.data);
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+    const fetchServerFlipDirect = async () => {
+      try {
+        const response = await fetch(urlServerFlipDirect);
+        const json = await response.json();
+        // json.slip.advice
+
+        setNewsServerFlipDirect(json);
+        // console.log(typeof newsList);
+        // console.log(json);
+        // console.log(json.data);
+        console.log("News data ");
+        console.log(json);
       } catch (error) {
         console.log("error", error);
       }
@@ -77,7 +97,6 @@ export default function BasicTabs({ editorState, setEditorState }) {
         const json = await response.json();
         // json.slip.advice
         setNewsListFlips(json.data);
-        console.log("newsList");
         // console.log(typeof newsList);
         // console.log(json);
         // console.log(json.data);
@@ -91,7 +110,6 @@ export default function BasicTabs({ editorState, setEditorState }) {
         const json = await response.json();
         // json.slip.advice
         setNewsListNewsApi(json.data);
-        console.log("newsList");
         // console.log(typeof newsList);
         // console.log(json);
         // console.log(json.data);
@@ -103,6 +121,7 @@ export default function BasicTabs({ editorState, setEditorState }) {
     fetchDataShorts();
     fetchDataFlips();
     fetchDataNewsApi();
+    fetchServerFlipDirect();
   }, []);
   return (
     <Box>
@@ -113,25 +132,34 @@ export default function BasicTabs({ editorState, setEditorState }) {
           aria-label="basic tabs example"
         >
           <Tab label="News One" {...a11yProps(0)} />
+
           <Tab label="News Two" {...a11yProps(1)} />
           <Tab label="News Three" {...a11yProps(2)} />
+          <Tab label="News Four" {...a11yProps(3)} />
         </Tabs>
       </Box>
       <NewsSideBar value={value} index={0}>
-        <ListView
-          newsList={newsListShorts}
+        <ListView2
+          newsList={newsServerFlipDirect}
           editorState={editorState}
           setEditorState={setEditorState}
         />
       </NewsSideBar>
       <NewsSideBar value={value} index={1}>
         <ListView
-          newsList={newsListFlips}
+          newsList={newsListShorts}
           editorState={editorState}
           setEditorState={setEditorState}
         />
       </NewsSideBar>
       <NewsSideBar value={value} index={2}>
+        <ListView
+          newsList={newsListFlips}
+          editorState={editorState}
+          setEditorState={setEditorState}
+        />
+      </NewsSideBar>
+      <NewsSideBar value={value} index={3}>
         <ListView
           newsList={newsListNewsApi}
           editorState={editorState}
