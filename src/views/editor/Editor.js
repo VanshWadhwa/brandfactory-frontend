@@ -305,6 +305,8 @@ const Editor = ({ editorState, setEditorState }) => {
         // console.log(typeof res.data["report"]);
         // setRequesting(false);
 
+        // navigator.clipboard.writeText(editorState.title);
+
         sendNotification({
           msg: `Image Downloaded ${savedFilename}`,
           variant: "info",
@@ -632,10 +634,18 @@ const Editor = ({ editorState, setEditorState }) => {
                       <ToggleButton id="titleTextAlignment" value="justified">
                         Justified
                       </ToggleButton>
-                      <ToggleButton id="titleTextAlignment" value="center">
+                      <ToggleButton
+                        id="titleTextAlignment"
+                        value="center"
+                        disabled
+                      >
                         Center
                       </ToggleButton>
-                      <ToggleButton id="titleTextAlignment" value="leftAlign">
+                      <ToggleButton
+                        id="titleTextAlignment"
+                        value="leftAlign"
+                        disabled
+                      >
                         Left Align
                       </ToggleButton>
                     </ToggleButtonGroup>

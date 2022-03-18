@@ -17,6 +17,7 @@ import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import { useTheme } from "@emotion/react";
 import { ColorModeContext } from "../../App";
+import useNotification from "../../components/layout/Snackbar.js";
 
 const pages = [
   "Editor",
@@ -32,6 +33,7 @@ const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const ResponsiveAppBar = () => {
   const theme = useTheme();
+  const [msg, sendNotification] = useNotification();
   const colorMode = React.useContext(ColorModeContext);
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -40,6 +42,15 @@ const ResponsiveAppBar = () => {
   const [isAuth, setIsAuth] = React.useState(false);
 
   React.useEffect(() => {
+    // sendNotification({
+    //   msg: `We are currently hosted on low price plan`,
+    //   variant: "info",
+    // });
+
+    sendNotification({
+      msg: `API will take few seconds to load at the very first time`,
+      variant: "info",
+    });
     if (localStorage.getItem("token") !== null) {
       setIsAuth(true);
     } else {
